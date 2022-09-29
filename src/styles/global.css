@@ -1,9 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html,
-body {
-  width: -webkit-fill-available;
-  height: -webkit-fill-available;
-}
