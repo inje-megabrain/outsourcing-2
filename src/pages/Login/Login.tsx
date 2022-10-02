@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
-import { Button } from '../../components';
+import { Button, Input } from '../../components';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,28 +12,16 @@ const Login = () => {
   return (
     <div className="mx-auto justify-items-start">
       <img className="mx-auto mb-4" src={Logo} />
-      <input
-        className="border-solid border-2 rounded-lg border-indigo-600 w-full py-4 px-4 font-medium -rounded-lg mt-5 h-15"
-        type="text"
-        placeholder="아이디 입력"
-      />
-      <input
-        className="border-solid border-2 rounded-lg border-indigo-600 w-full py-4 px-4 font-medium -rounded-lg mt-2 h-15"
-        type="password"
-        placeholder="비밀번호 입력"
-      />
-      <Button
-        onClick={onLoginButtonClick}
-        className="bg-primary-blue mt-10 -rounded-lg w-full text-white text-sm leading-6 font-medium py-4 px-4 h-15 rounded-lg"
-      >
-        로그인
-      </Button>
-      <Button
-        onClick={onGuestModeButtonClick}
-        className="bg-primary-blue mt-1 -rounded-lg w-full text-white text-sm leading-6 font-medium py-4 px-4 h-15 rounded-lg"
-      >
-        게스트 모드
-      </Button>
+      <Input type="text" placeholder="아이디 입력" />
+      <Input type="password" placeholder="비밀번호 입력" />
+      <Link to="/find-account">
+        <h6 className="underline text-right my-7">아이디 또는 비밀번호 찾기</h6>
+      </Link>
+      <Button onClick={onLoginButtonClick}>로그인</Button>
+      <Button onClick={onGuestModeButtonClick}>게스트 모드</Button>
+      <Link to="/signup">
+        <h6 className="underline text-center mt-7">회원가입</h6>
+      </Link>
     </div>
   );
 };
