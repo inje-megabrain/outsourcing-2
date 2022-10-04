@@ -1,5 +1,5 @@
 import React from 'react';
 
-const FindPW = () => <></>;
+const FindPW = () => <div>fda</div>;
 
 export default FindPW;

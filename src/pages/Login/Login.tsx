@@ -14,7 +14,7 @@ const Login = () => {
       <img className="mx-auto mb-4" src={Logo} />
       <Input type="text" placeholder="아이디 입력" />
       <Input type="password" placeholder="비밀번호 입력" />
-      <Link to="/find-account">
+      <Link to="/findid">
         <h6 className="underline text-right my-7">아이디 또는 비밀번호 찾기</h6>
       </Link>
       <Button onClick={onLoginButtonClick}>로그인</Button>
