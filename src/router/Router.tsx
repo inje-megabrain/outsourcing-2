@@ -1,19 +1,19 @@
-import { Main, Login, ModeSelect } from '../pages';
+import { Main, ModeSelect, MemberHome } from '../pages';
 
 const Router = [
   {
-    title: 'main',
+    title: 'Start',
     url: '/',
     component: <Main />,
   },
   {
-    title: 'Login',
-    url: '/login',
-    component: <Login />,
+    title: 'Member',
+    url: '/member/*',
+    component: <MemberHome />,
   },
   {
     title: 'Select Mode',
-    url: '/play/mode-select',
+    url: '/mode',
     component: <ModeSelect />,
   },
 ];
