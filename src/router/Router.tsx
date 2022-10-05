@@ -7,7 +7,6 @@ import {
   Login,
   SignUp,
   GuestMode,
-  Dashboard,
   StartTraining,
   AdminModeSelect,
 } from '../pages';
@@ -47,11 +46,6 @@ const Router = [
     title: 'Guest Mode',
     url: '/guest',
     component: <GuestMode />,
-  },
-  {
-    title: 'Dashboard',
-    url: '/mode/dashboard',
-    component: <Dashboard />,
   },
   {
     title: 'Start Training',

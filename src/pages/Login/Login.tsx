@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
-import { Button, Input } from '../../components';
+import { Button, Input, MemberContainer } from '../../components';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Login = () => {
     navigate('/mode/guest');
   };
   return (
-    <div className="mx-auto max-w-md justify-items-start">
+    <MemberContainer>
       <img className="mx-auto mb-4" src={Logo} />
       <Input type="text" className="mb-2" placeholder="아이디 입력" />
       <Input type="password" placeholder="비밀번호 입력" />
@@ -28,7 +28,7 @@ const Login = () => {
       <Link to="/signup">
         <h6 className="underline text-center mt-7">회원가입</h6>
       </Link>
-    </div>
+    </MemberContainer>
   );
 };
 export default Login;

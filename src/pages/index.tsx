@@ -6,7 +6,6 @@ import FindID from './FindID/FindID';
 import FindPW from './FindPW/FindPW';
 import SignUp from './Signup/Signup';
 import GuestMode from './GuestMode/GuestMode';
-import Dashboard from './Dashboard/Dashboard';
 import StartTraining from './StartTraining/StartTraining';
 import AdminModeSelect from './ModeSelect/AdminModeSelect';
 import Footer from './Layout/Footer';
@@ -19,9 +18,8 @@ export {
   MemberHome,
   FindID,
   FindPW,
-  SignUp, 
+  SignUp,
   GuestMode,
-  Dashboard,
   StartTraining,
   AdminModeSelect,
   Footer,

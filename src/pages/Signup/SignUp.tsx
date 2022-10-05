@@ -1,12 +1,13 @@
 import React from 'react';
+import { MemberContainer } from '../../components';
 import CompleteSignup from './CompleteSignup';
 import Form from './Form';
 
 const Signup = () => (
-  <div className="mx-auto max-w-md justify-items-start">
+  <MemberContainer>
     <h1 className="text-3xl text-center font-bold mb-8">회원가입</h1>
     <Form />
-  </div>
+  </MemberContainer>
 );
 
 export default Signup;
