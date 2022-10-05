@@ -42,7 +42,7 @@ const Router = [
   },
   {
     title: 'Guest Mode',
-    url: '/mode/guest',
+    url: '/guest',
     component: <GuestMode />,
   },
 ];
