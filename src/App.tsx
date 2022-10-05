@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link, Routes } from 'react-router-dom';
+import Footer from './pages/Layout/Footer';
 import Router from './router/Router';
 
 const App = () => (
@@ -10,10 +11,8 @@ const App = () => (
           <Route path={value.url} element={value.component} key={value.url} />
         ))}
       </Routes>
+      <Footer />
     </div>
-    <h6 className="text-center p-8 w-full fixed bottom-0 left-0">
-      Copyright 2022. SimG. Co., Ltd. all rights reserved.
-    </h6>
   </BrowserRouter>
 );
 
