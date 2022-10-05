@@ -6,9 +6,11 @@ import { Button, Input } from '../../components';
 const Login = () => {
   const navigate = useNavigate();
   const onLoginButtonClick = (e: any) => {
-    navigate('/play/mode-select');
+    navigate('/mode');
   };
-  const onGuestModeButtonClick = (e: any) => {};
+  const onGuestModeButtonClick = (e: any) => {
+    navigate('/mode/guest');
+  };
   return (
     <div className="mx-auto justify-items-start">
       <img className="mx-auto mb-4" src={Logo} />

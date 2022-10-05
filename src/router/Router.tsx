@@ -6,6 +6,7 @@ import {
   FindPW,
   Login,
   SignUp,
+  GuestMode,
 } from '../pages';
 
 const Router = [
@@ -38,6 +39,11 @@ const Router = [
     title: 'Select Mode',
     url: '/mode',
     component: <ModeSelect />,
+  },
+  {
+    title: 'Guest Mode',
+    url: '/mode/guest',
+    component: <GuestMode />,
   },
 ];
 
