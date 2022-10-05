@@ -7,11 +7,14 @@ import {
   Login,
   SignUp,
   GuestMode,
+  Dashboard,
+  StartTraining,
+  AdminModeSelect,
 } from '../pages';
 
 const Router = [
   {
-    title: 'Start',
+    title: 'Home',
     url: '/',
     component: <Main />,
   },
@@ -44,6 +47,31 @@ const Router = [
     title: 'Guest Mode',
     url: '/guest',
     component: <GuestMode />,
+  },
+  {
+    title: 'Dashboard',
+    url: '/mode/dashboard',
+    component: <Dashboard />,
+  },
+  {
+    title: 'Start Training',
+    url: '/mode/start',
+    component: <StartTraining />,
+  },
+  {
+    title: 'Admin Select',
+    url: '/admin',
+    component: <AdminModeSelect />,
+  },
+  {
+    title: 'Admin Results',
+    url: '/admin/results',
+    component: <></>,
+  },
+  {
+    title: 'Admin Players',
+    url: '/admin/players',
+    component: <></>,
   },
 ];
 
