@@ -4,7 +4,7 @@ import Logo from '../../assets/logo.png';
 import { Button } from '../../components';
 
 const Main = () => (
-  <div className="mx-auto justify-items-start">
+  <div className="mx-auto max-w-md justify-items-start">
     <img className="mx-auto" src={Logo} />
     <p className="text-xl text-center my-7">
       환영합니다.

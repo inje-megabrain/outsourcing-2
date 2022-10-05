@@ -10,7 +10,7 @@ const GuestMode = () => {
   };
 
   return (
-    <div className="mx-auto justify-items-start">
+    <div className="mx-auto max-w-md justify-items-start">
       <img className="mx-auto" src={Logo} />
       <h1 className="text-3xl text-center font-bold">게스트 모드</h1>
       <p className="text-xl text-center my-7">어떤 이름으로 체험하시겠어요?</p>
