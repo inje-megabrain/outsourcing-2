@@ -9,6 +9,8 @@ import GuestMode from './GuestMode/GuestMode';
 import Dashboard from './Dashboard/Dashboard';
 import StartTraining from './StartTraining/StartTraining';
 import AdminModeSelect from './ModeSelect/AdminModeSelect';
+import Footer from './Layout/Footer';
+import Header from './Layout/Header';
 
 export {
   Login,
@@ -17,9 +19,11 @@ export {
   MemberHome,
   FindID,
   FindPW,
-  SignUp,
+  SignUp, 
   GuestMode,
   Dashboard,
   StartTraining,
   AdminModeSelect,
+  Footer,
+  Header,
 };
