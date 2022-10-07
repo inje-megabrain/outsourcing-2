@@ -1,7 +1,5 @@
-import React from "react";
+import React from 'react';
 
-const Constants = () => {
+const API_URL = process.env.REACT_APP_API_URL + '/api';
 
-}
-
-export default Constants;
+export { API_URL };
