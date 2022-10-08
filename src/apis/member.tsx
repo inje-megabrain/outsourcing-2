@@ -1,10 +1,10 @@
 import React from 'react';
 
-const getall = '/all';
-const newadmin = '/new/admin';
-const signup = '/signup';
-const password = '/password';
-
 const memberurl = '/member';
 
-export { memberurl, getall, newadmin, signup };
+const getall: string = memberurl + '/all';
+const newadmin: string = memberurl + '/new/admin';
+const signup: string = memberurl + '/signup';
+const password: string = memberurl + '/password';
+
+export { getall, newadmin, signup, password };

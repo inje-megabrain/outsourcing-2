@@ -1,9 +1,9 @@
 import React from 'react';
 
-const login = '/authenticate';
-const mail = '/mail';
-const mailcheck = '/mailcheck';
+const authurl: string = '';
 
-const authurl = '';
+const login: string = authurl + '/authenticate';
+const mail: string = authurl + '/mail';
+const mailcheck: string = authurl + '/mailcheck';
 
-export { authurl, login, mail, mailcheck };
+export { login, mail, mailcheck };
