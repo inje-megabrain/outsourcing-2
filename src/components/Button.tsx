@@ -20,7 +20,7 @@ const Button: React.FC<Props> = ({
     <Link to={to} onClick={onClick}>
       <button
         type={type}
-        className={`bg-primary-blue -rounded-lg w-full text-white text-sm leading-6 font-medium py-4 px-4 h-16 rounded-lg ${className}`}
+        className={`bg-primary-blue -rounded-lg w-full text-white text-md leading-6 font-medium py-4 px-4 h-16 rounded-lg ${className}`}
       >
         {children}
       </button>
