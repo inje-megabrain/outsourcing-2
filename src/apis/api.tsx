@@ -4,11 +4,7 @@ import { alertFail } from '../hooks/support';
 
 const httpget = async (apiurl: string, apitype: string, param?: object) =>
   await axios
-    .get(apiurl + apitype, {
-      params: {
-        param,
-      },
-    })
+    .get(apiurl + apitype, param)
     .then((response) => {
       return response.data;
     })
@@ -18,9 +14,7 @@ const httpget = async (apiurl: string, apitype: string, param?: object) =>
 
 const httppost = async (apiurl: string, apitype: string, data?: object) =>
   await axios
-    .post(apiurl + apitype, {
-      data,
-    })
+    .post(apiurl + apitype, data)
     .then((response) => {
       return response.data;
     })
@@ -30,9 +24,7 @@ const httppost = async (apiurl: string, apitype: string, data?: object) =>
 
 const httpput = async (apiurl: string, apitype: string, data?: object) =>
   await axios
-    .put(apiurl + apitype, {
-      data,
-    })
+    .put(apiurl + apitype, data)
     .then((response) => {
       return response.data;
     })
@@ -40,13 +32,9 @@ const httpput = async (apiurl: string, apitype: string, data?: object) =>
       alertFail(error);
     });
 
-const httpdelete = async (apiurl: string, apitype: string, param?: string) =>
+const httpdelete = async (apiurl: string, apitype: string, param?: any) =>
   await axios
-    .delete(apiurl + apitype, {
-      params: {
-        param,
-      },
-    })
+    .delete(apiurl + apitype, param)
     .then((response) => {
       return response.data;
     })
