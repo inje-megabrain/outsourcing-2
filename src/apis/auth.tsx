@@ -8,10 +8,14 @@ const login: string = authurl + '/authenticate';
 const mail: string = authurl + '/mail';
 const mailcheck: string = authurl + '/mailcheck';
 
-const loginAPI = (username: string, password: string) =>
+type loginType = {
+  username: string;
+  password: string;
+};
+
+const loginAPI = (data: loginType) =>
   httppost(API_URL, login, {
-    username,
-    password,
+    data,
   });
 
 const mailAPI = (email: string) => httpget(API_URL, mail, { email });

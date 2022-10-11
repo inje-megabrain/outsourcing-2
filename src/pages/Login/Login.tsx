@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginAPI } from '../../apis/auth';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Logo from '../../assets/logo.png';
-import { Button, Input, MemberContainer } from '../../components';
+import { Button, ErrorMessage, Input, MemberContainer } from '../../components';
+import formSchema from './formSchema';
+
+type FormValues = {
+  username: string;
+  password: string;
+};
 
 const Login = () => {
-  const [id, setID] = useState('');
-  const [pw, setPW] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm<FormValues>({
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(formSchema),
+  });
+
   const navigate = useNavigate();
-
-  const onPwChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setPW(e.target.value);
-  const onIdChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setID(e.target.value);
-
-  const onLoginButtonClick = async (e: any) => {
-    const result = loginAPI(id, pw);
-    alert(result);
-  };
 
   const onGuestModeButtonClick = (e: any) => {
     navigate('/mode/guest');
@@ -25,21 +31,27 @@ const Login = () => {
   return (
     <MemberContainer>
       <img className="mx-auto mb-4" src={Logo} />
-      <form>
+      <form
+        onSubmit={handleSubmit(async (data) => {
+          await loginAPI(data);
+        })}
+      >
         <Input
-          value={id}
-          onChange={onIdChange}
           type="text"
-          className="mb-2"
           placeholder="아이디 입력"
+          className="mb-2"
+          {...register('username')}
         />
         <Input
-          value={pw}
-          onChange={onPwChange}
           type="password"
           placeholder="비밀번호 입력"
+          {...register('password')}
         />
-
+        {(errors.username || errors.password) && (
+          <ErrorMessage>
+            {errors.username?.message || errors.password?.message}
+          </ErrorMessage>
+        )}
         <h6 className="text-right my-7">
           <Link className="underline" to="/findid">
             아이디
@@ -49,7 +61,7 @@ const Login = () => {
             비밀번호 찾기
           </Link>
         </h6>
-        <Button type="submit" className="mb-2" onClick={onLoginButtonClick}>
+        <Button type="submit" disabled={isSubmitting} className="mb-2">
           로그인
         </Button>
       </form>

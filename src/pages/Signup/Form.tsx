@@ -1,6 +1,6 @@
 import React from 'react';
 import formSchema from './formSchema';
-import { FieldErrors, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, ErrorMessage } from '../../components';
 
