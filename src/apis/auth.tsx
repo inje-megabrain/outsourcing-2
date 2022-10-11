@@ -13,14 +13,19 @@ type loginType = {
   password: string;
 };
 
-const loginAPI = (data: loginType) =>
-  httppost(API_URL, login, {
-    data,
-  });
+type emailType = {
+  email: string;
+};
 
-const mailAPI = (email: string) => httpget(API_URL, mail, { email });
+type emailCheckType = {
+  email: string;
+};
 
-const mailcheckAPI = (code: string, email: string) =>
-  httpget(API_URL, mailcheck, { code, email });
+const loginAPI = (data: loginType) => httppost(API_URL, login, data);
+
+const mailAPI = (data: emailType) => httpget(API_URL, mail, data);
+
+const mailcheckAPI = (data: emailCheckType) =>
+  httpget(API_URL, mailcheck, data);
 
 export { loginAPI, mailAPI, mailcheckAPI };
