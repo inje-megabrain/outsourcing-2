@@ -39,11 +39,16 @@ const Login = () => {
           type="password"
           placeholder="비밀번호 입력"
         />
-        <Link to="/findid">
-          <h6 className="underline text-right my-7">
-            아이디 또는 비밀번호 찾기
-          </h6>
-        </Link>
+
+        <h6 className="text-right my-7">
+          <Link className="underline" to="/findid">
+            아이디
+          </Link>{' '}
+          또는{' '}
+          <Link className="underline" to="/findpw">
+            비밀번호 찾기
+          </Link>
+        </h6>
         <Button type="submit" className="mb-2" onClick={onLoginButtonClick}>
           로그인
         </Button>
