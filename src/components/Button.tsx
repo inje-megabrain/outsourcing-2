@@ -1,11 +1,10 @@
 import React, { MouseEventHandler } from 'react';
-import { Link, LinkProps, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Props {
   type?: any;
   onClick?: any;
   className?: string;
-  to?: any;
   disabled?: boolean;
   children?: string;
 }
@@ -15,15 +14,9 @@ const Button: React.FC<Props> = ({
   onClick,
   className,
   disabled,
-  to,
   children,
   ...rest
 }) => {
-  to && {
-    onClick: () => {
-      useNavigate()(to);
-    },
-  };
   return (
     <button
       onClick={onClick}
