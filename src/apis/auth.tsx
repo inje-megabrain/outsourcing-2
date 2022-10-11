@@ -18,6 +18,7 @@ type emailType = {
 };
 
 type emailCheckType = {
+  code: string;
   email: string;
 };
 

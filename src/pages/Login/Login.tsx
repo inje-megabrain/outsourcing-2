@@ -26,7 +26,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onGuestModeButtonClick = (e: any) => {
-    navigate('/mode/guest');
+    navigate('/guest');
   };
   return (
     <MemberContainer>
