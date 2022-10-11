@@ -22,11 +22,11 @@ type emailCheckType = {
   email: string;
 };
 
-const loginAPI = (data: loginType) => httppost(API_URL, login, data);
+const loginAPI = (data: loginType) => httppost(API_URL + login, data);
 
-const mailAPI = (data: emailType) => httpget(API_URL, mail, data);
+const mailAPI = (data: emailType) => httpget(API_URL + mail, data);
 
 const mailcheckAPI = (data: emailCheckType) =>
-  httpget(API_URL, mailcheck, data);
+  httpget(API_URL + mailcheck, data);
 
 export { loginAPI, mailAPI, mailcheckAPI };

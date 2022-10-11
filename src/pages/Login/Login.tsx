@@ -40,11 +40,13 @@ const Login = () => {
           type="text"
           placeholder="아이디 입력"
           className="mb-2"
+          error={errors.username}
           {...register('username')}
         />
         <Input
           type="password"
           placeholder="비밀번호 입력"
+          error={errors.password}
           {...register('password')}
         />
         {(errors.username || errors.password) && (
