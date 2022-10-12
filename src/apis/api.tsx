@@ -1,29 +1,46 @@
 import React from 'react';
 import axios from 'axios';
 
-const httpget = async (apiurl: string, param?: object) =>
-  await axios
-    .get(apiurl, { params: param })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      return error;
-    });
+const headerConfig = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+};
 
-const httppost = async (apiurl: string, data?: object) =>
+const httpget = async (apiurl: string, param?: object) => {
   await axios
-    .post(apiurl, data)
+    .get(apiurl, {
+      ...headerConfig,
+      params: JSON.stringify(param),
+    })
     .then((response) => {
       return response;
     })
     .catch((error) => {
       return error;
     });
+};
+
+const httppost = async (apiurl: string, data?: any) => {
+  await axios
+    .post(apiurl, null, {
+      params: data,
+      headers: headerConfig,
+    })
+    .then((response) => {
+      console.log(response);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
+};
 
 const httpput = async (apiurl: string, data?: object) =>
   await axios
-    .put(apiurl, data)
+    .put(apiurl, JSON.stringify(data), {
+      data: JSON.stringify(data),
+    })
     .then((response) => {
       return response;
     })
@@ -33,7 +50,10 @@ const httpput = async (apiurl: string, data?: object) =>
 
 const httpdelete = async (apiurl: string, param?: any) =>
   await axios
-    .delete(apiurl, { params: param })
+    .delete(apiurl, {
+      ...headerConfig,
+      params: JSON.stringify(param),
+    })
     .then((response) => {
       return response;
     })

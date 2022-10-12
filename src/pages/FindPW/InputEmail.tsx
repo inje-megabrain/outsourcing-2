@@ -38,7 +38,7 @@ const InputEmail = () => {
         <br />
         이메일 인증을 통해 비밀번호를 변경합니다.
       </p>
-      <Input {...register('email')} type="email" placeholder="이메일 입력" />
+      <Input {...register('email')} error={errors.email} type="email" placeholder="이메일 입력" />
       <ErrorMessage>{errors.email?.message}</ErrorMessage>
       <Button disabled={isSubmitting} type="submit" className="mt-7">
         이메일 인증

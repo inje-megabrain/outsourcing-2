@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginAPI } from '../../apis/auth';
-import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Logo from '../../assets/logo.png';
 import { Button, ErrorMessage, Input, MemberContainer } from '../../components';
@@ -28,14 +29,14 @@ const Login = () => {
   const onGuestModeButtonClick = (e: any) => {
     navigate('/guest');
   };
+
+  const onSubmitLogin: SubmitHandler<FormValues> = async (data) => {
+    await loginAPI(data);
+  };
   return (
     <MemberContainer>
       <img className="mx-auto mb-4" src={Logo} />
-      <form
-        onSubmit={handleSubmit(async (data) => {
-          await loginAPI(data);
-        })}
-      >
+      <form onSubmit={handleSubmit(onSubmitLogin)}>
         <Input
           type="text"
           placeholder="아이디 입력"
