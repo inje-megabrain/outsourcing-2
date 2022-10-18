@@ -17,4 +17,6 @@ type changePWType = {
 const changePWAPI = (id: string, data: changePWType) =>
   httppost(API_URL + id + changepassword, data);
 
-export { changePWAPI };
+const signUpAPI = (data: object) => httppost(API_URL + signup, data);
+
+export { changePWAPI, signUpAPI };

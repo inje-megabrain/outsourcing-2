@@ -3,6 +3,7 @@ import formSchema from './formSchema';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, ErrorMessage } from '../../components';
+import { signUpAPI } from '../../apis/member';
 
 type FormValues = {
   name: string;
@@ -26,7 +27,7 @@ const Form = () => {
   });
 
   const inSubmit = (data: FormValues) => {
-    console.log('# onValid', data);
+    signUpAPI(data);
   };
 
   return (
