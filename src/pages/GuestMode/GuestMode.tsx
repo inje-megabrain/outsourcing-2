@@ -6,7 +6,7 @@ import { Button, Input, MemberContainer } from '../../components';
 const GuestMode = () => {
   const navigate = useNavigate();
   const onNextButtonClick = () => {
-    navigate('/dashboard');
+    navigate('/mode/start');
   };
 
   return (

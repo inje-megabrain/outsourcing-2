@@ -8,7 +8,7 @@ interface Props {
 const MemberContainer: React.FC<Props> = ({ children, className, ...rest }) => {
   return (
     <div
-      className={`mx-auto max- min- justify-items-start ${className}`}
+      className={`mx-auto max-w-[438px] min-w-[438px] justify-items-start text-center ${className}`}
       {...rest}
     >
       {children}

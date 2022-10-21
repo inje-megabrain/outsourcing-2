@@ -30,29 +30,4 @@ const isUndefined = (
   if (state === 'default') navigate('/');
 };
 
-const UserOnly = () => {
-  isGuest;
-  isUndefined;
-};
-
-const AdminOnly = () => {
-  isUser;
-  isGuest;
-  isUndefined;
-};
-
-const GuestOnly = () => {
-  isUser;
-  isAdmin;
-  isUndefined;
-};
-
-export {
-  isUser,
-  isAdmin,
-  isGuest,
-  isUndefined,
-  UserOnly,
-  AdminOnly,
-  GuestOnly,
-};
+export { isUser, isAdmin, isGuest, isUndefined };
