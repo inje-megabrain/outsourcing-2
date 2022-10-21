@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { Button } from '../../components';
 import IconPlayer from '../../assets/icon_player.png';
 import IconResult from '../../assets/icon_result.png';
+import { useRecoilValue } from 'recoil';
+import { usernameState } from '../../states/atoms';
 
 const AdminModeSelect = () => {
-  const name = '나루피';
+  const name = useRecoilValue(usernameState);
   return (
     <div className="max-w-xl">
       <h1 className="text-4xl text-center font-bold mb-8 text-primary-blue">

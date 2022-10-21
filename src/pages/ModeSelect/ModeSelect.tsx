@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { Button } from '../../components';
 import IconDashboard from '../../assets/icon_dashboard.png';
 import IconTraining from '../../assets/icon_training.png';
+import { useRecoilValue } from 'recoil';
+import { usernameState } from '../../states/atoms';
 
 const ModeSelect = () => {
-  const name = '나루피';
+  const name = useRecoilValue(usernameState);
   return (
     <div className="max-w-xl">
       <h1 className="text-4xl text-center font-bold mb-8 text-primary-blue">
