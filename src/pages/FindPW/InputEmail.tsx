@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input, Button, ErrorMessage } from '../../components';
+import React, { useState } from 'react';
+import { Input, Button, ErrorMessage, Loading } from '../../components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -35,7 +35,7 @@ const InputEmail: React.FC<Props> = ({ setEmail, setPwLevel }) => {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        mailAPI(data, setEmail, setPwLevel);
+        await mailAPI(data, setEmail, setPwLevel);
       })}
     >
       <p className="text-2xl text-center my-7">
@@ -43,10 +43,12 @@ const InputEmail: React.FC<Props> = ({ setEmail, setPwLevel }) => {
         <br />
         이메일 인증을 통해 비밀번호를 변경합니다.
       </p>
+      {isSubmitting && <Loading />}
       <Input
         {...register('email')}
         error={errors.email}
         type="email"
+        disabled={isSubmitting}
         placeholder="이메일 입력"
       />
       <ErrorMessage>{errors.email?.message}</ErrorMessage>

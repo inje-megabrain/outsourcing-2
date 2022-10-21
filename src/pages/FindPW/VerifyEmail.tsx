@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input, Button, ErrorMessage } from '../../components';
+import React, { useState } from 'react';
+import { Input, Button, ErrorMessage, Loading } from '../../components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -19,7 +19,7 @@ const formSchema = Yup.object()
     code: Yup.string()
       .required('코드를 입력해주세요')
       .matches(/^[0-9]+$/, '코드를 입력해주세요'),
-    email: Yup.string()
+    email: Yup.string(),
   })
   .required();
 
@@ -41,7 +41,7 @@ const VerifyEmail: React.FC<Props> = ({ email, setPwLevel }) => {
     >
       <Input
         {...register('email', {
-          disabled: true
+          disabled: true,
         })}
         error={errors.email}
         value={email}
