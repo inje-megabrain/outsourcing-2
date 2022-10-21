@@ -7,9 +7,11 @@ import { mailcheckAPI } from '../../apis/auth';
 
 interface Props {
   email: string;
+  setPwLevel: React.Dispatch<React.SetStateAction<number>>;
 }
 type FormValues = {
   code: string;
+  email: string;
 };
 
 const formSchema = Yup.object()
@@ -20,7 +22,7 @@ const formSchema = Yup.object()
   })
   .required();
 
-const VerifyEmail: React.FC<Props> = ({ email }) => {
+const VerifyEmail: React.FC<Props> = ({ email, setPwLevel }) => {
   const {
     register,
     handleSubmit,
@@ -33,9 +35,18 @@ const VerifyEmail: React.FC<Props> = ({ email }) => {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        await mailcheckAPI({ email: email, ...data });
+        mailcheckAPI(data, setPwLevel);
       })}
     >
+      <Input
+        {...register('email')}
+        error={errors.email}
+        value={email}
+        type="email"
+        disabled
+        placeholder="이메일 입력"
+      />
+      <ErrorMessage>{errors.email?.message}</ErrorMessage>
       <div className="grid grid-cols-3 gap-4 mt-2">
         <Input
           {...register('code')}

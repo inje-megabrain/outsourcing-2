@@ -44,14 +44,12 @@ const Form = () => {
       />
       {<ErrorMessage>{errors.name?.message}</ErrorMessage>}
       <Input
-        className="mt-3"
         placeholder="기업명 입력"
         error={errors.company}
         {...register('company')}
       />
       {<ErrorMessage>{errors.company?.message}</ErrorMessage>}
       <Input
-        className="mt-3"
         placeholder="아이디 입력"
         error={errors.username}
         {...register('username')}
@@ -59,7 +57,6 @@ const Form = () => {
       {<ErrorMessage>{errors.username?.message}</ErrorMessage>}
       <Input
         type="password"
-        className="mt-3"
         placeholder="비밀번호 입력"
         error={errors.password}
         {...register('password')}
@@ -67,14 +64,12 @@ const Form = () => {
       {<ErrorMessage>{errors.password?.message}</ErrorMessage>}
       <Input
         type="password"
-        className="mt-3"
         placeholder="비밀번호 재입력"
         error={errors.passwordcheck}
         {...register('passwordcheck')}
       />
       {<ErrorMessage>{errors.passwordcheck?.message}</ErrorMessage>}
       <Input
-        className="mt-3"
         placeholder="생년월일 입력 (숫자 6자리)"
         error={errors.birthdate}
         {...register('birthdate')}
@@ -82,7 +77,6 @@ const Form = () => {
       {<ErrorMessage>{errors.birthdate?.message}</ErrorMessage>}
       <Input
         type="email"
-        className="mt-3"
         placeholder="이메일 입력"
         error={errors.email}
         {...register('email')}

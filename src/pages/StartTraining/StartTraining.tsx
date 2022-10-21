@@ -6,10 +6,10 @@ const StartTraining = () => {
   return (
     <MemberContainer>
       <img
-        className="rounded-full border-solid border-8 border-primary-blue p-8 w-64 h-64"
+        className="rounded-full border-solid border-8 border-primary-blue p-8 w-64 h-64 mx-auto"
         src={IconHMD}
       />
-      <p className="text-xl text-center my-7">HMD를 착용해주세요</p>
+      <p className="text-2xl text-center my-7">HMD를 착용해주세요</p>
     </MemberContainer>
   );
 };

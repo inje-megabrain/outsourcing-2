@@ -5,7 +5,7 @@ const ResultFindId = () => {
   let userid = 'SIMGXR';
   return (
     <>
-      <p className="text-xl text-center my-7">
+      <p className="text-2xl text-center my-7">
         입력한 정보와 일치하는 아이디를
         <br />
         확인해주세요

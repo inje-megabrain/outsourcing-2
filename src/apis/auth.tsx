@@ -38,11 +38,11 @@ const headerConfig = {
 const handleError = (error: any) => {
   console.log(error);
   if (error.response) {
-    toast(error.response.data);
+    toast.error(error.response.data);
   } else if (error.request) {
-    toast(error.request);
+    toast.error(error.request);
   } else {
-    toast(error.message);
+    toast.error(error.message);
   }
 };
 
@@ -73,12 +73,40 @@ const loginAPI = (
     });
 };
 
-const mailAPI = (data: emailType) => {
-  // httpget(API_URL + mail, data);
+const mailAPI = (
+  data: emailType,
+  setEmail: React.Dispatch<React.SetStateAction<string>>,
+  setPwLevel: React.Dispatch<React.SetStateAction<number>>,
+) => {
+  axios
+    .get(API_URL + mail, {
+      params: data,
+      headers: headerConfig,
+    })
+    .then((response) => {
+      setEmail(data.email);
+      setPwLevel(1);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
 
-const mailcheckAPI = (data: emailCheckType) => {
-  // httpget(API_URL + mailcheck, data);
+const mailcheckAPI = (
+  data: emailCheckType,
+  setPwLevel: React.Dispatch<React.SetStateAction<number>>,
+) => {
+  axios
+    .get(API_URL + mailcheck, {
+      params: data,
+      headers: headerConfig,
+    })
+    .then((response) => {
+      setPwLevel(2);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
 };
 
 export { loginAPI, mailAPI, mailcheckAPI };

@@ -3,7 +3,10 @@ import { Button, ErrorMessage, Input } from '../../components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-
+interface Props {
+  email: string;
+  setPwLevel: React.Dispatch<React.SetStateAction<number>>;
+}
 type FormValues = {
   password: string;
   passwordcheck: string;
@@ -24,7 +27,7 @@ const formSchema = Yup.object()
       .oneOf([Yup.ref('password')], '비밀번호가 일치하지 않습니다'),
   })
   .required();
-const ChangePW = () => {
+const ChangePW: React.FC<Props> = ({ email, setPwLevel }) => {
   const {
     register,
     handleSubmit,
@@ -38,7 +41,7 @@ const ChangePW = () => {
     <>
       <form
         onSubmit={handleSubmit(async (data) => {
-          // await changePW(data);
+          data;
         })}
       >
         <Input

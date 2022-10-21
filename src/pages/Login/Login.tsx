@@ -59,7 +59,7 @@ const Login = () => {
             {errors.username?.message || errors.password?.message}
           </ErrorMessage>
         )}
-        <h6 className="text-right my-7">
+        <h6 className="text-lg text-right my-7">
           <Link className="underline" to="/findid">
             아이디
           </Link>{' '}
@@ -76,7 +76,7 @@ const Login = () => {
         게스트 모드
       </Button>
       <Link to="/signup">
-        <h6 className="underline text-center mt-7">회원가입</h6>
+        <h6 className="text-lg underline text-center mt-7">회원가입</h6>
       </Link>
     </MemberContainer>
   );

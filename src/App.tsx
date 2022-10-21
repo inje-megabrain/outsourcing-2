@@ -8,7 +8,7 @@ import { RecoilRoot } from 'recoil';
 const App = () => (
   <RecoilRoot>
     <BrowserRouter>
-      <div className="flex place-content-center items-center h-full w-full bg-[#F5F6F9]">
+      <div className="flex place-content-center items-center h-full w-full bg-[#F5F6F9] justify-center my-auto">
         <Routes>
           {Router.map((value) => (
             <Route path={value.url} element={value.component} key={value.url} />

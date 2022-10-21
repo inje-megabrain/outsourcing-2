@@ -7,7 +7,9 @@ interface Props {
 }
 
 const ErrorMessage: React.FC<Props> = ({ className, children }) => (
-  <p className={`text-red-400 mt-1 font-bold text-sm h-4 pl-3 ${className}`}>
+  <p
+    className={`text-red-400 mt-1 mb-1 font-bold text-sm h-6 pl-3 ${className}`}
+  >
     {children}
   </p>
 );

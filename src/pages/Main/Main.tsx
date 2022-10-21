@@ -10,14 +10,19 @@ const Main = () => {
     navigate('/login');
   };
   return (
-    <MemberContainer>
+    <div className="text-center">
       <img className="mx-auto" src={Logo} />
-      <p className="text-xl text-center my-7">
+      <p className="text-2xl text-center my-7">
         환영합니다.
         <br />본 프로그램은 선박 도장 훈련을 목적으로 설계되었습니다.
       </p>
-      <Button onClick={onStartButtonClick}>시작하기</Button>
-    </MemberContainer>
+      <Button
+        className="max-w-[438px] min-w-[438px]"
+        onClick={onStartButtonClick}
+      >
+        시작하기
+      </Button>
+    </div>
   );
 };
 export default Main;
