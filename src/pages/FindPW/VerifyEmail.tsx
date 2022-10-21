@@ -19,6 +19,7 @@ const formSchema = Yup.object()
     code: Yup.string()
       .required('코드를 입력해주세요')
       .matches(/^[0-9]+$/, '코드를 입력해주세요'),
+    email: Yup.string()
   })
   .required();
 
@@ -35,15 +36,16 @@ const VerifyEmail: React.FC<Props> = ({ email, setPwLevel }) => {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        mailcheckAPI(data, setPwLevel);
+        mailcheckAPI(data, email, setPwLevel);
       })}
     >
       <Input
-        {...register('email')}
+        {...register('email', {
+          disabled: true
+        })}
         error={errors.email}
         value={email}
         type="email"
-        disabled
         placeholder="이메일 입력"
       />
       <div className="grid grid-cols-3 gap-1 mt-2">

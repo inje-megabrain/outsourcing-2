@@ -99,11 +99,12 @@ const mailAPI = (
 
 const mailcheckAPI = (
   data: emailCheckType,
+  email: string,
   setPwLevel: React.Dispatch<React.SetStateAction<number>>,
 ) => {
   axios
     .get(API_URL + mailcheck, {
-      params: data,
+      params: {...data, email: email},
       headers: headerConfig,
     })
     .then((response) => {

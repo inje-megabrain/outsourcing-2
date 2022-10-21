@@ -10,7 +10,7 @@ const getall: string = memberurl + '/all';
 const newadmin: string = memberurl + '/new/admin';
 const signup: string = memberurl + '/signup';
 const findid: string = memberurl + '/find/id';
-const changepassword: string = memberurl + '/password';
+const changepassword: string = memberurl + '/find/password';
 
 type changePWType = {
   password: string;
@@ -66,4 +66,19 @@ const findIdAPI = (
     });
 };
 
-export { signUpAPI, findIdAPI };
+const newPasswordAPI = (data: object, email: string, setPwLevel: React.Dispatch<React.SetStateAction<number>>) => {
+  axios
+    .post(API_URL + changepassword, {...data, email:email}, {
+      data: {...data, email:email},
+      headers: headerConfig,
+    })
+    .then((response) => {
+      setPwLevel(3);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+
+export { signUpAPI, findIdAPI, newPasswordAPI };

@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, ErrorMessage, Input } from '../../components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { newPasswordAPI } from '../../apis/member';
 import * as Yup from 'yup';
 interface Props {
   email: string;
@@ -40,13 +41,13 @@ const ChangePW: React.FC<Props> = ({ email, setPwLevel }) => {
   return (
     <>
       <form
-        onSubmit={handleSubmit(async (data) => {
-          data;
+        onSubmit={handleSubmit((data) => {
+          delete data['passwordcheck'];
+          newPasswordAPI(data, email, setPwLevel);
         })}
       >
         <Input
           type="password"
-          className="mb-1"
           error={errors.password}
           placeholder="새로운 비밀번호 입력"
           {...register('password')}
@@ -54,13 +55,12 @@ const ChangePW: React.FC<Props> = ({ email, setPwLevel }) => {
         {<ErrorMessage>{errors.password?.message}</ErrorMessage>}
         <Input
           type="password"
-          className="mb-7"
           error={errors.passwordcheck}
           placeholder="비밀번호 재입력"
           {...register('passwordcheck')}
         />
         <ErrorMessage>{errors.passwordcheck?.message}</ErrorMessage>
-        <Button type="submit" disabled={isSubmitting}>
+        <Button className="mt-6" type="submit" disabled={isSubmitting}>
           비밀번호 변경
         </Button>
       </form>
