@@ -3,6 +3,7 @@ version: '3.8'
 services:
   outsource-2-fe:
     container_name: simji-frontend
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
