@@ -5,10 +5,12 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { SetterOrUpdater } from 'recoil';
+import { getCookieToken, setRefreshToken } from '../util/tokenManager';
 
 const login: string = '/authenticate';
 const mail: string = '/mail';
 const mailcheck: string = '/mailcheck';
+const regenerateToken: string = '/regenerateToken';
 
 type loginType = {
   username: string;
@@ -50,6 +52,7 @@ const loginAPI = (
   data: loginType,
   usernameHook: SetterOrUpdater<string>,
   loginStateHook: SetterOrUpdater<string>,
+  tokenHook: SetterOrUpdater<string>,
   navigate: NavigateFunction,
 ) => {
   axios
@@ -58,7 +61,8 @@ const loginAPI = (
       headers: headerConfig,
     })
     .then((response) => {
-      const decoded: token = jwtDecode(response.data.token);
+      const decoded: token = jwtDecode(response.data.accessToken);
+      setRefreshToken(response.data.refreshToken);
       usernameHook(decoded.sub);
       if (decoded.auth.includes('ROLE_ADMIN')) {
         loginStateHook('admin');
@@ -67,6 +71,7 @@ const loginAPI = (
         loginStateHook('user');
         navigate('/mode');
       }
+      tokenHook(response.data.accessToken);
     })
     .catch((error) => {
       handleError(error);
@@ -109,4 +114,28 @@ const mailcheckAPI = (
     });
 };
 
-export { loginAPI, mailAPI, mailcheckAPI };
+const regenerateTokenAPI = (
+  usernameHook: SetterOrUpdater<string>,
+  loginStateHook: SetterOrUpdater<string>,
+  tokenHook: SetterOrUpdater<string>,
+) => {
+  axios
+    .post(API_URL + regenerateToken, getCookieToken, {
+      headers: headerConfig,
+    })
+    .then((response) => {
+      const decoded: token = jwtDecode(response.data.accessToken);
+      setRefreshToken(response.data.refreshToken);
+      usernameHook(decoded.sub);
+      if (decoded.auth.includes('ROLE_ADMIN')) {
+        loginStateHook('admin');
+      } else if (decoded.auth.includes('ROLE_USER')) {
+        loginStateHook('user');
+      }
+      tokenHook(response.data.accessToken);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+export { loginAPI, mailAPI, mailcheckAPI, regenerateTokenAPI };

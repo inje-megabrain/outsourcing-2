@@ -4,14 +4,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Input, ErrorMessage } from '../../components';
 import { signUpAPI } from '../../apis/member';
+import { useNavigate } from 'react-router-dom';
 
 type FormValues = {
   name: string;
-  company: string;
+  companyName: string;
   username: string;
   password: string;
-  passwordcheck: string;
-  birthdate: number;
+  passwordcheck?: string;
+  birthDay: number;
   email: string;
 };
 
@@ -25,16 +26,13 @@ const Form = () => {
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
   });
-
-  const inSubmit = (data: FormValues) => {
-    signUpAPI(data);
-  };
+  const navigate = useNavigate();
 
   return (
     <form
-      onSubmit={handleSubmit(async (data) => {
-        await new Promise((r) => setTimeout(r, 1000));
-        inSubmit(data);
+      onSubmit={handleSubmit((data) => {
+        delete data['passwordcheck'];
+        signUpAPI(data, navigate);
       })}
     >
       <Input
@@ -45,10 +43,10 @@ const Form = () => {
       {<ErrorMessage>{errors.name?.message}</ErrorMessage>}
       <Input
         placeholder="기업명 입력"
-        error={errors.company}
-        {...register('company')}
+        error={errors.companyName}
+        {...register('companyName')}
       />
-      {<ErrorMessage>{errors.company?.message}</ErrorMessage>}
+      {<ErrorMessage>{errors.companyName?.message}</ErrorMessage>}
       <Input
         placeholder="아이디 입력"
         error={errors.username}
@@ -71,10 +69,10 @@ const Form = () => {
       {<ErrorMessage>{errors.passwordcheck?.message}</ErrorMessage>}
       <Input
         placeholder="생년월일 입력 (숫자 6자리)"
-        error={errors.birthdate}
-        {...register('birthdate')}
+        error={errors.birthDay}
+        {...register('birthDay')}
       />
-      {<ErrorMessage>{errors.birthdate?.message}</ErrorMessage>}
+      {<ErrorMessage>{errors.birthDay?.message}</ErrorMessage>}
       <Input
         type="email"
         placeholder="이메일 입력"

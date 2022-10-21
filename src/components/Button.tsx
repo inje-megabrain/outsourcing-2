@@ -22,7 +22,7 @@ const Button: React.FC<Props> = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={`bg-primary-blue -rounded-lg w-full text-white text-lg leading-6 font-medium py-4 px-4 h-16 rounded-lg ${className}`}
+      className={`bg-primary-blue -rounded-lg w-[438px] text-white text-lg leading-6 font-medium py-4 px-4 h-16 rounded-lg ${className}`}
       {...rest}
     >
       {children}

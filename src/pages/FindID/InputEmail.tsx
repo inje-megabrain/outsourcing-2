@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input, Button, ErrorMessage } from '../../components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { findIdAPI } from '../../apis/member';
+import ResultFindId from './ResultFindId';
 
 type FormValues = {
   name: string;
@@ -19,6 +21,7 @@ const formSchema = Yup.object()
   .required();
 
 const InputEmail = () => {
+  const [findedId, setFindedId] = useState('');
   const {
     register,
     handleSubmit,
@@ -30,24 +33,34 @@ const InputEmail = () => {
   });
 
   return (
-    <form onSubmit={handleSubmit(async (data) => {})}>
-      <Input
-        placeholder="이름 입력"
-        error={errors.name}
-        {...register('name')}
-      />
-      {<ErrorMessage>{errors.name?.message}</ErrorMessage>}
-      <Input
-        {...register('email')}
-        error={errors.email}
-        type="email"
-        placeholder="이메일 입력"
-      />
-      <ErrorMessage>{errors.email?.message}</ErrorMessage>
-      <Button disabled={isSubmitting} type="submit" className="mt-7">
-        아이디 찾기
-      </Button>
-    </form>
+    <>
+      {findedId === '' ? (
+        <form
+          onSubmit={handleSubmit((data) => {
+            findIdAPI(data, setFindedId);
+          })}
+        >
+          <Input
+            placeholder="이름 입력"
+            error={errors.name}
+            {...register('name')}
+          />
+          {<ErrorMessage>{errors.name?.message}</ErrorMessage>}
+          <Input
+            {...register('email')}
+            error={errors.email}
+            type="email"
+            placeholder="이메일 입력"
+          />
+          <ErrorMessage>{errors.email?.message}</ErrorMessage>
+          <Button disabled={isSubmitting} type="submit" className="mt-7">
+            아이디 찾기
+          </Button>
+        </form>
+      ) : (
+        <ResultFindId username={findedId} />
+      )}
+    </>
   );
 };
 

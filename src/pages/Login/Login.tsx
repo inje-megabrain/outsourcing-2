@@ -8,7 +8,7 @@ import Logo from '../../assets/logo.png';
 import { Button, ErrorMessage, Input, MemberContainer } from '../../components';
 import formSchema from './formSchema';
 import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
-import { loginState, usernameState } from '../../states/atoms';
+import { jwtTokenState, loginState, usernameState } from '../../states/atoms';
 
 type FormValues = {
   username: string;
@@ -18,6 +18,7 @@ type FormValues = {
 const Login = () => {
   const setUsername = useSetRecoilState(usernameState);
   const [login, setLogin] = useRecoilState(loginState);
+  const setToken = useSetRecoilState(jwtTokenState);
   const {
     register,
     handleSubmit,
@@ -34,7 +35,7 @@ const Login = () => {
   };
 
   const onSubmitLogin: SubmitHandler<FormValues> = async (data) => {
-    loginAPI(data, setUsername, setLogin, navigate);
+    loginAPI(data, setUsername, setLogin, setToken, navigate);
   };
 
   return (

@@ -46,8 +46,7 @@ const VerifyEmail: React.FC<Props> = ({ email, setPwLevel }) => {
         disabled
         placeholder="이메일 입력"
       />
-      <ErrorMessage>{errors.email?.message}</ErrorMessage>
-      <div className="grid grid-cols-3 gap-4 mt-2">
+      <div className="grid grid-cols-3 gap-1 mt-2">
         <Input
           {...register('code')}
           error={errors.code}
@@ -55,11 +54,12 @@ const VerifyEmail: React.FC<Props> = ({ email, setPwLevel }) => {
           placeholder="인증번호 입력"
           className="col-span-2"
         />
+        <Button className="w-auto">재전송</Button>
         <ErrorMessage>{errors.code?.message}</ErrorMessage>
-        <Button disabled={isSubmitting} type="submit">
-          재전송
-        </Button>
       </div>
+      <Button disabled={isSubmitting} type="submit">
+        다음
+      </Button>
     </form>
   );
 };

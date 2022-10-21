@@ -1,8 +1,11 @@
 import React from 'react';
+import { string } from 'yup';
 import { Button } from '../../components';
 
-const ResultFindId = () => {
-  let userid = 'SIMGXR';
+interface Props {
+  username: string;
+}
+const ResultFindId: React.FC<Props> = ({ username }) => {
   return (
     <>
       <p className="text-2xl text-center my-7">
@@ -10,10 +13,10 @@ const ResultFindId = () => {
         <br />
         확인해주세요
       </p>
-      <h1 className="text-3xl text-center font-bold">{userid}</h1>
-      <div className="grid grid-cols-2 gap-4 place-content-between mt-5">
-        <Button>비밀번호 찾기</Button>
-        <Button>로그인</Button>
+      <h1 className="text-4xl text-center font-bold my-10">{username}</h1>
+      <div className="grid grid-cols-2 gap-3 place-content-between mt-5">
+        <Button className="w-[217px]">비밀번호 찾기</Button>
+        <Button className="w-[217px]">로그인</Button>
       </div>
     </>
   );

@@ -10,6 +10,7 @@ import {
   StartTraining,
   AdminModeSelect,
 } from '../pages';
+import CompleteSignup from '../pages/Signup/CompleteSignup';
 
 const Router = [
   {
@@ -36,6 +37,11 @@ const Router = [
     title: 'Sign Up',
     url: '/signup',
     component: <SignUp />,
+  },
+  {
+    title: '회원가입 완료',
+    url: '/signup/complete',
+    component: <CompleteSignup />,
   },
   {
     title: 'Select Mode',
