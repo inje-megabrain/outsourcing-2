@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_URL } from '../constants/constants';
+import { API_URL } from '../constants/Constants';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
