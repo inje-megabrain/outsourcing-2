@@ -10,7 +10,7 @@ interface Props {
 }
 type FormValues = {
   password: string;
-  passwordcheck: string;
+  passwordcheck?: string;
 };
 
 const formSchema = Yup.object()
