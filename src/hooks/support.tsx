@@ -1,24 +1,58 @@
 import React from 'react';
+import { NavigateFunction } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const position = toast.POSITION.TOP_RIGHT;
-
-const alertFail = (alerttext: string) => {
-  toast.error(alerttext, {
-    position: position,
-  });
+const isUser = (
+  state: 'default' | 'user' | 'admin' | 'guest',
+  navigate: NavigateFunction,
+) => {
+  if (state === 'user') navigate('/mode');
 };
 
-const alertSuccess = (alerttext: string) => {
-  toast.success(alerttext, {
-    position: position,
-  });
+const isAdmin = (
+  state: 'default' | 'user' | 'admin' | 'guest',
+  navigate: NavigateFunction,
+) => {
+  if (state === 'admin') navigate('/admin');
 };
 
-const alertInfo = (alerttext: string) => {
-  toast.info(alerttext, {
-    position: position,
-  });
+const isGuest = (
+  state: 'default' | 'user' | 'admin' | 'guest',
+  navigate: NavigateFunction,
+) => {
+  if (state === 'guest') navigate('/mode/start');
 };
 
-export { alertFail, alertSuccess, alertInfo };
+const isUndefined = (
+  state: 'default' | 'user' | 'admin' | 'guest',
+  navigate: NavigateFunction,
+) => {
+  if (state === 'default') navigate('/');
+};
+
+const UserOnly = () => {
+  isGuest;
+  isUndefined;
+};
+
+const AdminOnly = () => {
+  isUser;
+  isGuest;
+  isUndefined;
+};
+
+const GuestOnly = () => {
+  isUser;
+  isAdmin;
+  isUndefined;
+};
+
+export {
+  isUser,
+  isAdmin,
+  isGuest,
+  isUndefined,
+  UserOnly,
+  AdminOnly,
+  GuestOnly,
+};

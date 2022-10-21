@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginAPI } from '../../apis/auth';
 import axios from 'axios';
@@ -7,6 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Logo from '../../assets/logo.png';
 import { Button, ErrorMessage, Input, MemberContainer } from '../../components';
 import formSchema from './formSchema';
+import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
+import { loginState, usernameState } from '../../states/atoms';
 
 type FormValues = {
   username: string;
@@ -14,6 +16,8 @@ type FormValues = {
 };
 
 const Login = () => {
+  const setUsername = useSetRecoilState(usernameState);
+  const [login, setLogin] = useRecoilState(loginState);
   const {
     register,
     handleSubmit,
@@ -23,7 +27,6 @@ const Login = () => {
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
   });
-
   const navigate = useNavigate();
 
   const onGuestModeButtonClick = (e: any) => {
@@ -31,11 +34,12 @@ const Login = () => {
   };
 
   const onSubmitLogin: SubmitHandler<FormValues> = async (data) => {
-    await loginAPI(data);
+    loginAPI(data, setUsername, setLogin, navigate);
   };
+
   return (
     <MemberContainer>
-      <img className="mx-auto mb-4" src={Logo} />
+      <img className="mx-auto mb-8 " src={Logo} />
       <form onSubmit={handleSubmit(onSubmitLogin)}>
         <Input
           type="text"

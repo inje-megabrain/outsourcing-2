@@ -7,7 +7,7 @@ import InputEmail from './InputEmail';
 const FindPW = () => {
   return (
     <MemberContainer>
-      <img className="mx-auto" src={Logo} />
+      <img className="mx-auto " src={Logo} />
       <h1 className="text-3xl text-center font-bold mb-8">비밀번호 찾기</h1>
       <InputEmail />
     </MemberContainer>

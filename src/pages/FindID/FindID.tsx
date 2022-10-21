@@ -7,7 +7,7 @@ import ResultFindId from './ResultFindId';
 const FindID = () => {
   return (
     <MemberContainer>
-      <img className="mx-auto" src={Logo} />
+      <img className="mx-auto " src={Logo} />
       <h1 className="text-3xl text-center font-bold mb-8">아이디 찾기</h1>
       <InputEmail />
     </MemberContainer>
