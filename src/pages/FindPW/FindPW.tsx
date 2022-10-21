@@ -1,0 +1,29 @@
+import React, { useState } from 'react';
+
+import Logo from '../../assets/logo.png';
+import { MemberContainer } from '../../components';
+import ChangePW from './ChangePW';
+import CompleteChange from './CompleteChange';
+import InputEmail from './InputEmail';
+import VerifyEmail from './VerifyEmail';
+
+const FindPW = () => {
+  const [pwLevel, setPwLevel] = useState(0);
+  const [email, setEmail] = useState('');
+  return (
+    <MemberContainer>
+      <img className="mx-auto" src={Logo} />
+      <h1 className="text-3xl text-center font-bold mb-8">비밀번호 찾기</h1>
+      {(pwLevel === 0 && (
+        <InputEmail setEmail={setEmail} setPwLevel={setPwLevel} />
+      )) ||
+        (pwLevel === 1 && (
+          <VerifyEmail email={email} setPwLevel={setPwLevel} />
+        )) ||
+        (pwLevel === 2 && <ChangePW email={email} setPwLevel={setPwLevel} />) ||
+        (pwLevel === 3 && <CompleteChange />)}
+    </MemberContainer>
+  );
+};
+
+export default FindPW;
