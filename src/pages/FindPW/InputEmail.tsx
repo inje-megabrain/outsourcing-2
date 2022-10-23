@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Button, ErrorMessage, Loading } from '../../components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -32,6 +32,11 @@ const InputEmail: React.FC<Props> = ({ setEmail, setPwLevel }) => {
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
   });
+
+  useEffect(() => {
+    console.log('handleSUbmit: ' + isSubmitting);
+  }, [isSubmitting]);
+
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
@@ -43,7 +48,6 @@ const InputEmail: React.FC<Props> = ({ setEmail, setPwLevel }) => {
         <br />
         이메일 인증을 통해 비밀번호를 변경합니다.
       </p>
-      {isSubmitting && <Loading />}
       <Input
         {...register('email')}
         error={errors.email}
@@ -52,8 +56,21 @@ const InputEmail: React.FC<Props> = ({ setEmail, setPwLevel }) => {
         placeholder="이메일 입력"
       />
       <ErrorMessage>{errors.email?.message}</ErrorMessage>
-      <Button disabled={isSubmitting} type="submit" className="mt-7">
-        이메일 인증
+      <Button
+        disabled={isSubmitting}
+        type="submit"
+        className="mt-7 flex items-center justify-center space-x-2"
+      >
+        <>
+          {isSubmitting ? (
+            <>
+              <Loading title="" />
+              이메일 전송 중...
+            </>
+          ) : (
+            '이메일 인증'
+          )}
+        </>
       </Button>
     </form>
   );

@@ -78,12 +78,12 @@ const loginAPI = (
     });
 };
 
-const mailAPI = (
+const mailAPI = async (
   data: emailType,
   setEmail: React.Dispatch<React.SetStateAction<string>>,
   setPwLevel: React.Dispatch<React.SetStateAction<number>>,
 ) => {
-  axios
+  await axios
     .get(API_URL + mail, {
       params: data,
       headers: headerConfig,
@@ -104,7 +104,7 @@ const mailcheckAPI = (
 ) => {
   axios
     .get(API_URL + mailcheck, {
-      params: {...data, email: email},
+      params: { ...data, email: email },
       headers: headerConfig,
     })
     .then((response) => {
