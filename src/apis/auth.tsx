@@ -80,8 +80,8 @@ const loginAPI = (
 
 const mailAPI = async (
   data: emailType,
-  setEmail: React.Dispatch<React.SetStateAction<string>>,
   setPwLevel: React.Dispatch<React.SetStateAction<number>>,
+  setEmail?: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   await axios
     .get(API_URL + mail, {
@@ -89,7 +89,7 @@ const mailAPI = async (
       headers: headerConfig,
     })
     .then((response) => {
-      setEmail(data.email);
+      setEmail && setEmail(data.email);
       setPwLevel(1);
     })
     .catch((error) => {

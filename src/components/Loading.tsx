@@ -1,8 +1,6 @@
-interface Props {
-  title: string;
-}
+interface Props {}
 
-const Loading: React.FC<Props> = ({ title }) => (
+const Loading: React.FC<Props> = () => (
   <>
     <svg
       aria-hidden="true"

@@ -40,7 +40,7 @@ const InputEmail: React.FC<Props> = ({ setEmail, setPwLevel }) => {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        await mailAPI(data, setEmail, setPwLevel);
+        await mailAPI(data, setPwLevel, setEmail);
       })}
     >
       <p className="text-2xl text-center my-7">
@@ -64,8 +64,8 @@ const InputEmail: React.FC<Props> = ({ setEmail, setPwLevel }) => {
         <>
           {isSubmitting ? (
             <>
-              <Loading title="" />
-              이메일 전송 중...
+              <Loading />
+              전송 중...
             </>
           ) : (
             '이메일 인증'

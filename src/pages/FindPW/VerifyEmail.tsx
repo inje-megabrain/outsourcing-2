@@ -3,7 +3,7 @@ import { Input, Button, ErrorMessage, Loading } from '../../components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { mailcheckAPI } from '../../apis/auth';
+import { mailAPI, mailcheckAPI } from '../../apis/auth';
 
 interface Props {
   email: string;
@@ -24,6 +24,7 @@ const formSchema = Yup.object()
   .required();
 
 const VerifyEmail: React.FC<Props> = ({ email, setPwLevel }) => {
+  const [isResending, setIsResending] = useState(false);
   const {
     register,
     handleSubmit,
@@ -33,6 +34,13 @@ const VerifyEmail: React.FC<Props> = ({ email, setPwLevel }) => {
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
   });
+
+  const onResendButtonClick = async () => {
+    await setIsResending(true);
+    await mailAPI({ email: email }, setPwLevel);
+    await setIsResending(false);
+  };
+
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
@@ -56,7 +64,15 @@ const VerifyEmail: React.FC<Props> = ({ email, setPwLevel }) => {
           placeholder="인증번호 입력"
           className="col-span-2"
         />
-        <Button className="w-auto">재전송</Button>
+        <Button onClick={onResendButtonClick} className="w-auto">
+          {isResending ? (
+            <>
+              <Loading /> 전송 중...{' '}
+            </>
+          ) : (
+            <>재전송</>
+          )}
+        </Button>
         <ErrorMessage>{errors.code?.message}</ErrorMessage>
       </div>
       <Button disabled={isSubmitting} type="submit">
