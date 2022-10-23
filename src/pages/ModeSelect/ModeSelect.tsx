@@ -32,7 +32,7 @@ const ModeSelect = () => {
             </p>
           </Link>
           <Link
-            to="/mode/dashboard"
+            to="/panel/results"
             className="bg-primary-blue py-12 px-14 rounded-[14px]"
           >
             <img src={IconDashboard} className="w-[178px] h-[178px]" />

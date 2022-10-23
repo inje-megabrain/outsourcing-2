@@ -10,6 +10,8 @@ import StartTraining from './StartTraining/StartTraining';
 import AdminModeSelect from './ModeSelect/AdminModeSelect';
 import Footer from './Layout/Footer';
 import Header from './Layout/Header';
+import MyPanel from './MyPanel/MyPanel';
+import CompleteSignup from './Signup/CompleteSignup';
 
 export {
   Login,
@@ -24,4 +26,6 @@ export {
   AdminModeSelect,
   Footer,
   Header,
+  MyPanel,
+  CompleteSignup,
 };

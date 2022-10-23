@@ -9,8 +9,9 @@ import {
   GuestMode,
   StartTraining,
   AdminModeSelect,
+  MyPanel,
+  CompleteSignup,
 } from '../pages';
-import CompleteSignup from '../pages/Signup/CompleteSignup';
 
 const Router = [
   {
@@ -72,6 +73,11 @@ const Router = [
     title: 'Admin Players',
     url: '/admin/players',
     component: <></>,
+  },
+  {
+    title: '개인 기록 조회',
+    url: '/panel/results',
+    component: <MyPanel />,
   },
 ];
 
