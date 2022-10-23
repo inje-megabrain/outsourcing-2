@@ -6,7 +6,7 @@ interface Props {
   onClick?: any;
   className?: string;
   disabled?: boolean;
-  children?: JSX.Element | JSX.Element[];
+  children?: JSX.Element | JSX.Element[] | string;
 }
 
 const Button: React.FC<Props> = ({
