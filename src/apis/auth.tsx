@@ -5,7 +5,11 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { SetterOrUpdater } from 'recoil';
-import { getCookieToken, setRefreshToken } from '../util/tokenManager';
+import {
+  getCookieToken,
+  removeCookieToken,
+  setRefreshToken,
+} from '../util/tokenManager';
 
 const login: string = '/authenticate';
 const mail: string = '/mail';
@@ -35,10 +39,10 @@ type token = {
 const headerConfig = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
+  accept: '*/*',
 };
 
 const handleError = (error: any) => {
-  console.log(error);
   if (error.response) {
     toast.error(error.response.data);
   } else if (error.request) {
@@ -122,6 +126,7 @@ const regenerateTokenAPI = (
 ) => {
   axios
     .post(API_URL + regenerateToken, getCookieToken, {
+      data: getCookieToken,
       headers: headerConfig,
     })
     .then((response) => {
@@ -136,6 +141,9 @@ const regenerateTokenAPI = (
       tokenHook(response.data.accessToken);
     })
     .catch((error) => {
+      if (error.response) {
+        removeCookieToken;
+      }
       handleError(error);
     });
 };

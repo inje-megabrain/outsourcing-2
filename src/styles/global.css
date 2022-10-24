@@ -12,3 +12,24 @@ body,
   min-height: 100vh;
   display: flex;
 }
+
+@font-face {
+  font-family: 'Inter-Regular';
+  src: url('./assets/fonts/Inter-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter-Bole';
+  src: url('./assets/fonts/Inter-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter-ExtraBold';
+  src: url('./assets/fonts/Inter-ExtraBold.ttf');
+  font-weight: 900;
+  font-style: normal;
+}
