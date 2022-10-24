@@ -11,19 +11,19 @@ const Main = () => {
   };
   return (
     <>
-      <Footer />
-      <div className="text-center">
-        <img className="mx-auto" src={Logo} />
-        <p className="text-2xl text-center my-7">
-          환영합니다.
-          <br />본 프로그램은 선박 도장 훈련을 목적으로 설계되었습니다.
-        </p>
-        <Button
-          className="max-w-[438px] min-w-[438px]"
-          onClick={onStartButtonClick}
-        >
-          시작하기
-        </Button>
+      <Footer theme="white" />
+      <div className="grid w-full h-full text-center items-center bg-gradient-to-t to-[#0759FF] from-[#1F1F1F] text-white text-[80px] content-center">
+        <div>
+          <h1 className="font-extrabold drop-shadow-[0_4px_45px_rgba(0,0,0,0.5)]">
+            Ships Painting
+          </h1>
+          <h3 className="text-white text-2xl mt-6">
+            본 프로그램은 선박 도장 훈련을 목적으로 설계된 VR 시뮬레이터입니다.
+          </h3>
+          <Button className="mt-24" theme="white" onClick={onStartButtonClick}>
+            시작하기
+          </Button>
+        </div>
       </div>
     </>
   );
