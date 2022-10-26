@@ -4,8 +4,13 @@ import { loginAPI } from '../../apis/auth';
 import axios from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Logo from '../../assets/logo.png';
-import { Button, ErrorMessage, Input, MemberContainer } from '../../components';
+import {
+  Button,
+  ErrorMessage,
+  Input,
+  MemberContainer,
+  NavBar,
+} from '../../components';
 import formSchema from './formSchema';
 import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 import { jwtTokenState, loginState, usernameState } from '../../states/atoms';
@@ -39,47 +44,49 @@ const Login = () => {
   };
 
   return (
-    <MemberContainer>
-      <img className="mx-auto mb-8 " src={Logo} />
-      <form onSubmit={handleSubmit(onSubmitLogin)}>
-        <Input
-          type="text"
-          placeholder="아이디 입력"
-          className="mb-2"
-          error={errors.username}
-          {...register('username')}
-        />
-        <Input
-          type="password"
-          placeholder="비밀번호 입력"
-          error={errors.password}
-          {...register('password')}
-        />
-        {(errors.username || errors.password) && (
-          <ErrorMessage>
-            {errors.username?.message || errors.password?.message}
-          </ErrorMessage>
-        )}
-        <h6 className="text-lg text-right my-7">
-          <Link className="underline" to="/findid">
-            아이디
-          </Link>{' '}
-          또는{' '}
-          <Link className="underline" to="/findpw">
-            비밀번호 찾기
-          </Link>
-        </h6>
-        <Button type="submit" disabled={isSubmitting} className="mb-2">
-          로그인
+    <>
+      <NavBar linktext="HOME" to="/" />
+      <MemberContainer>
+        <form onSubmit={handleSubmit(onSubmitLogin)}>
+          <Input
+            type="text"
+            placeholder="아이디 입력"
+            className="mb-2"
+            error={errors.username}
+            {...register('username')}
+          />
+          <Input
+            type="password"
+            placeholder="비밀번호 입력"
+            error={errors.password}
+            {...register('password')}
+          />
+          {(errors.username || errors.password) && (
+            <ErrorMessage>
+              {errors.username?.message || errors.password?.message}
+            </ErrorMessage>
+          )}
+          <h6 className="text-lg text-right my-7">
+            <Link className="underline" to="/findid">
+              아이디
+            </Link>{' '}
+            또는{' '}
+            <Link className="underline" to="/findpw">
+              비밀번호 찾기
+            </Link>
+          </h6>
+          <Button type="submit" disabled={isSubmitting} className="mb-2">
+            로그인
+          </Button>
+        </form>
+        <Button className="mb-2" onClick={onGuestModeButtonClick}>
+          게스트 모드
         </Button>
-      </form>
-      <Button className="mb-2" onClick={onGuestModeButtonClick}>
-        게스트 모드
-      </Button>
-      <Link to="/signup">
-        <h6 className="text-lg underline text-center mt-7">회원가입</h6>
-      </Link>
-    </MemberContainer>
+        <Link to="/signup">
+          <h6 className="text-lg underline text-center mt-7">회원가입</h6>
+        </Link>
+      </MemberContainer>
+    </>
   );
 };
 export default Login;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Footer } from '../../components';
+import { Button, Footer, NavBar } from '../../components';
 import IconDashboard from '../../assets/icon_dashboard.png';
 import IconTraining from '../../assets/icon_training.png';
 import { useRecoilValue } from 'recoil';
@@ -10,6 +10,7 @@ const ModeSelect = () => {
   const name = useRecoilValue(usernameState);
   return (
     <>
+      <NavBar linktext="HOME" to="/" />
       <div className="max-w-xl">
         <h1 className="text-5xl text-center font-bold mb-8 text-primary-blue">
           플레이어 모드

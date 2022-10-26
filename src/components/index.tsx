@@ -5,6 +5,7 @@ import ErrorMessage from './ErrorMessage';
 import Loading from './Loading';
 import Footer from './Footer';
 import AdminContainer from './AdminContainer';
+import NavBar from './Navbar';
 
 export {
   Button,
@@ -14,4 +15,5 @@ export {
   Loading,
   Footer,
   AdminContainer,
+  NavBar,
 };
