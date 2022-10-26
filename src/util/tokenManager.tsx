@@ -13,7 +13,9 @@ const setRefreshToken = (refreshToken: string) => {
   });
 };
 
-const getCookieToken: string = cookies.get('refresh_token');
+const getCookieToken = () => {
+  return cookies.get('refresh_token');
+};
 
 const removeCookieToken = () => {
   return cookies.remove('refresh_token', { sameSite: 'strict', path: '/' });

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useLayoutEffect } from 'react';
 import {
   BrowserRouter,
   Route,
@@ -15,18 +15,20 @@ import { regenerateTokenAPI } from './apis/auth';
 import { getCookieToken } from './util/tokenManager';
 
 const App = () => {
-  const setTokenState = useRecoilValue(jwtTokenState);
+  const tokenState = useRecoilValue(jwtTokenState);
   const setUsername = useSetRecoilState(usernameState);
   const setLogin = useSetRecoilState(loginState);
   const setToken = useSetRecoilState(jwtTokenState);
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (
-      getCookieToken != '' &&
-      (setTokenState == '' || setTokenState === undefined)
+      getCookieToken() != '' &&
+      (tokenState === '' || tokenState === undefined)
     ) {
       regenerateTokenAPI(setUsername, setLogin, setToken);
     }
-  });
+  }, [setToken]);
+
   return (
     <BrowserRouter>
       <div className="flex place-content-center items-center h-full w-full bg-[#F5F6F9] justify-center my-auto">

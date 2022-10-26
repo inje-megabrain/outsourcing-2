@@ -125,9 +125,8 @@ const regenerateTokenAPI = (
   tokenHook: SetterOrUpdater<string>,
 ) => {
   axios
-    .post(API_URL + regenerateToken, getCookieToken, {
-      data: getCookieToken,
-      headers: headerConfig,
+    .post(API_URL + regenerateToken, getCookieToken(), {
+      headers: { 'Content-Type': 'text/plain' },
     })
     .then((response) => {
       const decoded: token = jwtDecode(response.data.accessToken);
