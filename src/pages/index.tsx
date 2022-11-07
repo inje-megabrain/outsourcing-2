@@ -12,6 +12,7 @@ import Footer from './Layout/Footer';
 import Header from './Layout/Header';
 import MyPanel from './MyPanel/MyPanel';
 import CompleteSignup from './Signup/CompleteSignup';
+import Calendar from './Calendar';
 
 export {
   Login,
@@ -28,4 +29,5 @@ export {
   Header,
   MyPanel,
   CompleteSignup,
+  Calendar,
 };

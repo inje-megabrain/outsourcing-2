@@ -11,6 +11,7 @@ import {
   AdminModeSelect,
   MyPanel,
   CompleteSignup,
+  Calendar,
 } from '../pages';
 
 const Router = [
@@ -76,8 +77,8 @@ const Router = [
   },
   {
     title: '개인 기록 조회',
-    url: '/panel/results',
-    component: <MyPanel />,
+    url: '/user/results',
+    component: <Calendar />,
   },
 ];
 
