@@ -1,8 +1,8 @@
 interface Props {
   size: number;
   now: number;
-  className: string;
-  onClick: () => {};
+  className?: string;
+  onClick?: () => {};
 }
 //3
 const Pagination: React.FC<Props> = ({ size, now, className, onClick }) => {
