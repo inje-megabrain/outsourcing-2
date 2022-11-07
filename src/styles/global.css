@@ -33,3 +33,21 @@ body,
   font-weight: 900;
   font-style: normal;
 }
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: white;
+  border: 3px solid #005dfe;
+}
+
+.fc .fc-daygrid-day-top {
+  flex-direction: row;
+}
+
+.fc th {
+  text-align: left;
+  background-color: #eaeaea;
+}
+
+fc-col-header-cell fc-day fc-day-sun a {
+  color: red;
+}

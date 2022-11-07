@@ -16,7 +16,10 @@ const AdminContainer: React.FC<Props> = ({
       <h1 className="text-4xl mb-3 font-semibold">{title}</h1>
       <h3 className="text-[#AAAAAA] text-base">{detail}</h3>
     </div>
-    <div className="w-full h-[calc(100%-180px)] px-[143px] pb-[52px] pt-[30px] bg-[#DADADA]">
+    <div
+      className="w-full h-[calc(100%-180px)] px-[143px] pb-[52px] pt-[30px] bg-[background: #F5F6F9;
+] justify-center text-center"
+    >
       {children}
     </div>
   </div>

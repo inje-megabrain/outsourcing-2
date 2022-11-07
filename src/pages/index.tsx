@@ -1,7 +1,6 @@
 import Login from './Login/Login';
 import Main from './Main/Main';
 import ModeSelect from './ModeSelect/ModeSelect';
-import MemberHome from './MemberHome/MemberHome';
 import FindID from './FindID/FindID';
 import FindPW from './FindPW/FindPW';
 import SignUp from './Signup/SignUp';
@@ -10,15 +9,14 @@ import StartTraining from './StartTraining/StartTraining';
 import AdminModeSelect from './ModeSelect/AdminModeSelect';
 import Footer from './Layout/Footer';
 import Header from './Layout/Header';
-import MyPanel from './MyPanel/MyPanel';
 import CompleteSignup from './Signup/CompleteSignup';
-import Calendar from './Calendar';
+import MemberRecord from './MemberRecord';
+import DayView from './MemberRecord/DayRecord';
 
 export {
   Login,
   Main,
   ModeSelect,
-  MemberHome,
   FindID,
   FindPW,
   SignUp,
@@ -27,7 +25,7 @@ export {
   AdminModeSelect,
   Footer,
   Header,
-  MyPanel,
   CompleteSignup,
-  Calendar,
+  MemberRecord,
+  DayView,
 };

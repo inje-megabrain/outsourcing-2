@@ -1,7 +1,6 @@
 import {
   Main,
   ModeSelect,
-  MemberHome,
   FindID,
   FindPW,
   Login,
@@ -9,9 +8,9 @@ import {
   GuestMode,
   StartTraining,
   AdminModeSelect,
-  MyPanel,
   CompleteSignup,
-  Calendar,
+  MemberRecord,
+  DayView,
 } from '../pages';
 
 const Router = [
@@ -78,7 +77,12 @@ const Router = [
   {
     title: '개인 기록 조회',
     url: '/user/results',
-    component: <Calendar />,
+    component: <MemberRecord />,
+  },
+  {
+    title: '개인 기록 조회',
+    url: '/user/results/day',
+    component: <DayView />,
   },
 ];
 
