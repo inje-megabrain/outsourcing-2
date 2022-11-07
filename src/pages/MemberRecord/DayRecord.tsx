@@ -2,6 +2,7 @@ import React from 'react';
 import { AdminContainer } from '../../components';
 import startBtn from '../../assets/icon_viewdetail.png';
 import Badge from '../../assets/senior_badge.png';
+import Pagination from '../../components/Pagination';
 
 const DayView = () => {
   const template1 = {
@@ -21,6 +22,7 @@ const DayView = () => {
       className="flex items-center"
     >
       <div className="">
+        <p className="text-3xl font-bold text-left mb-10">기록 리스트</p>
         <ul>
           {data.map((data) => (
             <li>
@@ -61,6 +63,7 @@ const DayView = () => {
             </li>
           ))}
         </ul>
+        <Pagination size={9} now={3} />
       </div>
     </AdminContainer>
   );
