@@ -11,7 +11,8 @@ import Footer from './Layout/Footer';
 import Header from './Layout/Header';
 import CompleteSignup from './Signup/CompleteSignup';
 import MemberRecord from './MemberRecord';
-import DayView from './MemberRecord/DayRecord';
+import DayView from './MemberRecord/DayView';
+import DetailView from './MemberRecord/DetailView';
 
 export {
   Login,
@@ -28,4 +29,5 @@ export {
   CompleteSignup,
   MemberRecord,
   DayView,
+  DetailView,
 };

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AdminContainer } from '../../components';
 import startBtn from '../../assets/icon_viewdetail.png';
 import Badge from '../../assets/senior_badge.png';
 import Pagination from '../../components/Pagination';
+import { useNavigate } from 'react-router-dom';
 
 const DayView = () => {
+  const [pageNum, setPageNum] = useState(1);
   const template1 = {
     time: '02:14pm',
     train: {
@@ -15,6 +17,12 @@ const DayView = () => {
     },
   };
   const data = [template1, template1, template1];
+  const navigate = useNavigate();
+
+  const onDetailButtonClick = (id: number) => {
+    navigate('/user/results/detail');
+  };
+
   return (
     <AdminContainer
       title="개인 기록 조회"
@@ -28,10 +36,12 @@ const DayView = () => {
             <li>
               <div className="flex felx-row w-[1645px] h-[160px] bg-white rounded-3xl mb-7">
                 <div className="flex felx-row bg-[#FBFBFF] rounded-l-3xl h-[160px] w-[329px] p-[40px] items-center">
-                  <img
-                    className="inline h-16 w-16 drop-shadow-[0_11px_42px_rgba(186,205,242,1)]"
-                    src={startBtn}
-                  />
+                  <button onClick={() => onDetailButtonClick(123)}>
+                    <img
+                      className="inline h-16 w-16 drop-shadow-[0_11px_42px_rgba(186,205,242,1)]"
+                      src={startBtn}
+                    />
+                  </button>
                   <p className="font-medium inline-block text-left ml-9 text-xl">
                     <b>훈련 시작 시간</b>
                     <br />
@@ -63,7 +73,7 @@ const DayView = () => {
             </li>
           ))}
         </ul>
-        <Pagination size={9} now={3} />
+        <Pagination size={9} now={pageNum} onClick={setPageNum} />
       </div>
     </AdminContainer>
   );

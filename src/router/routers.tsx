@@ -11,6 +11,7 @@ import {
   CompleteSignup,
   MemberRecord,
   DayView,
+  DetailView,
 } from '../pages';
 
 const Router = [
@@ -83,6 +84,11 @@ const Router = [
     title: '개인 기록 조회',
     url: '/user/results/day',
     component: <DayView />,
+  },
+  {
+    title: '훈련 상세 기록',
+    url: '/user/results/detail',
+    component: <DetailView />,
   },
 ];
 
