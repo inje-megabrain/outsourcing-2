@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import '@fullcalendar/react/dist/vdom';
 import dayGridViewPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { AdminContainer } from '../../components';
+import { recordByMonthAPI } from '../../apis/record';
+import { useRecoilValue } from 'recoil';
+import { jwtTokenState, usernameState } from '../../states/atoms';
 
 const CalendarView = () => {
+  const token = useRecoilValue(jwtTokenState);
+  const [yearMonth, setYearmonth] = useState('');
+  const [monthEvent, setMonthEvent] = useState([{}]);
+  const username = useRecoilValue(usernameState);
   const handleEventClick = (arg: any) => {
     console.log(arg.event.start.toLocaleDateString('en-ca'));
   };
+
+  useEffect(() => {
+    yearMonth && recordByMonthAPI(yearMonth, username, token, setMonthEvent);
+  }, [yearMonth]);
+
   return (
     <AdminContainer
       title="개인 기록 조회"
@@ -22,11 +34,14 @@ const CalendarView = () => {
         locale={'ko-kr'}
         plugins={[dayGridViewPlugin, interactionPlugin]}
         initialView="dayGridMonth"
-        events={[
-          { title: 'event 1', date: '2022-11-01' },
-          { title: 'event 2', date: '2022-11-02' },
-        ]}
         eventClick={handleEventClick}
+        events={[...monthEvent]}
+        datesSet={(event) => {
+          const result = new Date(
+            (event.start.getTime() + event.end.getTime()) / 2,
+          );
+          setYearmonth(result.getFullYear() + '-' + (result.getMonth() + 1));
+        }}
       />
     </AdminContainer>
   );

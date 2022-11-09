@@ -75,7 +75,7 @@ const loginAPI = (
         loginStateHook('user');
         navigate('/mode');
       }
-      tokenHook(response.data.accessToken);
+      tokenHook(response.data.accessToken.trim());
     })
     .catch((error) => {
       handleError(error);
@@ -119,12 +119,12 @@ const mailcheckAPI = (
     });
 };
 
-const regenerateTokenAPI = (
+const regenerateTokenAPI = async (
   usernameHook: SetterOrUpdater<string>,
   loginStateHook: SetterOrUpdater<string>,
   tokenHook: SetterOrUpdater<string>,
 ) => {
-  axios
+  await axios
     .post(API_URL + regenerateToken, getCookieToken(), {
       headers: { 'Content-Type': 'text/plain' },
     })

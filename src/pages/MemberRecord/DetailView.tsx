@@ -24,10 +24,31 @@ const DetailView = () => {
           </div>
           <div className="flex flex-col w-full h-[calc(40%-40px)] mt-10 space-y-9">
             <p className="text-2xl font-bold">훈련 기록</p>
-            <div className="w-full h-[37%] bg-white rounded-[22px]">
-              도막 두꺠 등
+            <div className="flex flex-row w-full h-[37%] bg-white rounded-[22px]">
+              <div className="bg-[#FBFBFF] rounded-l-[22px] w-[263px] items-center flex text-center justify-center">
+                <p className="text-xl font-bold">도막 두깨</p>
+              </div>
+              <div className="flex content-start justify-center pl-12 space-x-28">
+                <div className="flex flex-col justify-center self-center text-center">
+                  <p className="inline-block">평균</p>
+                  <p className="inline-block text-3xl font-normal">130</p>
+                </div>
+                <div className="flex flex-col justify-center self-center text-center">
+                  <p className="inline-block">평균</p>
+                  <p className="inline-block text-3xl font-normal">130</p>
+                </div>
+                <div className="flex flex-col justify-center self-center text-center">
+                  <p className="inline-block">평균</p>
+                  <p className="inline-block text-3xl font-normal">130</p>
+                </div>
+                <div className="flex flex-col justify-center self-center text-center">
+                  <p className="inline-block">평균</p>
+                  <p className="inline-block text-3xl font-normal">130</p>
+                </div>
+                <hr className="w-[3px] h-full bg-[#EFEFEF] flex"></hr>
+              </div>
             </div>
-            <div className="w-full h-[37%] bg-white rounded-[22px] mt-5">
+            <div className="flex flex-row w-full h-[37%] bg-white rounded-[22px] mt-5">
               도막 두꺠 등
             </div>
           </div>

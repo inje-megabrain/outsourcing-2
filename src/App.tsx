@@ -1,4 +1,4 @@
-import React, { Component, useLayoutEffect } from 'react';
+import React, { Component, useEffect, useLayoutEffect, useState } from 'react';
 import {
   BrowserRouter,
   Route,
@@ -15,19 +15,22 @@ import { regenerateTokenAPI } from './apis/auth';
 import { getCookieToken } from './util/tokenManager';
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
   const tokenState = useRecoilValue(jwtTokenState);
   const setUsername = useSetRecoilState(usernameState);
   const setLogin = useSetRecoilState(loginState);
   const setToken = useSetRecoilState(jwtTokenState);
 
-  useLayoutEffect(() => {
-    if (
-      getCookieToken() != '' &&
-      (tokenState === '' || tokenState === undefined)
-    ) {
-      regenerateTokenAPI(setUsername, setLogin, setToken);
-    }
-  }, [setToken]);
+  useEffect(() => {
+    const callAPI = async () => {
+      await regenerateTokenAPI(setUsername, setLogin, setToken);
+      await setLoading(false);
+    };
+    getCookieToken() != '' &&
+      (tokenState === '' || tokenState === undefined) &&
+      loading &&
+      callAPI();
+  }, []);
 
   return (
     <BrowserRouter>
