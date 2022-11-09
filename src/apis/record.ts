@@ -4,6 +4,7 @@ import { API_URL } from '../constants/Constants';
 
 const record = '/record';
 const date = '/date';
+const day = '/day';
 
 const headerConfig = {
   'Content-Type': 'application/json',
@@ -27,12 +28,11 @@ const recordByMonthAPI = (
   token: string,
   setMonthEvent: React.Dispatch<React.SetStateAction<any>>,
 ) => {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   token &&
     axios
       .get(API_URL + record + '/' + userName + date, {
         params: { yearMonth: yearMonth },
-        headers: headerConfig,
+        headers: { ...headerConfig, Authorization: 'Bearer ' + token },
       })
       .then((response) => {
         const dataForEvent: any = [];
@@ -46,4 +46,24 @@ const recordByMonthAPI = (
       });
 };
 
-export { recordByMonthAPI };
+const recordByMonthDayAPI = (
+  yearMonthDay: string,
+  userName: string,
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<never[]>>,
+) => {
+  token &&
+    axios
+      .get(API_URL + record + '/' + userName + day, {
+        params: { time: yearMonthDay },
+        headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+};
+
+export { recordByMonthAPI, recordByMonthDayAPI };

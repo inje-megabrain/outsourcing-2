@@ -12,6 +12,7 @@ const Pagination: React.FC<Props> = ({ size, now, className, onClick }) => {
     <div className={`flex flex-row justify-center ${className}`}>
       {Array.from(Array(size), (x, k) => (
         <button
+          key={k}
           className={`${
             k === now - 1 ? 'bg-[#E9E9E9] text-[#015EFF]' : ''
           } w-16 h-16 rounded-[11px] flex items-center justify-center hover:bg-slate-200`}

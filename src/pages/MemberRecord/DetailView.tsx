@@ -1,6 +1,20 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AdminContainer } from '../../components';
+import MasterBadge from '../../assets/master_badge.png';
+import SeniorBadge from '../../assets/senior_badge.png';
+import JuniorBadge from '../../assets/junior_badge.png';
 
 const DetailView = () => {
+  const { state } = useLocation();
+  const level =
+    (Number(state.score) <= 30 && 'Junior') ||
+    (Number(state.score) <= 80 && 'Senior') ||
+    (Number(state.score) <= 100 && 'Master');
+
+  useEffect(() => {
+    state && console.log(state);
+  }, [state]);
   return (
     <AdminContainer
       title="훈련 상세 기록"
@@ -11,8 +25,22 @@ const DetailView = () => {
           <div className="w-full flex flex-row h-3/5 space-x-8">
             <div className="w-1/3">
               <p className="text-2xl font-bold mb-5">도장레벨</p>
-              <div className="w-full h-[calc(100%-52px)] bg-[#00338A] rounded-3xl">
-                뱃지위치
+              <div className="w-full h-[calc(100%-52px)] bg-[#00338A] rounded-3xl p-6">
+                <div className="flex flex-row justify-between items-center">
+                  <p className="text-[56px] font-bold text-white">
+                    {state.score}
+                  </p>
+                  <div className="bg-white px-3 py-3 rounded-[6px]">
+                    <p className="text-xl">{level} Level</p>
+                  </div>
+                </div>
+                <img
+                  src={
+                    (level === 'Master' && MasterBadge) ||
+                    (level === 'Senior' && SeniorBadge) ||
+                    (level === 'Junior' && JuniorBadge)
+                  }
+                />
               </div>
             </div>
             <div className="w-2/3">

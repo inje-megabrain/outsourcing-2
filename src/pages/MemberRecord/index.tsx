@@ -7,14 +7,16 @@ import { AdminContainer } from '../../components';
 import { recordByMonthAPI } from '../../apis/record';
 import { useRecoilValue } from 'recoil';
 import { jwtTokenState, usernameState } from '../../states/atoms';
+import { useNavigate } from 'react-router-dom';
 
 const CalendarView = () => {
   const token = useRecoilValue(jwtTokenState);
   const [yearMonth, setYearmonth] = useState('');
   const [monthEvent, setMonthEvent] = useState([{}]);
   const username = useRecoilValue(usernameState);
+  const navigate = useNavigate();
   const handleEventClick = (arg: any) => {
-    console.log(arg.event.start.toLocaleDateString('en-ca'));
+    navigate(arg.event.start.toLocaleDateString('en-ca'));
   };
 
   useEffect(() => {
