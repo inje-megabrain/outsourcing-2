@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AdminContainer } from '../../components';
-import MasterBadge from '../../assets/icon_master.svg';
-import SeniorBadge from '../../assets/senior_badge.png';
-import JuniorBadge from '../../assets/junior_badge.png';
+import MasterBadge from '../../assets/master_badge.svg';
+import SeniorBadge from '../../assets/senior_badge.svg';
+import JuniorBadge from '../../assets/junior_badge.svg';
 import PlayIcon from '../../assets/icon_viewdetail.png';
 
 import LeftIcon1 from '../../assets/lefticon_1.png';
@@ -11,9 +11,8 @@ import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
 
 const DetailView = () => {
-  // const { state } = useLocation();
-
-  const state = {};
+  const { state } = useLocation();
+  const navigate = useNavigate();
 
   const level =
     (Number(state.score) <= 30 && 'Junior') ||
@@ -33,13 +32,13 @@ const DetailView = () => {
           <div className="w-full flex flex-row h-3/5 space-x-8">
             <div className="w-1/3">
               <p className="text-2xl font-bold mb-5">도장레벨</p>
-              <div className="w-full h-[calc(100%-52px)] bg-[#00338A] rounded-3xl p-10 flex flex-col justify-between">
+              <div className="w-full h-[calc(100%-52px)] bg-[#00338A] rounded-3xl p-7 flex flex-col justify-between">
                 <div className="flex flex-row justify-between items-center">
                   <p className="text-[56px] font-bold text-white">
                     {state.score}
                   </p>
-                  <div className="bg-white px-3 py-3 rounded-[6px]">
-                    <p className="text-xl">{level} Level</p>
+                  <div className="bg-white lg:px-2 2xl:px-5 py-3 rounded-[6px]">
+                    <p className="text-lg">{level} Level</p>
                   </div>
                 </div>
                 <img
@@ -115,7 +114,12 @@ const DetailView = () => {
                   </div>
                 </div>
                 <div className="flex flex-col justify-center text-center px-8 border-l-2 self-stretch 2xl:w-[23%] lg:w-1/3">
-                  <button className="bg-[#015EFF] border-[#015EFF] rounded-xl py-4 px-5 text-white">
+                  <button
+                    className="bg-[#015EFF] border-[#015EFF] rounded-xl py-4 px-5 text-white"
+                    onClick={() => {
+                      navigate('/user/results/graph');
+                    }}
+                  >
                     그래프 보기
                   </button>
                 </div>

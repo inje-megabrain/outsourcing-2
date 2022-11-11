@@ -58,7 +58,7 @@ const recordByMonthDayAPI = (
   token &&
     axios
       .get(API_URL + record + '/' + userName + day, {
-        params: { time: yearMonthDay },
+        params: { time: yearMonthDay, page, size },
         headers: { ...headerConfig, Authorization: 'Bearer ' + token },
       })
       .then((response) => {

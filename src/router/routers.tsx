@@ -12,6 +12,7 @@ import {
   MemberRecord,
   DayView,
   DetailView,
+  GraphView,
 } from '../pages';
 
 const Router = [
@@ -89,6 +90,11 @@ const Router = [
     title: '훈련 상세 기록',
     url: 'user/results/detail',
     component: <DetailView />,
+  },
+  {
+    title: '그래프 기록',
+    url: 'user/results/graph',
+    component: <GraphView />,
   },
 ];
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AdminContainer } from '../../components';
 import startBtn from '../../assets/icon_viewdetail.png';
-import Badge from '../../assets/senior_badge.png';
+import Badge from '../../assets/senior_badge.svg';
 import Pagination from '../../components/Pagination';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { recordByMonthDayAPI } from '../../apis/record';
@@ -36,14 +36,14 @@ const DayView = () => {
           {data.map((item: any) => (
             <li key={item.id}>
               <div className="flex felx-row w-full h-[160px] bg-white rounded-3xl mb-7">
-                <div className="flex felx-row bg-[#FBFBFF] rounded-l-3xl h-[160px] w-[20%] p-[40px] items-center">
+                <div className="flex felx-row bg-[#FBFBFF] rounded-l-3xl h-[160px] 2xl:w-[20%] lg:w-[25%] p-[40px] items-center">
                   <button onClick={() => onDetailButtonClick(item)}>
                     <img
-                      className="inline h-16 w-16 drop-shadow-[0_11px_42px_rgba(186,205,242,1)]"
+                      className="inline drop-shadow-[0_11px_42px_rgba(186,205,242,1)]"
                       src={startBtn}
                     />
                   </button>
-                  <p className="font-medium inline-block text-left ml-9 text-xl">
+                  <p className="font-medium inline-block text-left ml-8 text-xl">
                     <b>훈련 시작 시간</b>
                     <br />
                     <br />

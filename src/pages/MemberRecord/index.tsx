@@ -12,19 +12,11 @@ import { useNavigate } from 'react-router-dom';
 const CalendarView = () => {
   const token = useRecoilValue(jwtTokenState);
   const [monthEvent, setMonthEvent] = useState([{}]);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
   const username = useRecoilValue(usernameState);
   const navigate = useNavigate();
   const handleEventClick = (arg: any) => {
     navigate(arg.event.start.toLocaleDateString('en-ca'));
   };
-
-  useEffect(() => {
-    startDate !== '' &&
-      endDate !== '' &&
-      recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
-  }, [startDate, endDate]);
 
   return (
     <AdminContainer
@@ -41,9 +33,17 @@ const CalendarView = () => {
         initialView="dayGridMonth"
         eventClick={handleEventClick}
         events={[...monthEvent]}
+        viewDidMount={(event) => {
+          event.view.currentStart;
+        }}
         datesSet={(event) => {
-          setStartDate(event.start.toLocaleDateString('en-ca'));
-          setEndDate(event.end.toLocaleDateString('en-ca'));
+          recordByMonthAPI(
+            event.start.toLocaleDateString('en-ca'),
+            event.end.toLocaleDateString('en-ca'),
+            username,
+            token,
+            setMonthEvent,
+          );
         }}
       />
     </AdminContainer>

@@ -13,6 +13,7 @@ import CompleteSignup from './Signup/CompleteSignup';
 import MemberRecord from './MemberRecord';
 import DayView from './MemberRecord/DayView';
 import DetailView from './MemberRecord/DetailView';
+import GraphView from './MemberRecord/GraphView';
 
 export {
   Login,
@@ -30,4 +31,5 @@ export {
   MemberRecord,
   DayView,
   DetailView,
+  GraphView,
 };
