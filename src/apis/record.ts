@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { API_URL } from '../constants/Constants';
 
 const record = '/record';
-const date = '/date';
+const date = '/month';
 const day = '/day';
 
 const headerConfig = {
@@ -23,7 +23,8 @@ const handleError = (error: any) => {
 };
 
 const recordByMonthAPI = (
-  yearMonth: string,
+  startDate: string,
+  endDate: string,
   userName: string,
   token: string,
   setMonthEvent: React.Dispatch<React.SetStateAction<any>>,
@@ -31,7 +32,7 @@ const recordByMonthAPI = (
   token &&
     axios
       .get(API_URL + record + '/' + userName + date, {
-        params: { yearMonth: yearMonth },
+        params: { startDate, endDate },
         headers: { ...headerConfig, Authorization: 'Bearer ' + token },
       })
       .then((response) => {
@@ -51,6 +52,8 @@ const recordByMonthDayAPI = (
   userName: string,
   token: string,
   setData: React.Dispatch<React.SetStateAction<never[]>>,
+  page: number,
+  size: number,
 ) => {
   token &&
     axios

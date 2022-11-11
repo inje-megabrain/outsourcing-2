@@ -11,8 +11,9 @@ import { useNavigate } from 'react-router-dom';
 
 const CalendarView = () => {
   const token = useRecoilValue(jwtTokenState);
-  const [yearMonth, setYearmonth] = useState('');
   const [monthEvent, setMonthEvent] = useState([{}]);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const username = useRecoilValue(usernameState);
   const navigate = useNavigate();
   const handleEventClick = (arg: any) => {
@@ -20,8 +21,10 @@ const CalendarView = () => {
   };
 
   useEffect(() => {
-    yearMonth && recordByMonthAPI(yearMonth, username, token, setMonthEvent);
-  }, [yearMonth]);
+    startDate &&
+      endDate &&
+      recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
+  }, [startDate, endDate]);
 
   return (
     <AdminContainer
@@ -39,10 +42,8 @@ const CalendarView = () => {
         eventClick={handleEventClick}
         events={[...monthEvent]}
         datesSet={(event) => {
-          const result = new Date(
-            (event.start.getTime() + event.end.getTime()) / 2,
-          );
-          setYearmonth(result.getFullYear() + '-' + (result.getMonth() + 1));
+          setStartDate(event.start.toLocaleDateString('en-ca'));
+          setEndDate(event.end.toLocaleDateString('en-ca'));
         }}
       />
     </AdminContainer>

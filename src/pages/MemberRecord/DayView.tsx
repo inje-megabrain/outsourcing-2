@@ -10,15 +10,15 @@ import { jwtTokenState, usernameState } from '../../states/atoms';
 
 const DayView = () => {
   const { date } = useParams();
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
   const token = useRecoilValue(jwtTokenState);
 
   useEffect(() => {
-    date && recordByMonthDayAPI(date, username, token, setData);
-  }, [date]);
+    date && recordByMonthDayAPI(date, username, token, setData, pageNum, 3);
+  }, [date, pageNum]);
 
   const onDetailButtonClick = (data: object) => {
     navigate('/user/results/detail', { state: data });

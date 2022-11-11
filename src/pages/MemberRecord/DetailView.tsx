@@ -35,6 +35,7 @@ const DetailView = () => {
                   </div>
                 </div>
                 <img
+                  // @ts-ignore
                   src={
                     (level === 'Master' && MasterBadge) ||
                     (level === 'Senior' && SeniorBadge) ||
