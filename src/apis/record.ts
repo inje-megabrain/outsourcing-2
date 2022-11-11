@@ -51,7 +51,12 @@ const recordByMonthDayAPI = (
   yearMonthDay: string,
   userName: string,
   token: string,
-  setData: React.Dispatch<React.SetStateAction<never[]>>,
+  setData: React.Dispatch<
+    React.SetStateAction<{
+      userRecordDtos: never[];
+      pageLimit: number;
+    }>
+  >,
   page: number,
   size: number,
 ) => {

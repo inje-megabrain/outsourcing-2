@@ -11,7 +11,7 @@ import { jwtTokenState, usernameState } from '../../states/atoms';
 const DayView = () => {
   const { date } = useParams();
   const [pageNum, setPageNum] = useState(0);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({ userRecordDtos: [], pageLimit: 9 });
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
   const token = useRecoilValue(jwtTokenState);
@@ -33,7 +33,7 @@ const DayView = () => {
       <div className="w-full">
         <p className="text-3xl font-bold text-left mb-10 w-full">기록 리스트</p>
         <ul>
-          {data.map((item: any) => (
+          {data.userRecordDtos.map((item: any) => (
             <li key={item.id}>
               <div className="flex felx-row w-full h-[160px] bg-white rounded-3xl mb-7">
                 <div className="flex felx-row bg-[#FBFBFF] rounded-l-3xl h-[160px] 2xl:w-[20%] lg:w-[25%] p-[40px] items-center">
@@ -74,7 +74,7 @@ const DayView = () => {
             </li>
           ))}
         </ul>
-        <Pagination size={9} now={pageNum} onClick={setPageNum} />
+        <Pagination size={data.pageLimit} now={pageNum} onClick={setPageNum} />
       </div>
     </AdminContainer>
   );
