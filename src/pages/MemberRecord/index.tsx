@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom';
 const CalendarView = () => {
   const token = useRecoilValue(jwtTokenState);
   const [monthEvent, setMonthEvent] = useState([{}]);
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const username = useRecoilValue(usernameState);
   const navigate = useNavigate();
   const handleEventClick = (arg: any) => {
@@ -21,8 +21,8 @@ const CalendarView = () => {
   };
 
   useEffect(() => {
-    startDate &&
-      endDate &&
+    startDate !== '' &&
+      endDate !== '' &&
       recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
   }, [startDate, endDate]);
 
