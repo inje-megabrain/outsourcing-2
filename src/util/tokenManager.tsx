@@ -2,10 +2,7 @@ import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
-const setRefreshToken = (refreshToken: string) => {
-  const today = new Date();
-  const expireDate = today.setDate(today.getDate() + 7);
-
+const setRefreshToken = (refreshToken: string, expireDate: number) => {
   return cookies.set('refresh_token', refreshToken, {
     sameSite: 'strict',
     path: '/',

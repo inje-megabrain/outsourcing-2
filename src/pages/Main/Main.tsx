@@ -11,7 +11,7 @@ const Main = () => {
   };
   return (
     <>
-      <Footer theme="white" />
+      <Footer absolute theme="white" />
       <div className="grid w-full h-full text-center items-center bg-gradient-to-t to-[#0759FF] from-[#1F1F1F] text-white text-[80px] content-center">
         <div>
           <h1 className="font-extrabold drop-shadow-[0_4px_45px_rgba(0,0,0,0.5)]">

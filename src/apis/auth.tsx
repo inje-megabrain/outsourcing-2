@@ -66,7 +66,7 @@ const loginAPI = (
     })
     .then((response) => {
       const decoded: token = jwtDecode(response.data.accessToken);
-      setRefreshToken(response.data.refreshToken);
+      setRefreshToken(response.data.refreshToken, decoded.exp);
       usernameHook(decoded.sub);
       if (decoded.auth.includes('ROLE_ADMIN')) {
         loginStateHook('admin');
@@ -130,7 +130,7 @@ const regenerateTokenAPI = async (
     })
     .then((response) => {
       const decoded: token = jwtDecode(response.data.accessToken);
-      setRefreshToken(response.data.refreshToken);
+      setRefreshToken(response.data.refreshToken, decoded.exp);
       usernameHook(decoded.sub);
       if (decoded.auth.includes('ROLE_ADMIN')) {
         loginStateHook('admin');

@@ -8,7 +8,7 @@ const jwtTokenState = atom({
 
 const loginState = atom({
   key: 'login',
-  default: 'default',
+  default: 'unknown',
 });
 
 const usernameState = atom({
