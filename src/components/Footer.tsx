@@ -3,7 +3,7 @@ interface Props {
 }
 
 const Footer: React.FC<Props> = ({ theme }) => (
-  <div className="flex fixed -z-1 w-full text-center justify-center bottom-0 pb-14">
+  <div className="flex -z-6 w-full text-center justify-center bottom-0">
     <h6
       className={`text-md ${
         (theme === 'white' && 'text-white') ||
