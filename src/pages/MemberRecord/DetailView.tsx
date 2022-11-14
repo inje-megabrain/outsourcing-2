@@ -67,7 +67,7 @@ const DetailView = () => {
             <p className="text-2xl font-bold">훈련 기록</p>
             <div className="flex flex-row w-full h-[37%] bg-white rounded-[22px]">
               <div className="bg-[#FBFBFF] rounded-l-[22px] items-center flex text-center justify-center py-7 w-1/4">
-                <p className="text-xl font-bold">도막 두깨</p>
+                <p className="text-xl font-bold">도막 두께</p>
               </div>
               <div className="flex  justify-between w-full">
                 <div className="content-start flex 2xl:space-x-28 lg:space-x-10 pl-12">
@@ -89,7 +89,7 @@ const DetailView = () => {
                   </div>
                 </div>
                 <div className="flex flex-col justify-center text-center px-8 border-l-2 self-stretch 2xl:w-[23%] lg:w-1/3">
-                  <p className="inline-block text-sm">평균 두깨 / 적정 두깨</p>
+                  <p className="inline-block text-sm">평균 두께 / 적정 두께</p>
                   <p className="inline-block text-3xl font-normal">130/160</p>
                 </div>
               </div>

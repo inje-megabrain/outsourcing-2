@@ -24,7 +24,7 @@ ChartJS.register(
 
 const GraphView = () => {
   const [select, setSelect] = useState(0);
-  const name = ['평균 두깨', '거리', '각도', '속도'];
+  const name = ['평균 두께', '거리', '각도', '속도'];
   const color = [
     { border: '#007ED1', bg: '#019CD4' },
     { border: '#E82E9A', bg: '#F671BA' },
@@ -87,7 +87,7 @@ const GraphView = () => {
           >
             <hr className="w-3 bg-gradient-to-l from-[#007ED1] to-[#019CD4] h-full rounded-l-[10px] inline-block" />
             <div className="flex w-[calc(100%-12px)] h-full justify-center items-center">
-              <p className="text-2xl font-bold">평균 두깨</p>
+              <p className="text-2xl font-bold">평균 두께</p>
             </div>
           </button>
           <button
