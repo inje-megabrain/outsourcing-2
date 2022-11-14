@@ -14,7 +14,7 @@ const FindPW = () => {
     <>
       <NavBar linktext="돌아가기" to="/login" />
       <MemberContainer>
-        <h1 className="text-3xl text-center font-bold mb-8">비밀번호 찾기</h1>
+        <h1 className="text-5xl text-center font-bold mb-8">비밀번호 찾기</h1>
         {(pwLevel === 0 && (
           <InputEmail setEmail={setEmail} setPwLevel={setPwLevel} />
         )) ||

@@ -13,7 +13,7 @@ const StartTraining = () => {
           HMD를 착용해주세요
         </p>
       </div>
-      <Footer />
+      <Footer absolute />
     </>
   );
 };

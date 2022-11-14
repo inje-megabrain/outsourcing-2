@@ -11,14 +11,18 @@ import { jwtTokenState, usernameState } from '../../states/atoms';
 const DayView = () => {
   const { date } = useParams();
   const [pageNum, setPageNum] = useState(0);
-  const [data, setData] = useState({ userRecordDtos: [], pageLimit: 9 });
+  const [data, setData] = useState({ userRecordDtos: [], pageLimit: 1 });
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
   const token = useRecoilValue(jwtTokenState);
 
+  const callAPI = async () =>
+    date &&
+    (await recordByMonthDayAPI(date, username, token, setData, pageNum, 3));
+
   useEffect(() => {
-    date && recordByMonthDayAPI(date, username, token, setData, pageNum, 3);
-  }, [date, pageNum]);
+    callAPI();
+  }, [date, pageNum, token]);
 
   const onDetailButtonClick = (data: object) => {
     navigate('/user/results/detail', { state: data });
@@ -44,8 +48,7 @@ const DayView = () => {
                     />
                   </button>
                   <p className="font-medium inline-block text-left ml-8 text-xl">
-                    <b>훈련 시작 시간</b>
-                    <br />
+                    <p>훈련 시작 시간</p>
                     <br />
                     <p className="font-normal inline-block">{item.timeId}</p>
                   </p>

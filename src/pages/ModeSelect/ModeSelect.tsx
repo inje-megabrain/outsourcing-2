@@ -43,7 +43,7 @@ const ModeSelect = () => {
           </Link>
         </div>
       </div>
-      <Footer />
+      <Footer absolute />
     </>
   );
 };

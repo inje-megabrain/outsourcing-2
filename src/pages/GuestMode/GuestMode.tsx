@@ -13,9 +13,8 @@ const GuestMode = () => {
     <>
       <NavBar linktext="돌아가기" to="/login" />
       <MemberContainer>
-        <img className="mx-auto " src={Logo} />
-        <h1 className="text-3xl text-center font-bold">게스트 모드</h1>
-        <p className="text-2xl text-center my-7">
+        <h1 className="text-5xl text-center font-bold">게스트 모드</h1>
+        <p className="text-[32px] text-center my-7">
           어떤 이름으로 체험하시겠어요?
         </p>
         <Input type="text" placeholder="이름 입력" />

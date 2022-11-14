@@ -22,7 +22,7 @@ const handleError = (error: any) => {
   }
 };
 
-const recordByMonthAPI = (
+const recordByMonthAPI = async (
   startDate: string,
   endDate: string,
   userName: string,
@@ -30,7 +30,7 @@ const recordByMonthAPI = (
   setMonthEvent: React.Dispatch<React.SetStateAction<any>>,
 ) => {
   token &&
-    axios
+    (await axios
       .get(API_URL + record + '/' + userName + date, {
         params: { startDate, endDate },
         headers: { ...headerConfig, Authorization: 'Bearer ' + token },
@@ -44,10 +44,10 @@ const recordByMonthAPI = (
       })
       .catch((error) => {
         handleError(error);
-      });
+      }));
 };
 
-const recordByMonthDayAPI = (
+const recordByMonthDayAPI = async (
   yearMonthDay: string,
   userName: string,
   token: string,
@@ -61,7 +61,7 @@ const recordByMonthDayAPI = (
   size: number,
 ) => {
   token &&
-    axios
+    (await axios
       .get(API_URL + record + '/' + userName + day, {
         params: { time: yearMonthDay, page, size },
         headers: { ...headerConfig, Authorization: 'Bearer ' + token },
@@ -71,7 +71,7 @@ const recordByMonthDayAPI = (
       })
       .catch((error) => {
         handleError(error);
-      });
+      }));
 };
 
 export { recordByMonthAPI, recordByMonthDayAPI };

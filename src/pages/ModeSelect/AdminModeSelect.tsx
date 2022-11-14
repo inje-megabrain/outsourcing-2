@@ -43,7 +43,7 @@ const AdminModeSelect = () => {
           </Link>
         </div>
       </div>
-      <Footer />
+      <Footer absolute />
     </>
   );
 };

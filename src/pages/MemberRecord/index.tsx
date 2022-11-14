@@ -12,11 +12,14 @@ import { useNavigate } from 'react-router-dom';
 const CalendarView = () => {
   const token = useRecoilValue(jwtTokenState);
   const [monthEvent, setMonthEvent] = useState([{}]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const username = useRecoilValue(usernameState);
   const navigate = useNavigate();
-  const handleEventClick = (arg: any) => {
-    navigate(arg.event.start.toLocaleDateString('en-ca'));
-  };
+
+  useEffect(() => {
+    recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
+  }, [startDate, token]);
 
   return (
     <AdminContainer
@@ -31,20 +34,21 @@ const CalendarView = () => {
         locale={'ko-kr'}
         plugins={[dayGridViewPlugin, interactionPlugin]}
         initialView="dayGridMonth"
-        eventClick={handleEventClick}
+        dateClick={(arg) => {
+          navigate(arg.dateStr);
+        }}
+        eventClick={(arg) => {
+          navigate(arg.event.startStr);
+        }}
         events={[...monthEvent]}
         viewDidMount={(event) => {
-          event.view.currentStart;
+          setStartDate(event.view.activeStart.toLocaleDateString('en-ca'));
+          setEndDate(event.view.activeEnd.toLocaleDateString('en-ca'));
         }}
         dayCellClassNames="border-white hover:border-[#005dfe] hover:border-[3px]"
-        datesSet={(event) => {
-          recordByMonthAPI(
-            event.start.toLocaleDateString('en-ca'),
-            event.end.toLocaleDateString('en-ca'),
-            username,
-            token,
-            setMonthEvent,
-          );
+        datesSet={(arg) => {
+          setStartDate(arg.start.toLocaleDateString('en-ca'));
+          setEndDate(arg.end.toLocaleDateString('en-ca'));
         }}
       />
     </AdminContainer>
