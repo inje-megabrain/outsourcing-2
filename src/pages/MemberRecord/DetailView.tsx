@@ -26,7 +26,8 @@ const DetailView = () => {
     <AdminContainer
       title="훈련 상세 기록"
       detail="해당 훈련에 대한 상세한 기록을 볼 수 있습니다."
-      backlink="/mode"
+      homelink="/mode"
+      backlink={navigate}
     >
       <div className="w-full h-full flex flex-row">
         <div className="w-2/3 h-full text-left">

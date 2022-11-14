@@ -33,7 +33,8 @@ const DayView = () => {
       title="개인 기록 조회"
       detail="선택한 날짜에 훈련한 기록을 모아볼 수 있습니다."
       className="flex items-center"
-      backlink="/mode"
+      homelink="/mode"
+      backlink={navigate}
     >
       <div className="w-full">
         <p className="text-3xl font-bold text-left mb-10 w-full">기록 리스트</p>
