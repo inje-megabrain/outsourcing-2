@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import FullCalendar from '@fullcalendar/react';
 import '@fullcalendar/react/dist/vdom';
+import FullCalendar from '@fullcalendar/react';
 import dayGridViewPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { AdminContainer } from '../../components';

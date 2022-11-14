@@ -45,7 +45,7 @@ const Login = () => {
 
   return (
     <>
-      <NavBar linktext="HOME" to="/" />
+      <NavBar main to="/" />
       <MemberContainer>
         <form onSubmit={handleSubmit(onSubmitLogin)}>
           <Input
