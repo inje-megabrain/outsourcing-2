@@ -7,9 +7,10 @@ interface Props {
   id?: string;
   error?: FieldError;
   onChange?: any;
-  className?: string;
+  className?: string | boolean;
   placeholder?: string;
   disabled?: boolean;
+  isEdited?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
@@ -23,6 +24,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       placeholder,
       error,
       disabled,
+      isEdited,
       ...rest
     },
     ref,
@@ -33,8 +35,10 @@ const Input = forwardRef<HTMLInputElement, Props>(
         id={id}
         value={value}
         onChange={onChange}
-        className={`border-solid border-2 rounded-lg border-[#D0D0D0] text-lg w-full py-4 px-4 font-medium -rounded-lg h-16 ${className} ${
-          error && 'border-red-400'
+        className={`border-solid border-2 rounded-lg outline-none border-[#D0D0D0] text-lg w-full py-4 px-4 font-medium -rounded-lg h-16  ${
+          typeof className === 'string' && className
+        } ${error && 'focus:border-red-400 border-red-400'} ${
+          isEdited && !error && 'focus:border-[#00B247]'
         }`}
         type={type}
         disabled={disabled}
