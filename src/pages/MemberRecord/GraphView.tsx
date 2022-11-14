@@ -76,6 +76,7 @@ const GraphView = () => {
     <AdminContainer
       title="그래프 기록"
       detail="훈련을 진행하는 과정에서의 거리, 각도, 속도, 두께를 그래프로 살펴볼 수 있습니다."
+      backlink="/mode"
     >
       <div className="flex flex-row mt-5">
         <div className="flex flex-col w-[15%] space-y-4">

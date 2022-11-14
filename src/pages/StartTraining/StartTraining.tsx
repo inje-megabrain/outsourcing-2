@@ -1,10 +1,17 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import IconHMD from '../../assets/icon_hmd.png';
-import { Footer, MemberContainer } from '../../components';
+import { Footer, MemberContainer, NavBar } from '../../components';
+import { usernameState } from '../../states/atoms';
 
 const StartTraining = () => {
+  const isLogin = useRecoilValue(usernameState);
   return (
     <>
+      <NavBar
+        linktext="돌아가기"
+        to={isLogin == 'unknown' ? '/login' : '/mode'}
+      />
       <div className="items-center text-center">
         <div className="grid justify-center bg-gradient-to-t w-[340px] h-[340px] from-[#015EFF] to-[#7000FF] border-8 border-white rounded-[104px] drop-shadow-[0_4px_63px_rgba(0,0,0,0.25)] items-center">
           <img className="w-[278px] h-[206px]" src={IconHMD} />

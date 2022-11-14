@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import HomeIcon from '../assets/icon_home.png';
+
 interface Props {
   title: string;
   detail: string;
@@ -14,9 +17,20 @@ const AdminContainer: React.FC<Props> = ({
   className,
 }) => (
   <div className="w-full h-full">
-    <div className="w-full h-[180px] pt-[83px] pb-[24px] px-[143px] bg-white">
-      <h1 className="text-4xl mb-3 font-semibold">{title}</h1>
-      <h3 className="text-[#AAAAAA] text-base">{detail}</h3>
+    <div className="w-full h-[180px] pt-[83px] pb-[24px] px-[143px] bg-white flex justify-between">
+      <div>
+        <h1 className="text-4xl mb-3 font-semibold">{title}</h1>
+        <h3 className="text-[#AAAAAA] text-base">{detail}</h3>
+      </div>
+      {backlink && (
+        <Link
+          to={backlink}
+          className="rounded-[5px] bg-[#222C3D] p-[10px] items-center self-center"
+          style={{ boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25' }}
+        >
+          <img src={HomeIcon} />
+        </Link>
+      )}
     </div>
     <div
       className={`w-full h-[calc(100%-180px)] px-[143px] pb-[52px] pt-[30px] bg-[background: #F5F6F9;
