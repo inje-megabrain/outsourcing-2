@@ -50,6 +50,7 @@ const Router = [
     title: 'Select Mode',
     url: 'mode',
     component: <ModeSelect />,
+    role: 'ROLE_USER',
   },
   {
     title: 'Guest Mode',
@@ -65,6 +66,7 @@ const Router = [
     title: 'Admin Select',
     url: 'admin',
     component: <AdminModeSelect />,
+    role: 'ROLE_ADMIN',
   },
   {
     title: 'Admin Results',
@@ -80,21 +82,25 @@ const Router = [
     title: '개인 기록 조회',
     url: 'user/results',
     component: <MemberRecord />,
+    role: 'ROLE_USER',
   },
   {
     title: '개인 기록 조회',
     url: 'user/results/:date',
     component: <DayView />,
+    role: 'ROLE_USER',
   },
   {
     title: '훈련 상세 기록',
     url: 'user/results/detail',
     component: <DetailView />,
+    role: 'ROLE_USER',
   },
   {
     title: '그래프 기록',
     url: 'user/results/graph',
     component: <GraphView />,
+    role: 'ROLE_USER',
   },
 ];
 

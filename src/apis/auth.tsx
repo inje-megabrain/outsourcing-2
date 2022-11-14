@@ -8,7 +8,9 @@ import { SetterOrUpdater } from 'recoil';
 import {
   getCookieToken,
   removeCookieToken,
+  removeRole,
   setRefreshToken,
+  setRole,
 } from '../util/tokenManager';
 
 const login: string = '/authenticate';
@@ -69,10 +71,12 @@ const loginAPI = (
       setRefreshToken(response.data.refreshToken, decoded.exp);
       usernameHook(decoded.sub);
       if (decoded.auth.includes('ROLE_ADMIN')) {
-        loginStateHook('admin');
+        loginStateHook('ROLE_ADMIN');
+        setRole('ROLE_ADMIN', decoded.exp);
         navigate('/admin');
       } else if (decoded.auth.includes('ROLE_USER')) {
-        loginStateHook('user');
+        loginStateHook('ROLE_USER');
+        setRole('ROLE_ADMIN', decoded.exp);
         navigate('/mode');
       }
       tokenHook(response.data.accessToken.trim());
@@ -129,21 +133,26 @@ const regenerateTokenAPI = async (
       headers: { 'Content-Type': 'text/plain' },
     })
     .then((response) => {
+      removeCookieToken();
+      removeRole();
       const decoded: token = jwtDecode(response.data.accessToken);
       setRefreshToken(response.data.refreshToken, decoded.exp);
       usernameHook(decoded.sub);
       if (decoded.auth.includes('ROLE_ADMIN')) {
-        loginStateHook('admin');
+        loginStateHook('ROLE_ADMIN');
+        setRole('ROLE_ADMIN', decoded.exp);
       } else if (decoded.auth.includes('ROLE_USER')) {
-        loginStateHook('user');
+        loginStateHook('ROLE_USER');
+        setRole('ROLE_USER', decoded.exp);
       }
       tokenHook(response.data.accessToken);
     })
     .catch((error) => {
       if (error.response) {
-        removeCookieToken;
+        removeCookieToken();
       }
       handleError(error);
+      throw new error();
     });
 };
 export { loginAPI, mailAPI, mailcheckAPI, regenerateTokenAPI };
