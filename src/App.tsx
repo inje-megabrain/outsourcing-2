@@ -34,7 +34,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div className="flex place-content-center items-center h-full w-full bg-[#F5F6F9] justify-center my-auto">
+      <div className="flex flex-col place-content-center items-center h-full w-full bg-[#F5F6F9] justify-center my-auto">
         <Routes>
           {Router.map((value) => (
             <Route path={value.url} element={value.component} key={value.url} />

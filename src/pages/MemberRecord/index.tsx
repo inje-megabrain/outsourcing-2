@@ -36,6 +36,7 @@ const CalendarView = () => {
         viewDidMount={(event) => {
           event.view.currentStart;
         }}
+        dayCellClassNames="border-white hover:border-[#005dfe] hover:border-[3px]"
         datesSet={(event) => {
           recordByMonthAPI(
             event.start.toLocaleDateString('en-ca'),

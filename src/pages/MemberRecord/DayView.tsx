@@ -35,8 +35,8 @@ const DayView = () => {
         <ul>
           {data.userRecordDtos.map((item: any) => (
             <li key={item.id}>
-              <div className="flex felx-row w-full h-[160px] bg-white rounded-3xl mb-7">
-                <div className="flex felx-row bg-[#FBFBFF] rounded-l-3xl h-[160px] 2xl:w-[20%] lg:w-[25%] p-[40px] items-center">
+              <div className="flex felx-row w-full h-[160px] bg-white rounded-3xl mb-7 hover:border-4 hover:border-[#015DFE]">
+                <div className="flex felx-row bg-[#FBFBFF] rounded-l-3xl h-full 2xl:w-[20%] lg:w-[25%] p-[40px] items-center">
                   <button onClick={() => onDetailButtonClick(item)}>
                     <img
                       className="inline drop-shadow-[0_11px_42px_rgba(186,205,242,1)]"
