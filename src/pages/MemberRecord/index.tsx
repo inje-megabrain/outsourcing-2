@@ -32,7 +32,7 @@ const CalendarView = () => {
         height={'100%'}
         viewClassNames="bg-white"
         slotLabelClassNames="text-red-800"
-        eventClassNames="bg-[#0057FF] rounded-lg text-center h-[40px] justify-center pt-2 pb-2 self-center"
+        eventClassNames="bg-[#0057FF] leading-[19px] text-[16px] font-normal rounded-lg text-center h-[40px] justify-center pt-2 pb-2 self-center tracking-[-0.055em] mx-[7px] my-[2.5px]"
         locale={'ko-kr'}
         plugins={[dayGridViewPlugin, interactionPlugin]}
         initialView="dayGridMonth"

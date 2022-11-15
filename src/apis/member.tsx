@@ -42,7 +42,7 @@ const signUpAPI = (data: object, navigate: NavigateFunction) => {
       headers: headerConfig,
     })
     .then((response) => {
-      navigate('/signup/complete', { state: response.data});
+      navigate('/signup/complete', { state: response.data });
     })
     .catch((error) => {
       handleError(error);
@@ -66,12 +66,20 @@ const findIdAPI = (
     });
 };
 
-const newPasswordAPI = (data: object, email: string, setPwLevel: React.Dispatch<React.SetStateAction<number>>) => {
+const newPasswordAPI = (
+  data: object,
+  email: string,
+  setPwLevel: React.Dispatch<React.SetStateAction<number>>,
+) => {
   axios
-    .post(API_URL + changepassword, {...data, email:email}, {
-      data: {...data, email:email},
-      headers: headerConfig,
-    })
+    .post(
+      API_URL + changepassword,
+      { ...data, email: email },
+      {
+        data: { ...data, email: email },
+        headers: headerConfig,
+      },
+    )
     .then((response) => {
       setPwLevel(3);
     })
@@ -79,6 +87,5 @@ const newPasswordAPI = (data: object, email: string, setPwLevel: React.Dispatch<
       handleError(error);
     });
 };
-
 
 export { signUpAPI, findIdAPI, newPasswordAPI };

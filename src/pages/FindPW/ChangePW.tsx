@@ -40,6 +40,9 @@ const ChangePW: React.FC<Props> = ({ email, setPwLevel }) => {
   });
   return (
     <>
+      <p className="w-[600px] text-[32px] text-center mt-[61px] mb-[93px] font-normal leading-[39px]">
+        비밀번호를 변경해주세요.
+      </p>
       <form
         onSubmit={handleSubmit((data) => {
           delete data['passwordcheck'];
@@ -48,20 +51,19 @@ const ChangePW: React.FC<Props> = ({ email, setPwLevel }) => {
       >
         <Input
           type="password"
+          className="mb-2"
           error={errors.password}
           placeholder="새로운 비밀번호 입력"
           {...register('password')}
         />
-        {<ErrorMessage>{errors.password?.message}</ErrorMessage>}
         <Input
           type="password"
           error={errors.passwordcheck}
           placeholder="비밀번호 재입력"
           {...register('passwordcheck')}
         />
-        <ErrorMessage>{errors.passwordcheck?.message}</ErrorMessage>
-        <Button className="mt-6" type="submit" disabled={isSubmitting}>
-          비밀번호 변경
+        <Button className="mt-8" type="submit" disabled={isSubmitting}>
+          비밀번호 변경 완료
         </Button>
       </form>
     </>

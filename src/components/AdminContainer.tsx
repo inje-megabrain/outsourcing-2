@@ -32,7 +32,7 @@ const AdminContainer: React.FC<Props> = ({
     <div className="w-full h-[180px] pt-[83px] pb-[24px] px-[143px] bg-white flex justify-between">
       <div>
         <h1 className="text-4xl mb-3 font-semibold">{title}</h1>
-        <h3 className="text-[#AAAAAA] text-base">{detail}</h3>
+        <h3 className="text-[#AAAAAA] text-sm font-medium">{detail}</h3>
       </div>
       {homelink && (
         <Link

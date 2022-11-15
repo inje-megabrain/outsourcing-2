@@ -7,6 +7,7 @@ interface Props {
   className?: string;
   theme?: 'white' | 'blue' | 'black';
   disabled?: boolean;
+  bold?: boolean;
   children?: JSX.Element | JSX.Element[] | string;
 }
 
@@ -17,6 +18,7 @@ const Button: React.FC<Props> = ({
   disabled,
   children,
   theme,
+  bold,
   ...rest
 }) => {
   return (
@@ -27,9 +29,11 @@ const Button: React.FC<Props> = ({
       className={`${
         ((theme === 'blue' || theme === undefined) &&
           'bg-primary-blue text-white') ||
-        (theme === 'white' && 'bg-white text-primary-blue') ||
+        (theme === 'white' && 'bg-white text-[#0154E5]') ||
         (theme === 'black' && 'bg-black text-white')
-      } -rounded-lg w-[438px] text-lg leading-6 font-medium py-4 px-4 h-16 rounded-lg ${className}`}
+      } -rounded-lg w-[438px] text-xl leading-6 ${
+        bold ? 'font-bold' : 'font-normal'
+      } py-4 px-4 h-16 rounded-lg ${className}`}
       {...rest}
     >
       {children}

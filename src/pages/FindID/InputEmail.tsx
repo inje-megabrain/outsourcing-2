@@ -36,6 +36,7 @@ const InputEmail = () => {
     <>
       {findedId === '' ? (
         <form
+          className="mt-[83px]"
           onSubmit={handleSubmit((data) => {
             findIdAPI(data, setFindedId);
           })}
@@ -43,17 +44,17 @@ const InputEmail = () => {
           <Input
             placeholder="이름 입력"
             error={errors.name}
+            className="mb-2 text-center"
             {...register('name')}
           />
-          {<ErrorMessage>{errors.name?.message}</ErrorMessage>}
           <Input
             {...register('email')}
             error={errors.email}
+            className="text-center"
             type="email"
             placeholder="이메일 입력"
           />
-          <ErrorMessage>{errors.email?.message}</ErrorMessage>
-          <Button disabled={isSubmitting} type="submit" className="mt-7">
+          <Button disabled={isSubmitting} type="submit" className="mt-[73px]">
             아이디 찾기
           </Button>
         </form>

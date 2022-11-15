@@ -9,7 +9,7 @@ const Footer: React.FC<Props> = ({ theme, absolute }) => (
       className={`text-md ${
         (theme === 'white' && 'text-white') ||
         ((theme === 'black' || theme === undefined) && 'text-black')
-      } ${absolute && 'absolute bottom-10'}`}
+      } ${absolute && 'absolute bottom-10'} font-normal`}
     >
       Copyright 2021. SimG. Co., Ltd. all rights reserved.
     </h6>

@@ -35,7 +35,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         id={id}
         value={value}
         onChange={onChange}
-        className={`border-solid border-2 rounded-lg outline-none border-[#D0D0D0] text-lg w-full py-4 px-4 font-medium -rounded-lg h-16  ${
+        className={`border-solid border-2 rounded-lg outline-none border-[#D0D0D0] text-xl w-full py-5 px-5 font-normal -rounded-lg h-16  ${
           typeof className === 'string' && className
         } ${error && 'focus:border-red-400 border-red-400'} ${
           isEdited && !error && 'focus:border-[#00B247]'

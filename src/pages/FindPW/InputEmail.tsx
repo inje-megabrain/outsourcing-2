@@ -38,41 +38,43 @@ const InputEmail: React.FC<Props> = ({ setEmail, setPwLevel }) => {
   }, [isSubmitting]);
 
   return (
-    <form
-      onSubmit={handleSubmit(async (data) => {
-        await mailAPI(data, setPwLevel, setEmail);
-      })}
-    >
-      <p className="text-2xl text-center my-7">
+    <>
+      <p className="w-[600px] text-[32px] text-center mt-[61px] mb-[48px] font-normal leading-[39px]">
         가입하신 이메일을 입력해주세요
         <br />
         이메일 인증을 통해 비밀번호를 변경합니다.
       </p>
-      <Input
-        {...register('email')}
-        error={errors.email}
-        type="email"
-        disabled={isSubmitting}
-        placeholder="이메일 입력"
-      />
-      <ErrorMessage>{errors.email?.message}</ErrorMessage>
-      <Button
-        disabled={isSubmitting}
-        type="submit"
-        className="mt-7 flex items-center justify-center space-x-2"
+      <form
+        onSubmit={handleSubmit(async (data) => {
+          await mailAPI(data, setPwLevel, setEmail);
+        })}
       >
-        <>
-          {isSubmitting ? (
-            <>
-              <Loading />
-              전송 중...
-            </>
-          ) : (
-            '이메일 인증'
-          )}
-        </>
-      </Button>
-    </form>
+        <Input
+          {...register('email')}
+          error={errors.email}
+          type="email"
+          disabled={isSubmitting}
+          placeholder="이메일 입력"
+        />
+        <ErrorMessage>{errors.email?.message}</ErrorMessage>
+        <Button
+          disabled={isSubmitting}
+          type="submit"
+          className="mt-7 flex items-center justify-center space-x-2"
+        >
+          <>
+            {isSubmitting ? (
+              <>
+                <Loading />
+                전송 중...
+              </>
+            ) : (
+              '이메일 인증'
+            )}
+          </>
+        </Button>
+      </form>
+    </>
   );
 };
 

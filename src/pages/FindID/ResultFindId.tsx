@@ -8,12 +8,14 @@ interface Props {
 const ResultFindId: React.FC<Props> = ({ username }) => {
   return (
     <>
-      <p className="text-2xl text-center my-7">
+      <p className="text-[32px] font-normal text-center my-[61px]">
         입력한 정보와 일치하는 아이디를
         <br />
         확인해주세요
       </p>
-      <h1 className="text-4xl text-center font-bold my-10">{username}</h1>
+      <h1 className="text-[32px] text-center font-bold mb-[87px]">
+        {username}
+      </h1>
       <div className="grid grid-cols-2 gap-3 place-content-between mt-5">
         <Button className="w-[217px]">비밀번호 찾기</Button>
         <Button className="w-[217px]">로그인</Button>
