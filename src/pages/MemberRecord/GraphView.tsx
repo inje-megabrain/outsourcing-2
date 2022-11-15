@@ -32,15 +32,18 @@ const color = [
 const GraphView = () => {
   const { state } = useLocation();
   const [select, setSelect] = useState(0);
-  const [thickness, setThickness] = useState(
+  const arrayData = [
     state.thicknessList.slice(1, -1).split(',').map(Number),
-  );
+    state.distanceList.slice(1, -1).split(',').map(Number),
+    state.angleList.slice(1, -1).split(',').map(Number),
+    state.speedList.slice(1, -1).split(',').map(Number),
+  ];
   const data = {
-    labels: thickness.map((e: any, i: any) => String(i)),
+    labels: arrayData[select].map((e: any, i: any) => String(i)),
     datasets: [
       {
         label: name[select],
-        data: thickness,
+        data: arrayData[select],
         borderColor: color[select].border,
         backgroundColor: color[select].bg,
         borderWidth: 6,
@@ -125,18 +128,32 @@ const GraphView = () => {
           <Line options={options} data={data} height="100%" />
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">평균</p>
-            <p className="text-2xl font-bold">{state.thickness}</p>
+            <p className="text-2xl font-bold">
+              {arrayData[select]
+                .reduce(
+                  (acc: number, v: number, i: number, a: any) =>
+                    acc + v / a.length,
+                  0,
+                )
+                .toFixed(7)}
+            </p>
           </div>
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">최대</p>
             <p className="text-2xl font-bold">
-              {thickness.reduce((a: any, b: any) => Math.max(a, b), -Infinity)}
+              {arrayData[select].reduce(
+                (a: any, b: any) => Math.max(a, b),
+                -Infinity,
+              )}
             </p>
           </div>
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">최소</p>
             <p className="text-2xl font-bold">
-              {thickness.reduce((a: any, b: any) => Math.min(a, b), Infinity)}
+              {arrayData[select].reduce(
+                (a: any, b: any) => Math.min(a, b),
+                Infinity,
+              )}
             </p>
           </div>
         </div>
