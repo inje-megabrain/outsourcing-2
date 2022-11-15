@@ -69,30 +69,40 @@ const DetailView = () => {
             <p className="text-2xl font-bold">훈련 기록</p>
             <div className="flex flex-row w-full h-[37%] bg-white rounded-[22px]">
               <div className="bg-[#FBFBFF] rounded-l-[22px] items-center flex text-center justify-center py-7 w-1/4">
-                <p className="text-xl font-bold">도막 두께</p>
+                <p className="text-xl font-bold">도막 두께(μm)</p>
               </div>
               <div className="flex  justify-between w-full">
-                <div className="content-start flex 2xl:space-x-28 lg:space-x-10 pl-12">
+                <div className="content-start flex 2xl:space-x-24 lg:space-x-10 pl-12">
                   <div className="flex flex-col justify-center self-center text-center">
                     <p className="inline-block">평균</p>
-                    <p className="inline-block text-3xl font-normal">130</p>
+                    <p className="inline-block text-3xl font-normal">
+                      {state.thickness.toFixed(2)}
+                    </p>
                   </div>
                   <div className="flex flex-col justify-center self-center text-center">
-                    <p className="inline-block">평균</p>
-                    <p className="inline-block text-3xl font-normal">130</p>
+                    <p className="inline-block">최대</p>
+                    <p className="inline-block text-3xl font-normal">
+                      {state.thicknessMax.toFixed(2)}
+                    </p>
                   </div>
                   <div className="flex flex-col justify-center self-center text-center">
-                    <p className="inline-block">평균</p>
-                    <p className="inline-block text-3xl font-normal">130</p>
+                    <p className="inline-block">최소</p>
+                    <p className="inline-block text-3xl font-normal">
+                      {state.thicknessMin.toFixed(2)}
+                    </p>
                   </div>
                   <div className="flex flex-col justify-center self-center text-center">
-                    <p className="inline-block">평균</p>
-                    <p className="inline-block text-3xl font-normal">130</p>
+                    <p className="inline-block">분산</p>
+                    <p className="inline-block text-3xl font-normal">
+                      {state.thicknessLess.toFixed(2)}
+                    </p>
                   </div>
                 </div>
                 <div className="flex flex-col justify-center text-center px-8 border-l-2 self-stretch 2xl:w-[23%] lg:w-1/3">
                   <p className="inline-block text-sm">평균 두께 / 적정 두께</p>
-                  <p className="inline-block text-3xl font-normal">130/160</p>
+                  <p className="inline-block text-3xl font-normal">
+                    {state.thickness.toFixed(2)}/160
+                  </p>
                 </div>
               </div>
             </div>
@@ -101,25 +111,31 @@ const DetailView = () => {
                 <p className="text-xl font-bold">훈련 기록 요약</p>
               </div>
               <div className="flex  justify-between w-full">
-                <div className="content-start flex 2xl:space-x-28 lg:space-x-12 pl-12">
+                <div className="content-start flex 2xl:space-x-20 lg:space-x-12 pl-12">
                   <div className="flex flex-col justify-center self-center text-center">
                     <p className="inline-block">저도막률</p>
-                    <p className="inline-block text-3xl font-normal">7.5%</p>
+                    <p className="inline-block text-3xl font-normal">
+                      {state.thicknessLess.toFixed(1)}%
+                    </p>
                   </div>
                   <div className="flex flex-col justify-center self-center text-center">
                     <p className="inline-block">페인트 사용량</p>
-                    <p className="inline-block text-3xl font-normal">13.5L</p>
+                    <p className="inline-block text-3xl font-normal">
+                      {state.usagePaint}L
+                    </p>
                   </div>
                   <div className="flex flex-col justify-center self-center text-center">
                     <p className="inline-block">소요시간</p>
-                    <p className="inline-block text-3xl font-normal">01:29</p>
+                    <p className="inline-block text-3xl font-normal">
+                      {state.playTime}
+                    </p>
                   </div>
                 </div>
                 <div className="flex flex-col justify-center text-center px-8 border-l-2 self-stretch 2xl:w-[23%] lg:w-1/3">
                   <button
                     className="bg-[#015EFF] border-[#015EFF] rounded-xl py-4 px-5 text-white"
                     onClick={() => {
-                      navigate('/user/results/graph');
+                      navigate('/user/results/graph', { state: state });
                     }}
                   >
                     그래프 보기
@@ -145,17 +161,23 @@ const DetailView = () => {
               <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col">
                 <img src={LeftIcon1} />
                 <p className="text-2xl mt-3 mb-1">부재</p>
-                <p className="text-3xl font-bold text-[#005DFE]">둥근</p>
+                <p className="text-3xl font-bold text-[#005DFE]">
+                  {state.plateType === 'CurveSurface' && '둥근'}
+                </p>
               </div>
               <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col">
                 <img src={LeftIcon2} />
                 <p className="text-2xl mt-3 mb-1">도료</p>
-                <p className="text-3xl font-bold text-[#005DFE]">72%</p>
+                <p className="text-3xl font-bold text-[#005DFE]">
+                  {state.soildcontent}%
+                </p>
               </div>
               <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col">
                 <img src={LeftIcon3} />
                 <p className="text-2xl mt-3 mb-1">팁사이즈</p>
-                <p className="text-3xl font-bold text-[#005DFE]">521</p>
+                <p className="text-3xl font-bold text-[#005DFE]">
+                  {state.tipSize}
+                </p>
               </div>
             </div>
           </div>

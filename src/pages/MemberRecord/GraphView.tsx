@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 ChartJS.register(
   CategoryScale,
@@ -22,31 +22,25 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
-
+const name = ['평균 두께', '거리', '각도', '속도'];
+const color = [
+  { border: '#007ED1', bg: '#019CD4' },
+  { border: '#E82E9A', bg: '#F671BA' },
+  { border: '#F38922', bg: '#F2B322' },
+  { border: '#5B43B2', bg: '#9361FF' },
+];
 const GraphView = () => {
+  const { state } = useLocation();
   const [select, setSelect] = useState(0);
-  const name = ['평균 두께', '거리', '각도', '속도'];
-  const color = [
-    { border: '#007ED1', bg: '#019CD4' },
-    { border: '#E82E9A', bg: '#F671BA' },
-    { border: '#F38922', bg: '#F2B322' },
-    { border: '#5B43B2', bg: '#9361FF' },
-  ];
-  const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-  ];
+  const [thickness, setThickness] = useState(
+    state.thicknessList.slice(1, -1).split(',').map(Number),
+  );
   const data = {
-    labels,
+    labels: thickness.map((e: any, i: any) => String(i)),
     datasets: [
       {
         label: name[select],
-        data: labels.map((e, i) => 30 + select * i * 5),
+        data: thickness,
         borderColor: color[select].border,
         backgroundColor: color[select].bg,
         borderWidth: 6,
@@ -68,10 +62,10 @@ const GraphView = () => {
       },
       title: {
         display: false,
-        text: 'Chart.js Line Chart',
       },
     },
   };
+
   const navigate = useNavigate();
 
   return (
@@ -131,15 +125,19 @@ const GraphView = () => {
           <Line options={options} data={data} height="100%" />
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">평균</p>
-            <p className="text-2xl font-bold">150cm/s</p>
+            <p className="text-2xl font-bold">{state.thickness}</p>
           </div>
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">최대</p>
-            <p className="text-2xl font-bold">200cm/s</p>
+            <p className="text-2xl font-bold">
+              {thickness.reduce((a: any, b: any) => Math.max(a, b), -Infinity)}
+            </p>
           </div>
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">최소</p>
-            <p className="text-2xl font-bold">40cm/s</p>
+            <p className="text-2xl font-bold">
+              {thickness.reduce((a: any, b: any) => Math.min(a, b), Infinity)}
+            </p>
           </div>
         </div>
       </div>
