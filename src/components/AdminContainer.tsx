@@ -24,7 +24,7 @@ const AdminContainer: React.FC<Props> = ({
         onClick={() => {
           backlink(-1);
         }}
-        className="absolute left-[58px] top-[83px]"
+        className="fixed left-[58px] top-[83px]"
       >
         <img src={BackIcon} />
       </button>

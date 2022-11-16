@@ -93,7 +93,7 @@ const memberAllAPI = async (
   setData: React.Dispatch<React.SetStateAction<[] | undefined>>,
 ) => {
   await axios
-    .get(API_URL + memberurl + getall, {
+    .get(API_URL + getall, {
       headers: { ...headerConfig, Authorization: 'Bearer ' + token },
     })
     .then((response) => {

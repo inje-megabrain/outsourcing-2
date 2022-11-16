@@ -39,7 +39,10 @@ const AllResults = () => {
                   <td className="h-[64px] rounded-tr-3xl">상세정보</td>
                 </tr>
                 {data.map((value: any) => (
-                  <tr className="h-[120px] bg-white border-spacing-0 border-separate outline-1 outline-[#D2D2D2] outline align-middle">
+                  <tr
+                    key={value.id}
+                    className="h-[120px] bg-white border-spacing-0 border-separate outline-1 outline-[#D2D2D2] outline align-middle"
+                  >
                     <td>
                       {value.dayId}
                       <br />
