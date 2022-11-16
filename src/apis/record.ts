@@ -5,6 +5,7 @@ import { API_URL } from '../constants/Constants';
 const record = '/record';
 const date = '/month';
 const day = '/day';
+const img = '/image';
 
 const headerConfig = {
   'Content-Type': 'application/json',
@@ -74,4 +75,23 @@ const recordByMonthDayAPI = async (
       }));
 };
 
-export { recordByMonthAPI, recordByMonthDayAPI };
+const recordImgById = async (
+  userName: string,
+  record_id: number,
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<string | undefined>>,
+) => {
+  await axios
+    .get(API_URL + record + img + '/' + userName, {
+      params: { record_id },
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+export { recordByMonthAPI, recordByMonthDayAPI, recordImgById };

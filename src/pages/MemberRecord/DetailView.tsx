@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AdminContainer } from '../../components';
 import MasterBadge from '../../assets/master_badge.svg';
@@ -9,10 +9,16 @@ import PlayIcon from '../../assets/icon_viewdetail.png';
 import LeftIcon1 from '../../assets/lefticon_1.png';
 import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
+import { recordImgById } from '../../apis/record';
+import { useRecoilValue } from 'recoil';
+import { jwtTokenState, usernameState } from '../../states/atoms';
 
 const DetailView = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const username = useRecoilValue(usernameState);
+  const token = useRecoilValue(jwtTokenState);
+  const [img, setImg] = useState<string>();
 
   const level =
     (Number(state.score) <= 30 && 'Junior') ||
@@ -20,7 +26,10 @@ const DetailView = () => {
     (Number(state.score) <= 100 && 'Master');
 
   useEffect(() => {
-    state && console.log(state);
+    if (state) {
+      console.log(state);
+      recordImgById(username, state.id, token, setImg);
+    }
   }, [state]);
   return (
     <AdminContainer
@@ -62,7 +71,14 @@ const DetailView = () => {
                   background:
                     'linear-gradient(180deg, #FF0000 0%, #FFC700 65.62%, #0094FF 99.99%, rgba(255, 255, 255, 0) 100%)',
                 }}
-              ></div>
+              >
+                {img && (
+                  <img
+                    className="h-full w-full rounded-3xl"
+                    src={`data:image/jpeg;base64,${img}`}
+                  />
+                )}
+              </div>
             </div>
           </div>
           <div className="flex flex-col w-full h-[calc(40%-20px)] 2xl:mt-10 lg:mt-6 space-y-4">
