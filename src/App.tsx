@@ -1,34 +1,75 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React, {
+  Component,
+  ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
+import {
+  BrowserRouter,
+  Route,
+  Link,
+  Routes,
+  useNavigate,
+  Navigate,
+} from 'react-router-dom';
+import Router from './router/routers';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+  RecoilRoot,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from 'recoil';
+import { jwtTokenState, loginState, usernameState } from './states/atoms';
+import { regenerateTokenAPI } from './apis/auth';
+import { getCookieToken, getRole } from './util/tokenManager';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const tokenState = useRecoilValue(jwtTokenState);
+  const setUsername = useSetRecoilState(usernameState);
+  const [role, setRole] = useRecoilState(loginState);
+  const setToken = useSetRecoilState(jwtTokenState);
+
+  useEffect(() => {
+    const callAPI = async () => {
+      try {
+        await regenerateTokenAPI(setUsername, setRole, setToken);
+      } catch {
+      } finally {
+        await setLoading(false);
+      }
+    };
+    getCookieToken() != '' &&
+      (tokenState === '' || tokenState === undefined) &&
+      loading &&
+      callAPI();
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      <div className="flex flex-col place-content-center items-center h-full w-full bg-[#F5F6F9] justify-center my-auto">
+        <Routes>
+          {Router.map((value) => (
+            <Route
+              path={value.url}
+              element={
+                value.role && !loading && value.role !== role ? (
+                  <Navigate to="/login" />
+                ) : (
+                  value.component
+                )
+              }
+              key={value.url}
+            />
+          ))}
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+      <ToastContainer />
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;

@@ -1,0 +1,115 @@
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { API_URL } from '../constants/Constants';
+
+const record = '/record';
+const date = '/month';
+const day = '/day';
+const img = '/image';
+const allrecord = '/all';
+
+const headerConfig = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  accept: '*/*',
+};
+
+const handleError = (error: any) => {
+  if (error.response) {
+    toast.error(error.response.data);
+  } else if (error.request) {
+    toast.error(error.request);
+  } else {
+    toast.error(error.message);
+  }
+};
+
+const recordByMonthAPI = async (
+  startDate: string,
+  endDate: string,
+  userName: string,
+  token: string,
+  setMonthEvent: React.Dispatch<React.SetStateAction<any>>,
+) => {
+  token &&
+    (await axios
+      .get(API_URL + record + '/' + userName + date, {
+        params: { startDate, endDate },
+        headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+      })
+      .then((response) => {
+        const dataForEvent: any = [];
+        response.data.map((data: any) =>
+          dataForEvent.push({ date: data.date, title: data.time }),
+        );
+        setMonthEvent(dataForEvent);
+      })
+      .catch((error) => {
+        handleError(error);
+      }));
+};
+
+const recordByMonthDayAPI = async (
+  yearMonthDay: string,
+  userName: string,
+  token: string,
+  setData: React.Dispatch<
+    React.SetStateAction<{
+      userRecordDtos: never[];
+      pageLimit: number;
+    }>
+  >,
+  page: number,
+  size: number,
+) => {
+  token &&
+    (await axios
+      .get(API_URL + record + '/' + userName + day, {
+        params: { time: yearMonthDay, page, size },
+        headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        handleError(error);
+      }));
+};
+
+const recordImgById = async (
+  userName: string,
+  record_id: number,
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<string | undefined>>,
+) => {
+  await axios
+    .get(API_URL + record + img + '/' + userName, {
+      params: { record_id },
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+const recordAllAPI = async (
+  nowPage: number,
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+) => {
+  await axios
+    .get(API_URL + record + allrecord, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+export { recordByMonthAPI, recordByMonthDayAPI, recordImgById, recordAllAPI };

@@ -1,7 +1,5 @@
-import React from "react";
+import React from 'react';
 
-const Constants = () => {
+const API_URL = 'http://203.241.228.50:18080/api';
 
-}
-
-export default Constants;
+export { API_URL };
