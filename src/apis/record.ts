@@ -6,6 +6,7 @@ const record = '/record';
 const date = '/month';
 const day = '/day';
 const img = '/image';
+const allrecord = '/all';
 
 const headerConfig = {
   'Content-Type': 'application/json',
@@ -94,4 +95,21 @@ const recordImgById = async (
     });
 };
 
-export { recordByMonthAPI, recordByMonthDayAPI, recordImgById };
+const recordAllAPI = async (
+  nowPage: number,
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+) => {
+  await axios
+    .get(API_URL + record + allrecord, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+export { recordByMonthAPI, recordByMonthDayAPI, recordImgById, recordAllAPI };

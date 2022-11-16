@@ -13,6 +13,8 @@ import {
   DayView,
   DetailView,
   GraphView,
+  AllResults,
+  AllMembers,
 } from '../pages';
 
 const Router = [
@@ -71,12 +73,14 @@ const Router = [
   {
     title: 'Admin Results',
     url: 'admin/results',
-    component: <></>,
+    component: <AllResults />,
+    role: 'ROLE_ADMIN',
   },
   {
     title: 'Admin Players',
     url: 'admin/players',
-    component: <></>,
+    component: <AllMembers />,
+    role: 'ROLE_ADMIN',
   },
   {
     title: '개인 기록 조회',

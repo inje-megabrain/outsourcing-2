@@ -14,6 +14,8 @@ import MemberRecord from './MemberRecord';
 import DayView from './MemberRecord/DayView';
 import DetailView from './MemberRecord/DetailView';
 import GraphView from './MemberRecord/GraphView';
+import AllResults from './Admin/AllResults';
+import AllMembers from './Admin/AllMembers';
 
 export {
   Login,
@@ -32,4 +34,6 @@ export {
   DayView,
   DetailView,
   GraphView,
+  AllResults,
+  AllMembers,
 };

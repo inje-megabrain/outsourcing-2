@@ -88,4 +88,20 @@ const newPasswordAPI = (
     });
 };
 
-export { signUpAPI, findIdAPI, newPasswordAPI };
+const memberAllAPI = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<[] | undefined>>,
+) => {
+  await axios
+    .get(API_URL + memberurl + getall, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+export { signUpAPI, findIdAPI, newPasswordAPI, memberAllAPI };
