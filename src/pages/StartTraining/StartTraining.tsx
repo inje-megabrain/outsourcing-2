@@ -5,8 +5,8 @@ import { Footer, MemberContainer, NavBar } from '../../components';
 import { usernameState } from '../../states/atoms';
 
 const StartTraining = () => {
-  const isLogin = u;
-  seRecoilValue(usernameState);
+  const isLogin = useRecoilValue(usernameState);
+
   useEffect(() => {
     let userId: Number = 0;
     isLogin == 'unknown' ? console.log('guest app launch') : (userId = 1);
