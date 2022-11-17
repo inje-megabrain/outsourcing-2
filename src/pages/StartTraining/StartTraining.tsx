@@ -6,11 +6,14 @@ import { usernameState } from '../../states/atoms';
 
 const StartTraining = () => {
   const isLogin = useRecoilValue(usernameState);
+  const username = useRecoilValue(usernameState);
 
   useEffect(() => {
-    let userId: Number = 0;
-    isLogin == 'unknown' ? console.log('guest app launch') : (userId = 1);
-    location.href = 'sprayunity://' + userId + '/';
+    let userId: String = '';
+    isLogin == 'unknown' ? (userId = '-1') : (userId = username);
+    const url = 'sprayunity://' + userId + '/';
+    console.log(url);
+    location.href = url;
   }, []);
   return (
     <>
