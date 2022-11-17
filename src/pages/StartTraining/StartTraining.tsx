@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import IconHMD from '../../assets/icon_hmd.png';
 import { Footer, MemberContainer, NavBar } from '../../components';
 import { usernameState } from '../../states/atoms';
 
 const StartTraining = () => {
-  const isLogin = useRecoilValue(usernameState);
+  const isLogin = u;
+  seRecoilValue(usernameState);
+  useEffect(() => {
+    let userId: Number = 0;
+    isLogin == 'unknown' ? console.log('guest app launch') : (userId = 1);
+    location.href = 'sprayunity://' + userId + '/';
+  }, []);
   return (
     <>
       <NavBar
