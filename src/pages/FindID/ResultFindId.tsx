@@ -10,7 +10,7 @@ const ResultFindId: React.FC<Props> = ({ username }) => {
   const navigate = useNavigate();
   return (
     <>
-      <p className="text-[32px] font-normal text-center my-[61px]">
+      <p className="text-[32px] font-normal text-center my-[61px] w-max">
         입력한 정보와 일치하는 아이디를
         <br />
         확인해주세요
