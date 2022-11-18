@@ -47,7 +47,7 @@ const DayView = () => {
             <p className="text-3xl font-bold text-left mb-10 w-full">
               기록 리스트
             </p>
-            <ul>
+            <ul className="h-[536px] mb-6">
               {data.userRecordDtos.map((item: any) => (
                 <li key={item.id}>
                   <div className="flex felx-row w-full h-[160px] bg-white rounded-3xl mb-7 hover:border-4 hover:border-[#015DFE]">
@@ -59,7 +59,7 @@ const DayView = () => {
                         />
                       </button>
                       <p className="font-medium inline-block text-left ml-8 text-xl">
-                        <p>훈련 시작 시간</p>
+                        <p className="w-max">훈련 시작 시간</p>
                         <br />
                         <p className="font-normal inline-block">
                           {item.timeId}
@@ -95,6 +95,7 @@ const DayView = () => {
               size={data.pageLimit}
               now={pageNum}
               onClick={setPageNum}
+              className=""
             />
           </>
         ) : (
