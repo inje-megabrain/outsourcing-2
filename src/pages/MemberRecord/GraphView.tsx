@@ -147,7 +147,7 @@ const GraphView = () => {
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">평균</p>
             <p className="text-2xl font-bold">
-              {average % 1 === 0 ? average : average.toFixed(7)}
+              {average % 1 === 0 ? average : average.toFixed(2)}
               {formatter(select)}
             </p>
           </div>
