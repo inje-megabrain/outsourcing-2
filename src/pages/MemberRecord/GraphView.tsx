@@ -77,8 +77,8 @@ const GraphView = () => {
       detail="훈련을 진행하는 과정에서의 거리, 각도, 속도, 두께를 그래프로 살펴볼 수 있습니다."
       backlink={navigate}
     >
-      <div className="flex flex-row mt-5">
-        <div className="flex flex-col w-[15%] space-y-4">
+      <div className="flex flex-row mt-4">
+        <div className="flex flex-col w-[15%] space-y-3">
           <button
             onClick={() => {
               setSelect(0);
@@ -138,7 +138,7 @@ const GraphView = () => {
                 .toFixed(7)}
             </p>
           </div>
-          <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
+          <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-6">
             <p className="text-2xl font-bold">최대</p>
             <p className="text-2xl font-bold">
               {arrayData[select].reduce(

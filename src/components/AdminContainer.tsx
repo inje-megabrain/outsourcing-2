@@ -45,7 +45,7 @@ const AdminContainer: React.FC<Props> = ({
       )}
     </div>
     <div
-      className={`w-full h-[calc(100%-180px)] px-[143px] pb-[52px] pt-[30px] bg-[background: #F5F6F9;
+      className={`w-full h-[calc(100%-190px)] px-[143px] pb-[52px] pt-[30px] bg-[background: #F5F6F9;
 ] justify-center text-center ${className}`}
     >
       {children}
