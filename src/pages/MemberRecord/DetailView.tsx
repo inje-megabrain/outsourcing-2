@@ -43,7 +43,7 @@ const DetailView = () => {
           <div className="w-full flex flex-row h-3/5 space-x-8">
             <div className="w-1/3">
               <p className="text-2xl font-bold mb-5">도장레벨</p>
-              <div className="w-full h-[calc(100%-52px)] bg-[#00338A] rounded-3xl p-7 flex flex-col justify-between">
+              <div className="w-full h-[calc(100%-52px)] bg-[#00338A] rounded-3xl p-10 flex flex-col justify-between">
                 <div className="flex flex-row justify-between items-center">
                   <p className="text-[56px] font-bold text-white">
                     {state.score}
@@ -174,21 +174,21 @@ const DetailView = () => {
           <div className="h-2/5">
             <p className="text-2xl font-bold mb-5">훈련 조건 선택</p>
             <div className="flex flex-row place-content-between h-[calc(100%-70px)]">
-              <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col">
+              <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
                 <img src={LeftIcon1} />
                 <p className="text-2xl mt-3 mb-1">부재</p>
-                <p className="text-3xl font-bold text-[#005DFE]">
+                <p className="text-3xl font-bold text-[#005DFE] mb-0">
                   {state.plateType === 'CurveSurface' && '둥근'}
                 </p>
               </div>
-              <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col">
+              <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
                 <img src={LeftIcon2} />
                 <p className="text-2xl mt-3 mb-1">도료</p>
                 <p className="text-3xl font-bold text-[#005DFE]">
                   {state.soildcontent}%
                 </p>
               </div>
-              <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col">
+              <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
                 <img src={LeftIcon3} />
                 <p className="text-2xl mt-3 mb-1">팁사이즈</p>
                 <p className="text-3xl font-bold text-[#005DFE]">
