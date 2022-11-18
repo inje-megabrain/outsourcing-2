@@ -22,6 +22,7 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
+
 const name = ['평균 두께', '거리', '각도', '속도'];
 const color = [
   { border: '#007ED1', bg: '#019CD4' },
@@ -32,12 +33,22 @@ const color = [
 const GraphView = () => {
   const { state } = useLocation();
   const [select, setSelect] = useState(0);
+  const [average, setAverage] = useState<number>(0);
   const arrayData = [
     state.thicknessList.slice(1, -1).split(',').map(Number),
     state.distanceList.slice(1, -1).split(',').map(Number),
     state.angleList.slice(1, -1).split(',').map(Number),
     state.speedList.slice(1, -1).split(',').map(Number),
   ];
+  useEffect(() => {
+    setAverage(
+      arrayData[select].reduce(
+        (acc: number, v: number, i: number, a: any) => acc + v / a.length,
+        0,
+      ),
+    );
+    console.log(average);
+  }, [select]);
   const data = {
     labels: arrayData[select].map((e: any, i: any) => String(i)),
     datasets: [
@@ -70,6 +81,13 @@ const GraphView = () => {
   };
 
   const navigate = useNavigate();
+
+  const formatter = (select: number) => {
+    if (select === 0) return '㎛';
+    else if (select === 1) return 'cm';
+    else if (select === 2) return 'º';
+    else if (select === 3) return 'cm/s';
+  };
 
   return (
     <AdminContainer
@@ -129,13 +147,8 @@ const GraphView = () => {
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">평균</p>
             <p className="text-2xl font-bold">
-              {arrayData[select]
-                .reduce(
-                  (acc: number, v: number, i: number, a: any) =>
-                    acc + v / a.length,
-                  0,
-                )
-                .toFixed(7)}
+              {average % 1 === 0 ? average : average.toFixed(7)}
+              {formatter(select)}
             </p>
           </div>
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-6">
@@ -144,7 +157,7 @@ const GraphView = () => {
               {arrayData[select].reduce(
                 (a: any, b: any) => Math.max(a, b),
                 -Infinity,
-              )}
+              ) + formatter(select)}
             </p>
           </div>
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
@@ -153,7 +166,7 @@ const GraphView = () => {
               {arrayData[select].reduce(
                 (a: any, b: any) => Math.min(a, b),
                 Infinity,
-              )}
+              ) + formatter(select)}
             </p>
           </div>
         </div>
