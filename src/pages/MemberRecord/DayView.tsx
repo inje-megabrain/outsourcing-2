@@ -6,20 +6,25 @@ import Pagination from '../../components/Pagination';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { recordByMonthDayAPI } from '../../apis/record';
 import { useRecoilValue } from 'recoil';
-import { jwtTokenState, usernameState } from '../../states/atoms';
+import {
+  jwtTokenState,
+  tokenLoadingState,
+  usernameState,
+} from '../../states/atoms';
 import NoRecord from './NoRecord';
 
 const DayView = () => {
   const { date } = useParams();
   const [pageNum, setPageNum] = useState(0);
   const [loading, setLoading] = useState(true);
+  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [data, setData] = useState({ userRecordDtos: [], pageLimit: 1 });
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
   const token = useRecoilValue(jwtTokenState);
 
   const callAPI = async () => {
-    if (date) {
+    if (date && tokenLoading) {
       await recordByMonthDayAPI(date, username, token, setData, pageNum, 3);
       await setLoading(false);
     }
@@ -27,7 +32,7 @@ const DayView = () => {
 
   useEffect(() => {
     callAPI();
-  }, [date, pageNum, token]);
+  }, [date, pageNum, token, tokenLoading]);
 
   const onDetailButtonClick = (data: any) => {
     navigate('/user/results/detail/' + data.id, { state: false });

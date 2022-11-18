@@ -12,6 +12,8 @@ import {
 import { Line } from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { tokenLoadingState } from '../../states/atoms';
 
 ChartJS.register(
   CategoryScale,
@@ -32,6 +34,7 @@ const color = [
 ];
 const GraphView = () => {
   const { state } = useLocation();
+  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [select, setSelect] = useState(0);
   const [average, setAverage] = useState<number>(0);
   const arrayData = [
@@ -48,7 +51,7 @@ const GraphView = () => {
       ),
     );
     console.log(average);
-  }, [select]);
+  }, [select, tokenLoading]);
   const data = {
     labels: arrayData[select].map((e: any, i: any) => String(i)),
     datasets: [

@@ -11,11 +11,16 @@ import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
 import { recordById, recordByIdAdmin, recordImgById } from '../../apis/record';
 import { useRecoilValue } from 'recoil';
-import { jwtTokenState, usernameState } from '../../states/atoms';
+import {
+  jwtTokenState,
+  tokenLoadingState,
+  usernameState,
+} from '../../states/atoms';
 
 const DetailView = () => {
   const { recordid } = useParams();
   const { state } = useLocation();
+  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [data, setData] = useState<any>();
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
@@ -29,13 +34,15 @@ const DetailView = () => {
 
   console.log(recordid);
   useEffect(() => {
-    if (!state) {
-      recordById(token, setData, username, recordid);
-    } else {
-      recordByIdAdmin(token, setData, recordid);
+    if (tokenLoading) {
+      if (!state) {
+        recordById(token, setData, username, recordid);
+      } else {
+        recordByIdAdmin(token, setData, recordid);
+      }
+      recordImgById(username, token, setImg, recordid);
     }
-    recordImgById(username, token, setImg, recordid);
-  }, []);
+  }, [tokenLoading]);
   return (
     data && (
       <AdminContainer

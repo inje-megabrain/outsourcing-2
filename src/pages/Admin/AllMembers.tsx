@@ -9,7 +9,7 @@ import {
 import { recordAllAPI } from '../../apis/record';
 import { AdminContainer } from '../../components';
 import Pagination from '../../components/Pagination';
-import { jwtTokenState } from '../../states/atoms';
+import { jwtTokenState, tokenLoadingState } from '../../states/atoms';
 import TrashIcon from '../../assets/icon_trash.png';
 import { mapHash } from '@fullcalendar/react';
 import SearchIcon from '../../assets/icon_search.png';
@@ -17,6 +17,7 @@ import SearchIcon from '../../assets/icon_search.png';
 const AllMembers = () => {
   const token = useRecoilValue(jwtTokenState);
   const [data, setData] = useState<any>([]);
+  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [checkedItems, setCheckedItems] = useState<any>();
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [search, setSearch] = useState('');
@@ -34,8 +35,8 @@ const AllMembers = () => {
   }, [isAllChecked]);
 
   useEffect(() => {
-    memberAllAPI(nowPage, pageSize, token, setData);
-  }, [nowPage]);
+    tokenLoading && memberAllAPI(nowPage, pageSize, token, setData);
+  }, [nowPage, tokenLoading]);
 
   useEffect(() => {
     console.log(checkedItems);
@@ -61,7 +62,7 @@ const AllMembers = () => {
       await deleteItems.map(async (value) => {
         await deleteMemberAPI(token, value);
       });
-      await memberAllAPI(nowPage, pageSize, token, setData);
+      await setNowPage(nowPage);
     } else {
       console.log('취소되었습니다.');
     }

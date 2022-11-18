@@ -6,10 +6,15 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { AdminContainer } from '../../components';
 import { recordByMonthAPI } from '../../apis/record';
 import { useRecoilValue } from 'recoil';
-import { jwtTokenState, usernameState } from '../../states/atoms';
+import {
+  jwtTokenState,
+  tokenLoadingState,
+  usernameState,
+} from '../../states/atoms';
 import { useNavigate } from 'react-router-dom';
 
 const CalendarView = () => {
+  const tokenLoading = useRecoilValue(tokenLoadingState);
   const token = useRecoilValue(jwtTokenState);
   const [monthEvent, setMonthEvent] = useState([{}]);
   const [startDate, setStartDate] = useState('');
@@ -18,8 +23,9 @@ const CalendarView = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
-  }, [startDate, token]);
+    tokenLoading &&
+      recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
+  }, [startDate, token, tokenLoading]);
 
   return (
     <AdminContainer

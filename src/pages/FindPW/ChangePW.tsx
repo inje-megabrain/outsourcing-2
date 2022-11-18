@@ -46,7 +46,7 @@ const ChangePW: React.FC<Props> = ({ email, setPwLevel }) => {
       <form
         onSubmit={handleSubmit((data) => {
           delete data['passwordcheck'];
-          newPasswordAPI(data, email, setPwLevel);
+          newPasswordAPI(data.password, email, setPwLevel);
         })}
       >
         <Input

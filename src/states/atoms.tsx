@@ -16,4 +16,8 @@ const usernameState = atom({
   default: 'unknown',
 });
 
-export { jwtTokenState, loginState, usernameState };
+const tokenLoadingState = atom({
+  key: 'tokenLoading',
+  default: false,
+});
+export { jwtTokenState, loginState, usernameState, tokenLoadingState };

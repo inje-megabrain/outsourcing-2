@@ -22,29 +22,34 @@ import {
   useRecoilValue,
   useSetRecoilState,
 } from 'recoil';
-import { jwtTokenState, loginState, usernameState } from './states/atoms';
+import {
+  jwtTokenState,
+  loginState,
+  tokenLoadingState,
+  usernameState,
+} from './states/atoms';
 import { regenerateTokenAPI } from './apis/auth';
 import { getCookieToken, getRole } from './util/tokenManager';
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useRecoilState(tokenLoadingState);
   const tokenState = useRecoilValue(jwtTokenState);
   const setUsername = useSetRecoilState(usernameState);
   const [role, setRole] = useRecoilState(loginState);
   const setToken = useSetRecoilState(jwtTokenState);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const callAPI = async () => {
       try {
         await regenerateTokenAPI(setUsername, setRole, setToken);
       } catch {
       } finally {
-        await setLoading(false);
+        await setLoading(true);
       }
     };
     getCookieToken() != '' &&
       (tokenState === '' || tokenState === undefined) &&
-      loading &&
+      !loading &&
       callAPI();
   }, []);
 
@@ -58,7 +63,7 @@ const App = () => {
               element={
                 value.role &&
                 role !== 'ROLE_ADMIN' &&
-                !loading &&
+                loading &&
                 value.role !== role ? (
                   <Navigate to="/login" />
                 ) : (

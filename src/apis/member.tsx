@@ -68,16 +68,16 @@ const findIdAPI = (
 };
 
 const newPasswordAPI = (
-  data: object,
+  newPassword: string,
   email: string,
   setPwLevel: React.Dispatch<React.SetStateAction<number>>,
 ) => {
   axios
     .post(
       API_URL + changepassword,
-      { ...data, email: email },
+      { newPassword, email },
       {
-        data: { ...data, email: email },
+        data: { newPassword, email },
         headers: headerConfig,
       },
     )

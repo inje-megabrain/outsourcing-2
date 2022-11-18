@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import IconHMD from '../../assets/icon_hmd.png';
 import { Footer, MemberContainer, NavBar } from '../../components';
-import { loginState, usernameState } from '../../states/atoms';
+import {
+  loginState,
+  tokenLoadingState,
+  usernameState,
+} from '../../states/atoms';
 
 const StartTraining = () => {
   const isLogin = useRecoilValue(loginState);
   const username = useRecoilValue(usernameState);
+  const tokenLoading = useRecoilValue(tokenLoadingState);
 
   useEffect(() => {
     let userId: String = '';
@@ -14,7 +19,7 @@ const StartTraining = () => {
     const url = 'sprayunity://' + userId + '/';
     console.log(url);
     location.href = url;
-  }, []);
+  }, [tokenLoading]);
   return (
     <>
       <NavBar

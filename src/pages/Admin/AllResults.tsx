@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { recordAllAPI, searchRecord } from '../../apis/record';
 import { AdminContainer } from '../../components';
 import Pagination from '../../components/Pagination';
-import { jwtTokenState } from '../../states/atoms';
+import { jwtTokenState, tokenLoadingState } from '../../states/atoms';
 import SortIcon from '../../assets/icon_sort.svg';
 import SearchIcon from '../../assets/icon_search.png';
 
@@ -14,6 +14,7 @@ type sortType = {
 };
 const AllResults = () => {
   const token = useRecoilValue(jwtTokenState);
+  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [data, setData] = useState<any>([]);
   const [sort, setSort] = useState<sortType>({
     sortTag: 'dayId',
@@ -25,15 +26,16 @@ const AllResults = () => {
   const pageSize = 4;
 
   useEffect(() => {
-    recordAllAPI(
-      sort.direction,
-      nowPage,
-      pageSize,
-      sort.sortTag,
-      token,
-      setData,
-    );
-  }, [nowPage, sort]);
+    tokenLoading &&
+      recordAllAPI(
+        sort.direction,
+        nowPage,
+        pageSize,
+        sort.sortTag,
+        token,
+        setData,
+      );
+  }, [nowPage, sort, tokenLoading]);
 
   const seeDetail = (recordId: number) => {
     navigate(`/user/results/detail/${recordId}`, { state: true });

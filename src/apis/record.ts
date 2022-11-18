@@ -126,7 +126,7 @@ const recordById = async (
   recordId?: string,
 ) => {
   await axios
-    .get(API_URL + record + name + username + '/' + recordId, {
+    .get(API_URL + record + '/' + username + '/' + recordId, {
       headers: { ...headerConfig, Authorization: 'Bearer ' + token },
     })
     .then((response) => {
