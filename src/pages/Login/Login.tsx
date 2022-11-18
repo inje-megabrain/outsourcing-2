@@ -45,7 +45,7 @@ const Login = () => {
 
   return (
     <>
-      <NavBar main to="/" />
+      <NavBar to="/" />
       <MemberContainer>
         <h1 className="text-5xl text-center font-extrabold mb-[43px] mt-3">
           로그인

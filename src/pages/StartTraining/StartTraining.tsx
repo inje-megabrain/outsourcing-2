@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import IconHMD from '../../assets/icon_hmd.png';
 import { Footer, MemberContainer, NavBar } from '../../components';
-import { usernameState } from '../../states/atoms';
+import { loginState, usernameState } from '../../states/atoms';
 
 const StartTraining = () => {
-  const isLogin = useRecoilValue(usernameState);
+  const isLogin = useRecoilValue(loginState);
   const username = useRecoilValue(usernameState);
 
   useEffect(() => {
