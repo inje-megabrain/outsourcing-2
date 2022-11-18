@@ -1,22 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { memberAllAPI } from '../../apis/member';
+import {
+  deleteMemberAPI,
+  memberAllAPI,
+  searchMemberAPI,
+} from '../../apis/member';
 import { recordAllAPI } from '../../apis/record';
 import { AdminContainer } from '../../components';
 import Pagination from '../../components/Pagination';
 import { jwtTokenState } from '../../states/atoms';
 import TrashIcon from '../../assets/icon_trash.png';
 import { mapHash } from '@fullcalendar/react';
+import SearchIcon from '../../assets/icon_search.png';
 
 const AllMembers = () => {
   const token = useRecoilValue(jwtTokenState);
   const [data, setData] = useState<any>([]);
   const [checkedItems, setCheckedItems] = useState<any>();
   const [isAllChecked, setIsAllChecked] = useState(false);
+  const [search, setSearch] = useState('');
   const [nowPage, setNowPage] = useState(0);
   const navigate = useNavigate();
-  const sizePage = 4;
+  const pageSize = 4;
   useEffect(() => {
     isAllChecked
       ? data.memberResponseDtos.map((value: any) =>
@@ -28,7 +34,7 @@ const AllMembers = () => {
   }, [isAllChecked]);
 
   useEffect(() => {
-    memberAllAPI(nowPage, sizePage, token, setData);
+    memberAllAPI(nowPage, pageSize, token, setData);
   }, [nowPage]);
 
   useEffect(() => {
@@ -41,6 +47,26 @@ const AllMembers = () => {
     });
   };
 
+  const handleDeleteMember = async () => {
+    const deleteItems: string[] = [];
+
+    Object.keys(checkedItems).map((value) => {
+      console.log(value);
+      if (checkedItems[value] === true) deleteItems.push(value);
+    });
+
+    console.log(deleteItems);
+
+    if (window.confirm(deleteItems.join(', ') + ' 멤버를 삭제하시겠습니까?')) {
+      await deleteItems.map(async (value) => {
+        await deleteMemberAPI(token, value);
+      });
+      await memberAllAPI(nowPage, pageSize, token, setData);
+    } else {
+      console.log('취소되었습니다.');
+    }
+  };
+
   return (
     <>
       <AdminContainer
@@ -49,13 +75,28 @@ const AllMembers = () => {
         backlink={navigate}
       >
         <>
+          <div className="flex flex-row items-end self-center justify-end mt-[43px] mb-[40px]">
+            <button
+              className="bg-black h-16 w-16 rounded-lg flex justify-center items-center mr-[11px]"
+              onClick={handleDeleteMember}
+            >
+              <img src={TrashIcon} />
+            </button>
+            <div className="bg-white border-[1px] border-[#D2D2D2] h-16 w-[480px] rounded-lg flex justify-start items-center">
+              <img className="w-[28px] h-[28px] ml-4" src={SearchIcon} />
+              <input
+                className="w-full ml-2 h-full p-3 text-[28px] font-medium"
+                placeholder="Search"
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={(e) => {
+                  e.key === 'Enter' &&
+                    searchMemberAPI(token, setData, nowPage, pageSize, search);
+                }}
+              />
+            </div>
+          </div>
           {data.memberResponseDtos && data.memberResponseDtos.length > 0 && (
             <div className="flex flex-col">
-              <div className="flex flex-row items-end self-end">
-                <button className="bg-black h-16 w-16 rounded-lg flex justify-center items-center mb-10">
-                  <img src={TrashIcon} />
-                </button>
-              </div>
               <div className="h-[546px]">
                 <table className="w-full rounded-t-3xl border-spacing-0 border-separate border-[#D2D2D2] border-[1px] text-xl font-medium leading-[24.2px]">
                   <tr className="bg-[#002D7A] rounded-t-3xl h-[64px] w-[5%] text-white ">
@@ -77,7 +118,7 @@ const AllMembers = () => {
                   </tr>
                   {data.memberResponseDtos.map((value: any, index: number) => (
                     <tr
-                      className="h-[120px] bg-white border-spacing-0 border-separate outline-x-1 outline-[#D2D2D2] outline align-middle"
+                      className="h-[120px] bg-white border-spacing-0 border-separate outline-1 outline-[#D2D2D2] outline align-middle "
                       key={value.username}
                     >
                       <td>
@@ -110,7 +151,7 @@ const AllMembers = () => {
                 size={data.pageLimit}
                 now={nowPage}
                 onClick={setNowPage}
-                className="mt-[72px]"
+                className="mt-[60px]"
               />
             </div>
           )}

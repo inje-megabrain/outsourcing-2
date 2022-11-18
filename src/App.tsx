@@ -56,7 +56,10 @@ const App = () => {
             <Route
               path={value.url}
               element={
-                value.role && !loading && value.role !== role ? (
+                value.role &&
+                role !== 'ROLE_ADMIN' &&
+                !loading &&
+                value.role !== role ? (
                   <Navigate to="/login" />
                 ) : (
                   value.component

@@ -30,7 +30,7 @@ const DayView = () => {
   }, [date, pageNum, token]);
 
   const onDetailButtonClick = (data: any) => {
-    navigate('/user/results/detail/' + data.id);
+    navigate('/user/results/detail/' + data.id, { state: false });
   };
 
   return (

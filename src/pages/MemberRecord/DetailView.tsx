@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AdminContainer } from '../../components';
 import MasterBadge from '../../assets/master_badge.svg';
 import SeniorBadge from '../../assets/senior_badge.svg';
@@ -9,12 +9,13 @@ import PlayIcon from '../../assets/icon_viewdetail.png';
 import LeftIcon1 from '../../assets/lefticon_1.png';
 import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
-import { recordById, recordImgById } from '../../apis/record';
+import { recordById, recordByIdAdmin, recordImgById } from '../../apis/record';
 import { useRecoilValue } from 'recoil';
 import { jwtTokenState, usernameState } from '../../states/atoms';
 
 const DetailView = () => {
   const { recordid } = useParams();
+  const { state } = useLocation();
   const [data, setData] = useState<any>();
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
@@ -28,7 +29,11 @@ const DetailView = () => {
 
   console.log(recordid);
   useEffect(() => {
-    recordById(token, setData, username, recordid);
+    if (!state) {
+      recordById(token, setData, username, recordid);
+    } else {
+      recordByIdAdmin(token, setData, recordid);
+    }
     recordImgById(username, token, setImg, recordid);
   }, []);
   return (

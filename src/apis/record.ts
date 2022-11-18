@@ -7,6 +7,9 @@ const date = '/month';
 const day = '/day';
 const img = '/image';
 const allrecord = '/all';
+const searchURL = '/search';
+const id = '/id';
+const name = '/name';
 
 const headerConfig = {
   'Content-Type': 'application/json',
@@ -123,7 +126,46 @@ const recordById = async (
   recordId?: string,
 ) => {
   await axios
-    .get(API_URL + record + username + '/' + recordId, {
+    .get(API_URL + record + name + username + '/' + recordId, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+const recordByIdAdmin = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+  recordId?: string,
+) => {
+  await axios
+    .get(API_URL + record + id + '/' + recordId, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+const searchRecord = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+  direction: 'DESC' | 'ASC',
+  page: number,
+  size: number,
+  sortTag: string,
+  search: string,
+) => {
+  await axios
+    .get(API_URL + record + searchURL, {
+      params: { search, direction, page, size, sortTag },
       headers: { ...headerConfig, Authorization: 'Bearer ' + token },
     })
     .then((response) => {
@@ -140,4 +182,6 @@ export {
   recordImgById,
   recordAllAPI,
   recordById,
+  searchRecord,
+  recordByIdAdmin,
 };
