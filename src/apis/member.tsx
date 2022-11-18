@@ -89,11 +89,14 @@ const newPasswordAPI = (
 };
 
 const memberAllAPI = async (
+  page: number,
+  size: number,
   token: string,
   setData: React.Dispatch<React.SetStateAction<[] | undefined>>,
 ) => {
   await axios
     .get(API_URL + getall, {
+      params: { page, size },
       headers: { ...headerConfig, Authorization: 'Bearer ' + token },
     })
     .then((response) => {

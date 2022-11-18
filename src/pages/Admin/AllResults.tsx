@@ -5,15 +5,28 @@ import { recordAllAPI } from '../../apis/record';
 import { AdminContainer } from '../../components';
 import Pagination from '../../components/Pagination';
 import { jwtTokenState } from '../../states/atoms';
+import SortIcon from '../../assets/icon_sort.svg';
 
 const AllResults = () => {
   const token = useRecoilValue(jwtTokenState);
   const [data, setData] = useState<any>([]);
+  const [sort, setSort] = useState<{
+    sortTag: string;
+    direction: 'DESC' | 'ASC';
+  }>({ sortTag: 'dayId', direction: 'DESC' });
   const [nowPage, setNowPage] = useState(0);
   const navigate = useNavigate();
+  const pageSize = 4;
 
   useEffect(() => {
-    recordAllAPI(nowPage, token, setData);
+    recordAllAPI(
+      sort.direction,
+      nowPage,
+      pageSize,
+      sort.sortTag,
+      token,
+      setData,
+    );
   }, [nowPage]);
 
   const seeDetail = (value: object) => {};
@@ -30,7 +43,12 @@ const AllResults = () => {
               <table className="w-full h-full rounded-t-3xl border-spacing-0 border-separate border-[#D2D2D2] border-[1px] text-xl font-medium leading-[24.2px]">
                 <tr className="bg-[#015EFF] rounded-t-3xl h-[64px] text-white">
                   <td className="h-[64px] rounded-tl-3xl">날짜</td>
-                  <td>기업명</td>
+                  <td>
+                    기업명&href;
+                    <button>
+                      <img src={SortIcon} className="h-2 w-[14px]" />
+                    </button>
+                  </td>
                   <td>이름</td>
                   <td>평균두께</td>
                   <td>페인트 사용량</td>
@@ -68,7 +86,7 @@ const AllResults = () => {
                 ))}
               </table>
               <Pagination
-                size={6}
+                size={data.pageLimit}
                 now={nowPage}
                 onClick={setNowPage}
                 className="mt-[72px]"

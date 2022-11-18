@@ -78,9 +78,9 @@ const recordByMonthDayAPI = async (
 
 const recordImgById = async (
   userName: string,
-  record_id: number,
   token: string,
   setData: React.Dispatch<React.SetStateAction<string | undefined>>,
+  record_id?: string,
 ) => {
   await axios
     .get(API_URL + record + img + '/' + userName, {
@@ -96,12 +96,16 @@ const recordImgById = async (
 };
 
 const recordAllAPI = async (
-  nowPage: number,
+  direction: 'DESC' | 'ASC',
+  page: number,
+  size: number,
+  sortTag: string,
   token: string,
   setData: React.Dispatch<React.SetStateAction<any>>,
 ) => {
   await axios
     .get(API_URL + record + allrecord, {
+      params: { direction, page, size, sortTag },
       headers: { ...headerConfig, Authorization: 'Bearer ' + token },
     })
     .then((response) => {
@@ -112,4 +116,28 @@ const recordAllAPI = async (
     });
 };
 
-export { recordByMonthAPI, recordByMonthDayAPI, recordImgById, recordAllAPI };
+const recordById = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+  username: string,
+  recordId?: string,
+) => {
+  await axios
+    .get(API_URL + record + username + '/' + recordId, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+export {
+  recordByMonthAPI,
+  recordByMonthDayAPI,
+  recordImgById,
+  recordAllAPI,
+  recordById,
+};
