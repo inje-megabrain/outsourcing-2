@@ -18,7 +18,7 @@ const AdminContainer: React.FC<Props> = ({
   children,
   className,
 }) => (
-  <div className="w-full h-full">
+  <div className="w-full h-full min-w-[1200px]">
     {backlink && (
       <button
         onClick={() => {
