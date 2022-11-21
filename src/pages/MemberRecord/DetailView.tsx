@@ -4,7 +4,9 @@ import { AdminContainer } from '../../components';
 import MasterBadge from '../../assets/master_badge.svg';
 import SeniorBadge from '../../assets/senior_badge.svg';
 import JuniorBadge from '../../assets/junior_badge.svg';
+
 import PlayIcon from '../../assets/icon_viewdetail.png';
+import PauseIcon from '../../assets/icon_pause.svg';
 
 import LeftIcon1 from '../../assets/lefticon_1.png';
 import LeftIcon2 from '../../assets/lefticon_2.png';
@@ -24,6 +26,7 @@ const DetailView = () => {
   const [data, setData] = useState<any>();
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
+  const [isPlaying, setIsPlaying] = useState(false);
   const token = useRecoilValue(jwtTokenState);
   const [img, setImg] = useState<string>();
 
@@ -32,7 +35,6 @@ const DetailView = () => {
     (data && Number(data.score) <= 80 && 'Senior') ||
     (data && Number(data.score) <= 100 && 'Master');
 
-  console.log(recordid);
   useEffect(() => {
     if (tokenLoading) {
       if (!state) {
@@ -43,13 +45,14 @@ const DetailView = () => {
       recordImgById(username, token, setImg, recordid);
     }
   }, [tokenLoading]);
+
   return (
     data && (
       <AdminContainer
         title="훈련 상세 기록"
         detail="해당 훈련에 대한 상세한 기록을 볼 수 있습니다."
         homelink="/mode"
-        backlink={navigate}
+        backlink
       >
         <div className="w-full h-full flex flex-row">
           <div className="w-2/3 h-full text-left">
@@ -62,7 +65,7 @@ const DetailView = () => {
                       {data.score}
                     </p>
                     <div className="bg-white lg:px-2 2xl:px-5 py-3 rounded-[6px]">
-                      <p className="text-lg">{level} Level</p>
+                      <p className="text-2lg font-bold">{level} Level</p>
                     </div>
                   </div>
                   <img
@@ -73,6 +76,7 @@ const DetailView = () => {
                       (level === 'Junior' && JuniorBadge) ||
                       MasterBadge
                     }
+                    className="m-3"
                   />
                 </div>
               </div>
@@ -158,7 +162,12 @@ const DetailView = () => {
                     <div className="flex flex-col justify-center self-center text-center">
                       <p className="inline-block">소요시간</p>
                       <p className="inline-block text-3xl font-normal">
-                        {data.playTime}
+                        {String(Math.floor(data.playTime / 60)).padStart(
+                          2,
+                          '0',
+                        ) +
+                          ':' +
+                          (data.playTime - Math.floor(data.playTime / 60) * 60)}
                       </p>
                     </div>
                   </div>
@@ -179,10 +188,15 @@ const DetailView = () => {
           <div className="w-1/3 h-full rounded-[19px] bg-white text-left 2xl:p-14 lg:p-6 2xl:ml-12 lg:ml-6 2xl:space-y-6 lg:space-y-1">
             <div className="h-2/5">
               <p className="text-2xl font-bold mb-5">작업 궤적 영상</p>
-              <button className="w-full drop-shadow-[2px_18px_86px_rgba(0,0,0,0.06)] bg-white rounded-[17px] h-[calc(100%-80px)] flex items-center justify-center">
+              <button
+                onClick={() => {
+                  setIsPlaying((prevState: boolean) => !prevState);
+                }}
+                className="w-full drop-shadow-[2px_18px_86px_rgba(0,0,0,0.06)] bg-white rounded-[17px] h-[calc(100%-80px)] flex items-center justify-center"
+              >
                 <img
                   className="2xl:w-16 2xl:h-16 lg:w-10 lg:h-10 drop-shadow-[0px_11px_42px_#BACDF2]"
-                  src={PlayIcon}
+                  src={!isPlaying ? PlayIcon : PauseIcon}
                 />
               </button>
             </div>
@@ -193,7 +207,7 @@ const DetailView = () => {
                   <img src={LeftIcon1} />
                   <p className="text-2xl mt-3 mb-1">부재</p>
                   <p className="text-3xl font-bold text-[#005DFE] mb-0">
-                    {data.plateType === 'CurveSurface' && '둥근'}
+                    {data.plateType === 'CurveSurface' && '곡면'}
                   </p>
                 </div>
                 <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">

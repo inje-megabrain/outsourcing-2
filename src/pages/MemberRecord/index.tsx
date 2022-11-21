@@ -23,8 +23,7 @@ const CalendarView = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    tokenLoading &&
-      recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
+    recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
   }, [startDate, token, tokenLoading]);
 
   return (
@@ -32,7 +31,7 @@ const CalendarView = () => {
       title="개인 기록 조회"
       detail="선택한 월별로 훈련한 기록을 모아볼 수 있습니다."
       homelink="/mode"
-      backlink={navigate}
+      backlink
     >
       <FullCalendar
         height={'100%'}
@@ -53,7 +52,7 @@ const CalendarView = () => {
           setStartDate(event.view.activeStart.toLocaleDateString('en-ca'));
           setEndDate(event.view.activeEnd.toLocaleDateString('en-ca'));
         }}
-        dayCellClassNames="border-white hover:border-[#005dfe] hover:border-[3px]"
+        dayCellClassNames="border-white hover:border-[#005dfe] hover:border-[3px] h-[16%]"
         datesSet={(arg) => {
           setStartDate(arg.start.toLocaleDateString('en-ca'));
           setEndDate(arg.end.toLocaleDateString('en-ca'));

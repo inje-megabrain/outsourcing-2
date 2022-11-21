@@ -26,15 +26,14 @@ const AllResults = () => {
   const pageSize = 4;
 
   useEffect(() => {
-    tokenLoading &&
-      recordAllAPI(
-        sort.direction,
-        nowPage,
-        pageSize,
-        sort.sortTag,
-        token,
-        setData,
-      );
+    recordAllAPI(
+      sort.direction,
+      nowPage,
+      pageSize,
+      sort.sortTag,
+      token,
+      setData,
+    );
   }, [nowPage, sort, tokenLoading]);
 
   const seeDetail = (recordId: number) => {
