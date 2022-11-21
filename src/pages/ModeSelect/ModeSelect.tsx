@@ -1,17 +1,40 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, Footer, NavBar } from '../../components';
 import IconDashboard from '../../assets/icon_dashboard.png';
 import IconTraining from '../../assets/icon_training.png';
-import { useRecoilValue } from 'recoil';
-import { tokenLoadingState, usernameState } from '../../states/atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  jwtTokenState,
+  loginState,
+  tokenLoadingState,
+  usernameState,
+} from '../../states/atoms';
+import { removeCookieToken, removeRole } from '../../util/tokenManager';
 
 const ModeSelect = () => {
   const name = useRecoilValue(usernameState);
-  const tokenLoading = useRecoilValue(tokenLoadingState);
+
+  const navigate = useNavigate();
+
+  const setTokenLoading = useSetRecoilState(tokenLoadingState);
+  const setToken = useSetRecoilState(jwtTokenState);
+  const setRole = useSetRecoilState(loginState);
+  const setUsername = useSetRecoilState(usernameState);
+
+  const onLogoutClick = () => {
+    removeCookieToken();
+    removeRole();
+    setTokenLoading(false);
+    setToken('');
+    setRole('unknown');
+    setUsername('unknown');
+    navigate('/');
+  };
+
   return (
     <>
-      <NavBar linktext="HOME" to="/" />
+      <NavBar linktext="로그아웃" onClick={onLogoutClick} />
       <div className="max-w-2xl items-center flex flex-col justify-center">
         <h1 className="text-5xl text-center font-extrabold mb-8 text-primary-blue leading-[58.09px]">
           플레이어 모드
