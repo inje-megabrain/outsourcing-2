@@ -73,7 +73,7 @@ const AllMembers = () => {
       <AdminContainer
         title="플레이어 관리"
         detail="특정 아이디를 찾거나, 일괄적으로 아이디를 선택하여 삭제할 수 있습니다."
-        backlink={navigate}
+        backlink
       >
         <>
           <div className="flex flex-row items-end self-center justify-end mt-[43px] mb-[40px]">
