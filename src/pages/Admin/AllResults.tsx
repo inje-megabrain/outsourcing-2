@@ -68,9 +68,9 @@ const AllResults = () => {
               <input
                 className="w-full ml-2 h-full p-3 text-[28px] font-medium"
                 placeholder="Search"
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                  searchRecord(
+                onChange={async (e) => {
+                  await setSearch(e.target.value);
+                  await searchRecord(
                     token,
                     setData,
                     sort.direction,

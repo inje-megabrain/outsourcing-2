@@ -94,9 +94,15 @@ const AllMembers = () => {
               <input
                 className="w-full ml-2 h-full p-3 text-[28px] font-medium"
                 placeholder="Search"
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                  searchMemberAPI(token, setData, nowPage, pageSize, search);
+                onChange={async (e) => {
+                  await setSearch(e.target.value);
+                  await searchMemberAPI(
+                    token,
+                    setData,
+                    nowPage,
+                    pageSize,
+                    search,
+                  );
                 }}
               />
             </div>
