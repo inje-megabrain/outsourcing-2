@@ -36,6 +36,7 @@ const AllMembers = () => {
 
   useEffect(() => {
     tokenLoading && memberAllAPI(nowPage, pageSize, token, setData);
+    nowPage && setIsAllChecked(false);
   }, [nowPage, tokenLoading]);
 
   useEffect(() => {
@@ -50,15 +51,20 @@ const AllMembers = () => {
 
   const handleDeleteMember = async () => {
     const deleteItems: string[] = [];
+    const deleteNames: string[] = [];
 
     Object.keys(checkedItems).map((value) => {
-      console.log(value);
-      if (checkedItems[value] === true) deleteItems.push(value);
+      if (checkedItems[value] === true) {
+        deleteItems.push(value);
+        data.memberResponseDtos.map((item: any) => {
+          if (value == item.username) deleteNames.push(item.name);
+        });
+      }
     });
 
     console.log(deleteItems);
 
-    if (window.confirm(deleteItems.join(', ') + ' 멤버를 삭제하시겠습니까?')) {
+    if (window.confirm(deleteNames.join(', ') + ' 멤버를 삭제하시겠습니까?')) {
       await deleteItems.map(async (value) => {
         await deleteMemberAPI(token, value);
       });
@@ -71,7 +77,7 @@ const AllMembers = () => {
   return (
     <>
       <AdminContainer
-        title="플레이어 관리"
+        title={search === '' ? '플레이어 관리' : `플레이어 검색 - ${search}`}
         detail="특정 아이디를 찾거나, 일괄적으로 아이디를 선택하여 삭제할 수 있습니다."
         backlink
       >
@@ -88,10 +94,9 @@ const AllMembers = () => {
               <input
                 className="w-full ml-2 h-full p-3 text-[28px] font-medium"
                 placeholder="Search"
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={(e) => {
-                  e.key === 'Enter' &&
-                    searchMemberAPI(token, setData, nowPage, pageSize, search);
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  searchMemberAPI(token, setData, nowPage, pageSize, search);
                 }}
               />
             </div>
