@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AdminContainer } from '../../components';
 import MasterBadge from '../../assets/master_badge.svg';
@@ -29,11 +29,16 @@ const DetailView = () => {
   const { state } = useLocation();
   const tokenLoading = useRecoilValue(tokenLoadingState);
   const [data, setData] = useState<any>();
+  const [video, setVideo] = useState<any>(
+    'https://simg-spary-storage.s3.ap-northeast-2.amazonaws.com/1.mp4',
+  );
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
   const [isPlaying, setIsPlaying] = useState(false);
   const token = useRecoilValue(jwtTokenState);
   const [img, setImg] = useState<string>();
+
+  const videoRef = useRef<any>();
 
   const level =
     (data && Number(data.score) <= 30 && 'Junior') ||
@@ -48,10 +53,15 @@ const DetailView = () => {
         recordByIdAdmin(token, setData, recordid);
       }
       recordImgById(username, token, setImg, recordid);
+      // videoRecord(token, setVideo, recordid);
     }
-
-    videoRecord(token, recordid);
   }, [tokenLoading]);
+
+  useEffect(() => {
+    isPlaying
+      ? videoRef.current && videoRef.current.play()
+      : videoRef.current && videoRef.current.pause();
+  }, [isPlaying]);
 
   return (
     data && (
@@ -202,9 +212,18 @@ const DetailView = () => {
                 className="w-full drop-shadow-[2px_18px_86px_rgba(0,0,0,0.06)] bg-white rounded-[17px] h-[calc(100%-80px)] flex items-center justify-center"
               >
                 <img
-                  className="2xl:w-16 2xl:h-16 lg:w-10 lg:h-10 drop-shadow-[0px_11px_42px_#BACDF2]"
+                  className="2xl:w-16 2xl:h-16 lg:w-10 lg:h-10 drop-shadow-[0px_11px_42px_#BACDF2] z-10"
                   src={!isPlaying ? PlayIcon : PauseIcon}
                 />
+
+                <video
+                  ref={videoRef}
+                  className="w-full h-auto absolute t-0 l-0 rounded-[17px]"
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                >
+                  <source className="w-full" src={video} type="video/mp4" />
+                </video>
               </button>
             </div>
             <div className="h-2/5">

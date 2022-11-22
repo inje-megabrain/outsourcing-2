@@ -179,19 +179,19 @@ const searchRecord = async (
 
 const videoRecord = async (
   token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
   record_id?: string,
-  // setData: React.Dispatch<React.SetStateAction<any>>,
 ) => {
   await axios
     .get(API_URL + record + video, {
       params: { record_id },
       headers: {
-        accept: 'application/octet-stream',
+        accept: '*/*',
         Authorization: 'Bearer ' + token,
       },
     })
     .then((response) => {
-      console.log(response.data);
+      setData(response.data);
     })
     .catch((error) => {
       handleError(error);
