@@ -10,6 +10,7 @@ const allrecord = '/all';
 const searchURL = '/search';
 const id = '/id';
 const name = '/name';
+const video = '/video';
 
 const headerConfig = {
   'Content-Type': 'application/json',
@@ -176,6 +177,27 @@ const searchRecord = async (
     });
 };
 
+const videoRecord = async (
+  token: string,
+  record_id?: string,
+  // setData: React.Dispatch<React.SetStateAction<any>>,
+) => {
+  await axios
+    .get(API_URL + record + video, {
+      params: { record_id },
+      headers: {
+        accept: 'application/octet-stream',
+        Authorization: 'Bearer ' + token,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
 export {
   recordByMonthAPI,
   recordByMonthDayAPI,
@@ -184,4 +206,5 @@ export {
   recordById,
   searchRecord,
   recordByIdAdmin,
+  videoRecord,
 };
