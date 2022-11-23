@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import {
   deleteMemberAPI,
@@ -17,6 +18,7 @@ const AllMembers = () => {
   const [checkedItems, setCheckedItems] = useState<any>();
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [search, setSearch] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
   const [nowPage, setNowPage] = useState(0);
   const pageSize = 4;
 
@@ -30,7 +32,7 @@ const AllMembers = () => {
   useEffect(() => {
     token !== '' && callAPI();
     nowPage && setIsAllChecked(false);
-  }, [nowPage, token, search]);
+  }, [nowPage, token, search, isDeleting]);
 
   useEffect(() => {
     isAllChecked
@@ -61,13 +63,11 @@ const AllMembers = () => {
       }
     });
 
-    console.log(deleteItems);
-
     if (window.confirm(deleteNames.join(', ') + ' 멤버를 삭제하시겠습니까?')) {
-      await deleteItems.map(async (value) => {
+      deleteItems.map(async (value) => {
         await deleteMemberAPI(token, value);
       });
-      await setNowPage(nowPage);
+      setIsDeleting((prev: boolean) => !prev);
     } else {
       console.log('취소되었습니다.');
     }
