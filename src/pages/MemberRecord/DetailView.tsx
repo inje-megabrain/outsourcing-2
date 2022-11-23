@@ -14,14 +14,13 @@ import LeftIcon1 from '../../assets/lefticon_1.png';
 import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
 import { jwtTokenState, usernameState } from '../../states/atoms';
+import { VIDEO_URL } from '../../constants/Constants';
 
 const DetailView = () => {
   const { recordid } = useParams();
   const { state } = useLocation();
   const [data, setData] = useState<any>();
-  const [video, setVideo] = useState<any>(
-    'https://simg-spary-storage.s3.ap-northeast-2.amazonaws.com/1.mp4',
-  );
+  const [video, setVideo] = useState<any>(VIDEO_URL + '/1.mp4');
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
   const [isPlaying, setIsPlaying] = useState(false);

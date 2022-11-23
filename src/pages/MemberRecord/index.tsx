@@ -1,4 +1,4 @@
-import '@fullcalendar/react/dist/vdom';
+import '@fullcalendar/react/dist/vdom.js';
 import dayGridViewPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
