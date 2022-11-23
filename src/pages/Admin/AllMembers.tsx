@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import {
@@ -17,10 +17,14 @@ const AllMembers = () => {
   const [data, setData] = useState<any>([]);
   const [checkedItems, setCheckedItems] = useState<any>();
   const [isAllChecked, setIsAllChecked] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [search, setSearch] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
   const [nowPage, setNowPage] = useState(0);
   const pageSize = 4;
+
+  const refreshWebsite = () => {
+    setRefresh((prev: boolean) => !prev);
+  };
 
   const callAPI = async () => {
     if (search === '') {
@@ -32,7 +36,7 @@ const AllMembers = () => {
   useEffect(() => {
     token !== '' && callAPI();
     nowPage && setIsAllChecked(false);
-  }, [nowPage, token, search, isDeleting]);
+  }, [nowPage, token, search, refresh]);
 
   useEffect(() => {
     isAllChecked
@@ -50,7 +54,7 @@ const AllMembers = () => {
     });
   };
 
-  const handleDeleteMember = async () => {
+  const handleDeleteMember = () => {
     const deleteItems: string[] = [];
     const deleteNames: string[] = [];
 
@@ -64,10 +68,9 @@ const AllMembers = () => {
     });
 
     if (window.confirm(deleteNames.join(', ') + ' 멤버를 삭제하시겠습니까?')) {
-      deleteItems.map(async (value) => {
-        await deleteMemberAPI(token, value);
+      deleteItems.map((value) => {
+        deleteMemberAPI(token, value, refreshWebsite);
       });
-      await setIsDeleting((prev: boolean) => !prev);
     } else {
       console.log('취소되었습니다.');
     }

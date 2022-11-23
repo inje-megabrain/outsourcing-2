@@ -128,13 +128,18 @@ const searchMemberAPI = async (
     });
 };
 
-const deleteMemberAPI = async (token: string, username: string) => {
+const deleteMemberAPI = async (
+  token: string,
+  username: string,
+  refresh: () => void,
+) => {
   await axios
     .delete(API_URL + memberurl + '/' + username, {
       headers: { ...headerConfig, Authorization: 'Bearer ' + token },
     })
     .then((response) => {
       toast.success(response.data);
+      refresh();
     })
     .catch((error) => {
       handleError(error);
