@@ -67,7 +67,7 @@ const AllMembers = () => {
       deleteItems.map(async (value) => {
         await deleteMemberAPI(token, value);
       });
-      setIsDeleting((prev: boolean) => !prev);
+      await setIsDeleting((prev: boolean) => !prev);
     } else {
       console.log('취소되었습니다.');
     }
