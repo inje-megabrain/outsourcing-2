@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Input, Button, ErrorMessage, Loading } from '../../components';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { mailAPI, mailcheckAPI } from '../../apis/auth';
+import { Button, ErrorMessage, Input, Loading } from '../../components';
 
 interface Props {
   email: string;

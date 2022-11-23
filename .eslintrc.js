@@ -24,5 +24,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'on',
     '@typescript-eslint/explicit-module-boundary-types': 'on',
     '@typescript-eslint/no-explicit-any': 'on',
+    'unused-imports/no-unused-imports-ts': 'on',
   },
 };

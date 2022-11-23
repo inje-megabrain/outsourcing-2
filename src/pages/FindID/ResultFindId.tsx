@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { string } from 'yup';
 import { Button } from '../../components';
 
 interface Props {

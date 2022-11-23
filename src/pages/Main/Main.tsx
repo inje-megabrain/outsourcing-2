@@ -1,7 +1,5 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Logo from '../../assets/logo.png';
-import { Button, Footer, MemberContainer } from '../../components';
+import { useNavigate } from 'react-router-dom';
+import { Button, Footer } from '../../components';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -9,6 +7,7 @@ const Main = () => {
   const onStartButtonClick = () => {
     navigate('/login');
   };
+
   return (
     <>
       <Footer absolute theme="white" />

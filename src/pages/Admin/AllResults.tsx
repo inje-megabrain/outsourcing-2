@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { recordAllAPI, searchRecord } from '../../apis/record';
-import { AdminContainer } from '../../components';
+import { AdminContainer, Loading } from '../../components';
 import Pagination from '../../components/Pagination';
-import { jwtTokenState, tokenLoadingState } from '../../states/atoms';
+import { jwtTokenState } from '../../states/atoms';
 import SortIcon from '../../assets/icon_sort.svg';
 import SearchIcon from '../../assets/icon_search.png';
 
@@ -14,7 +14,6 @@ type sortType = {
 };
 const AllResults = () => {
   const token = useRecoilValue(jwtTokenState);
-  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [data, setData] = useState<any>([]);
   const [sort, setSort] = useState<sortType>({
     sortTag: 'dayId',
@@ -25,8 +24,8 @@ const AllResults = () => {
   const navigate = useNavigate();
   const pageSize = 4;
 
-  useEffect(() => {
-    recordAllAPI(
+  const callAPI = async () => {
+    await recordAllAPI(
       sort.direction,
       nowPage,
       pageSize,
@@ -34,7 +33,10 @@ const AllResults = () => {
       token,
       setData,
     );
-  }, [nowPage, sort, tokenLoading]);
+  };
+  useEffect(() => {
+    token !== '' && callAPI();
+  }, [nowPage, sort, token]);
 
   const seeDetail = (recordId: number) => {
     navigate(`/user/results/detail/${recordId}`, { state: true });
@@ -54,7 +56,7 @@ const AllResults = () => {
     });
   };
 
-  return (
+  return token !== '' ? (
     <>
       <AdminContainer
         title={search === '' ? '전체 기록 조회' : `검색 기록 조회 - ${search}`}
@@ -236,6 +238,8 @@ const AllResults = () => {
         </>
       </AdminContainer>
     </>
+  ) : (
+    <Loading />
   );
 };
 

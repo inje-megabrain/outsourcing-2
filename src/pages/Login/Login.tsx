@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { loginAPI } from '../../apis/auth';
-import axios from 'axios';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { loginAPI } from '../../apis/auth';
 import {
   Button,
   ErrorMessage,
@@ -11,9 +11,8 @@ import {
   MemberContainer,
   NavBar,
 } from '../../components';
-import formSchema from './formSchema';
-import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 import { jwtTokenState, loginState, usernameState } from '../../states/atoms';
+import formSchema from './formSchema';
 
 type FormValues = {
   username: string;
@@ -34,6 +33,11 @@ const Login = () => {
     resolver: yupResolver(formSchema),
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (login === 'ROLE_USER') navigate('/mode');
+    else if (login === 'ROLE_ADMIN') navigate('/admin');
+  }, []);
 
   const onGuestModeButtonClick = (e: any) => {
     navigate('/guest');

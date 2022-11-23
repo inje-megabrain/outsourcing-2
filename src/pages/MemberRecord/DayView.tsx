@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { AdminContainer } from '../../components';
-import startBtn from '../../assets/icon_viewdetail.png';
-import Badge from '../../assets/senior_badge.svg';
-import Pagination from '../../components/Pagination';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { recordByMonthDayAPI } from '../../apis/record';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import {
-  jwtTokenState,
-  tokenLoadingState,
-  usernameState,
-} from '../../states/atoms';
+import { recordByMonthDayAPI } from '../../apis/record';
+import Badge from '../../assets/senior_badge.svg';
+import { AdminContainer, Loading } from '../../components';
+import Pagination from '../../components/Pagination';
+import { jwtTokenState, usernameState } from '../../states/atoms';
 import NoRecord from './NoRecord';
 
 const DayView = () => {
   const { date } = useParams();
   const [pageNum, setPageNum] = useState(0);
   const [loading, setLoading] = useState(true);
-  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [data, setData] = useState({ userRecordDtos: [], pageLimit: 1 });
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
   const token = useRecoilValue(jwtTokenState);
 
   const callAPI = async () => {
-    if (date && tokenLoading) {
+    if (date && token !== '') {
       await recordByMonthDayAPI(date, username, token, setData, pageNum, 3);
       await setLoading(false);
     }
@@ -32,13 +26,13 @@ const DayView = () => {
 
   useEffect(() => {
     callAPI();
-  }, [date, pageNum, token, tokenLoading]);
+  }, [date, pageNum, token]);
 
   const onDetailButtonClick = (data: any) => {
     navigate('/user/results/detail/' + data.id, { state: false });
   };
 
-  return (
+  return token !== '' ? (
     <AdminContainer
       title="개인 기록 조회"
       detail="선택한 날짜에 훈련한 기록을 모아볼 수 있습니다."
@@ -70,7 +64,7 @@ const DayView = () => {
                             </p>
                           </p>
                         </div>
-                        <div className="flex felx-row h-[160px] w-[80%] place-content-between bg-white">
+                        <div className="flex felx-row h-[160px] w-[80%] place-content-between bg-white rounded-r-3xl">
                           <div className="text-left flex flex-col p-[40px]">
                             <p className="font-medium inline-block text-xl">
                               <b>훈련 기록 요약</b>
@@ -108,6 +102,8 @@ const DayView = () => {
           ))}
       </div>
     </AdminContainer>
+  ) : (
+    <Loading />
   );
 };
 

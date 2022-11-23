@@ -1,33 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { AdminContainer } from '../../components';
+import JuniorBadge from '../../assets/junior_badge.svg';
 import MasterBadge from '../../assets/master_badge.svg';
 import SeniorBadge from '../../assets/senior_badge.svg';
-import JuniorBadge from '../../assets/junior_badge.svg';
+import { AdminContainer, Loading } from '../../components';
 
-import PlayIcon from '../../assets/icon_viewdetail.png';
 import PauseIcon from '../../assets/icon_pause.svg';
+import PlayIcon from '../../assets/icon_viewdetail.png';
 
+import { useRecoilValue } from 'recoil';
+import { recordById, recordByIdAdmin, recordImgById } from '../../apis/record';
 import LeftIcon1 from '../../assets/lefticon_1.png';
 import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
-import {
-  recordById,
-  recordByIdAdmin,
-  recordImgById,
-  videoRecord,
-} from '../../apis/record';
-import { useRecoilValue } from 'recoil';
-import {
-  jwtTokenState,
-  tokenLoadingState,
-  usernameState,
-} from '../../states/atoms';
+import { jwtTokenState, usernameState } from '../../states/atoms';
 
 const DetailView = () => {
   const { recordid } = useParams();
   const { state } = useLocation();
-  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [data, setData] = useState<any>();
   const [video, setVideo] = useState<any>(
     'https://simg-spary-storage.s3.ap-northeast-2.amazonaws.com/1.mp4',
@@ -45,17 +35,21 @@ const DetailView = () => {
     (data && Number(data.score) <= 80 && 'Senior') ||
     (data && Number(data.score) <= 100 && 'Master');
 
-  useEffect(() => {
-    if (tokenLoading) {
-      if (!state) {
-        recordById(token, setData, username, recordid);
-      } else {
-        recordByIdAdmin(token, setData, recordid);
-      }
-      recordImgById(username, token, setImg, recordid);
-      // videoRecord(token, setVideo, recordid);
+  const callAPI = async () => {
+    if (!state) {
+      await recordById(token, setData, username, recordid);
+    } else {
+      await recordByIdAdmin(token, setData, recordid);
     }
-  }, [tokenLoading]);
+    await recordImgById(username, token, setImg, recordid);
+    // videoRecord(token, setVideo, recordid);
+  };
+
+  useEffect(() => {
+    if (token !== '') {
+      callAPI();
+    }
+  }, [token]);
 
   useEffect(() => {
     isPlaying
@@ -63,7 +57,7 @@ const DetailView = () => {
       : videoRef.current && videoRef.current.pause();
   }, [isPlaying]);
 
-  return (
+  return token !== '' ? (
     data && (
       <AdminContainer
         title="훈련 상세 기록"
@@ -204,12 +198,12 @@ const DetailView = () => {
           </div>
           <div className="w-1/3 h-full rounded-[19px] bg-white text-left 2xl:p-14 lg:p-6 2xl:ml-12 lg:ml-6 2xl:space-y-6 lg:space-y-1">
             <div className="h-2/5">
-              <p className="text-2xl font-bold mb-5">작업 궤적 영상</p>
+              <p className="text-2xl font-bold mb-6">작업 궤적 영상</p>
               <button
                 onClick={() => {
                   setIsPlaying((prevState: boolean) => !prevState);
                 }}
-                className="w-full drop-shadow-[2px_18px_86px_rgba(0,0,0,0.06)] bg-white rounded-[17px] h-[calc(100%-80px)] flex items-center justify-center"
+                className="w-full drop-shadow-[2px_18px_86px_rgba(0,0,0,0.06)] bg-white rounded-[17px] h-[calc(100%-80px)] flex items-center justify-center relative"
               >
                 <img
                   className="2xl:w-16 2xl:h-16 lg:w-10 lg:h-10 drop-shadow-[0px_11px_42px_#BACDF2] z-10"
@@ -273,6 +267,8 @@ const DetailView = () => {
         </div>
       </AdminContainer>
     )
+  ) : (
+    <Loading />
   );
 };
 

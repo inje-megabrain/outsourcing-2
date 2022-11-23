@@ -1,25 +1,22 @@
-import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import IconHMD from '../../assets/icon_hmd.png';
-import { Footer, MemberContainer, NavBar } from '../../components';
-import {
-  loginState,
-  tokenLoadingState,
-  usernameState,
-} from '../../states/atoms';
+import { Footer, NavBar } from '../../components';
+import { jwtTokenState, loginState, usernameState } from '../../states/atoms';
 
 const StartTraining = () => {
+  const token = useRecoilValue(jwtTokenState);
   const isLogin = useRecoilValue(loginState);
   const username = useRecoilValue(usernameState);
-  const tokenLoading = useRecoilValue(tokenLoadingState);
 
   useEffect(() => {
-    let userId: String = '';
-    isLogin == 'unknown' ? (userId = '-1') : (userId = username);
-    const url = 'sprayunity://' + userId + '/';
-    console.log(url);
-    location.href = url;
-  }, [tokenLoading]);
+    if (token !== '') {
+      let userId: String = '';
+      isLogin == 'unknown' ? (userId = '-1') : (userId = username);
+      const url = 'sprayunity://' + userId + '/';
+      location.href = url;
+    }
+  }, [token]);
   return (
     <>
       <NavBar

@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import formSchema from './formSchema';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Input, ErrorMessage } from '../../components';
-import { signUpAPI } from '../../apis/member';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { signUpAPI } from '../../apis/member';
+import { Button, ErrorMessage, Input } from '../../components';
+import formSchema from './formSchema';
 
 type FormValues = {
   name: string;

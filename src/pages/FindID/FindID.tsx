@@ -1,8 +1,5 @@
-import React from 'react';
-import Logo from '../../assets/logo.png';
-import { Button, Input, MemberContainer, NavBar } from '../../components';
+import { MemberContainer, NavBar } from '../../components';
 import InputEmail from './InputEmail';
-import ResultFindId from './ResultFindId';
 
 const FindID = () => {
   return (

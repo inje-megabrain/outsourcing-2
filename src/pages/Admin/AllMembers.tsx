@@ -1,29 +1,33 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import {
   deleteMemberAPI,
   memberAllAPI,
   searchMemberAPI,
 } from '../../apis/member';
-import { recordAllAPI } from '../../apis/record';
-import { AdminContainer } from '../../components';
-import Pagination from '../../components/Pagination';
-import { jwtTokenState, tokenLoadingState } from '../../states/atoms';
-import TrashIcon from '../../assets/icon_trash.png';
-import { mapHash } from '@fullcalendar/react';
 import SearchIcon from '../../assets/icon_search.png';
+import TrashIcon from '../../assets/icon_trash.png';
+import { AdminContainer, Loading } from '../../components';
+import Pagination from '../../components/Pagination';
+import { jwtTokenState } from '../../states/atoms';
 
 const AllMembers = () => {
   const token = useRecoilValue(jwtTokenState);
   const [data, setData] = useState<any>([]);
-  const tokenLoading = useRecoilValue(tokenLoadingState);
   const [checkedItems, setCheckedItems] = useState<any>();
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [search, setSearch] = useState('');
   const [nowPage, setNowPage] = useState(0);
-  const navigate = useNavigate();
   const pageSize = 4;
+
+  const callAPI = async () => {
+    await memberAllAPI(nowPage, pageSize, token, setData);
+  };
+  useEffect(() => {
+    token !== '' && callAPI();
+    nowPage && setIsAllChecked(false);
+  }, [nowPage, token]);
+
   useEffect(() => {
     isAllChecked
       ? data.memberResponseDtos.map((value: any) =>
@@ -33,15 +37,6 @@ const AllMembers = () => {
         )
       : setCheckedItems({});
   }, [isAllChecked]);
-
-  useEffect(() => {
-    memberAllAPI(nowPage, pageSize, token, setData);
-    nowPage && setIsAllChecked(false);
-  }, [nowPage, tokenLoading]);
-
-  useEffect(() => {
-    console.log(checkedItems);
-  }, [checkedItems]);
 
   const checkItemHandler = (username: string, isChecked: boolean) => {
     setCheckedItems((prev: any) => {
@@ -74,7 +69,7 @@ const AllMembers = () => {
     }
   };
 
-  return (
+  return token !== '' ? (
     <>
       <AdminContainer
         title={search === '' ? '플레이어 관리' : `플레이어 검색 - ${search}`}
@@ -189,6 +184,8 @@ const AllMembers = () => {
         </>
       </AdminContainer>
     </>
+  ) : (
+    <Loading />
   );
 };
 

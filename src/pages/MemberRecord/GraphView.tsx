@@ -1,19 +1,19 @@
-import { AdminContainer } from '../../components';
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
   LinearScale,
-  PointElement,
   LineElement,
+  PointElement,
   Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Line } from 'react-chartjs-2';
+import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { tokenLoadingState } from '../../states/atoms';
+import { AdminContainer, Loading } from '../../components';
+import { jwtTokenState } from '../../states/atoms';
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +34,7 @@ const color = [
 ];
 const GraphView = () => {
   const { state } = useLocation();
-  const tokenLoading = useRecoilValue(tokenLoadingState);
+  const token = useRecoilValue(jwtTokenState);
   const [select, setSelect] = useState(0);
   const [average, setAverage] = useState<number>(0);
   const arrayData = [
@@ -50,8 +50,7 @@ const GraphView = () => {
         0,
       ),
     );
-    console.log(average);
-  }, [select, tokenLoading]);
+  }, [select, token]);
   const data = {
     labels: arrayData[select].map((e: any, i: any) => String(i)),
     datasets: [
@@ -83,8 +82,6 @@ const GraphView = () => {
     },
   };
 
-  const navigate = useNavigate();
-
   const formatter = (select: number) => {
     if (select === 0) return '㎛';
     else if (select === 1) return 'cm';
@@ -92,7 +89,7 @@ const GraphView = () => {
     else if (select === 3) return 'cm/s';
   };
 
-  return (
+  return token !== '' ? (
     <AdminContainer
       title="그래프 기록"
       detail="훈련을 진행하는 과정에서의 거리, 각도, 속도, 두께를 그래프로 살펴볼 수 있습니다."
@@ -175,6 +172,8 @@ const GraphView = () => {
         </div>
       </div>
     </AdminContainer>
+  ) : (
+    <Loading />
   );
 };
 
