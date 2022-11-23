@@ -183,7 +183,15 @@ const DetailView = () => {
                           '0',
                         ) +
                           ':' +
-                          (data.playTime - Math.floor(data.playTime / 60) * 60)}
+                          `${
+                            data.playTime -
+                              Math.floor(data.playTime / 60) * 60 <
+                            10
+                              ? '0'
+                              : ''
+                          }${
+                            data.playTime - Math.floor(data.playTime / 60) * 60
+                          }`}
                       </p>
                     </div>
                   </div>
@@ -233,7 +241,8 @@ const DetailView = () => {
                   <p className="text-2xl mt-3 mb-1">부재</p>
                   <p className="text-3xl font-bold text-[#005DFE] mb-0">
                     {(data.plateType === 'CurveSurface' && '곡면') ||
-                      (data.plateType === 'EdgeSurface' && '측면')}
+                      (data.plateType === 'EdgeSurface' && '모서리') ||
+                      (data.plateType === 'FlatSurface' && '평면')}
                   </p>
                 </div>
                 <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
