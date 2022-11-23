@@ -107,7 +107,20 @@ const AllResults = () => {
                           <img src={SortIcon} />
                         </button>
                       </td>
-                      <td className="w-[10%]">기업명</td>
+                      <td className="w-[10%]">
+                        기업명
+                        <button
+                          className={`ml-2 ${
+                            sort.sortTag === 'companyName' &&
+                            (sort.direction === 'ASC'
+                              ? 'rotate-180'
+                              : 'rotate-0')
+                          }`}
+                          onClick={() => onClickSort('companyName')}
+                        >
+                          <img src={SortIcon} />
+                        </button>
+                      </td>
                       <td className="w-[10%]">
                         이름
                         <button

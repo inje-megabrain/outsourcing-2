@@ -233,7 +233,7 @@ const DetailView = () => {
                   <p className="text-2xl mt-3 mb-1">부재</p>
                   <p className="text-3xl font-bold text-[#005DFE] mb-0">
                     {(data.plateType === 'CurveSurface' && '곡면') ||
-                      (data.plateType === 'EdgeSurface' && '평면')}
+                      (data.plateType === 'EdgeSurface' && '측면')}
                   </p>
                 </div>
                 <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
