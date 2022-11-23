@@ -99,6 +99,7 @@ const AllMembers = () => {
                 onChange={(e) => {
                   setSearch(e.target.value);
                 }}
+                onFocus={() => setNowPage(0)}
               />
             </div>
           </div>
@@ -143,7 +144,6 @@ const AllMembers = () => {
                                   e.target.checked,
                                 )
                               }
-                              onFocus={() => setNowPage(0)}
                             />
                           </td>
                           <td>{value.createdTime}</td>
