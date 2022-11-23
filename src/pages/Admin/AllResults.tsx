@@ -50,6 +50,10 @@ const AllResults = () => {
     token !== '' && callAPI();
   }, [nowPage, sort, token, search]);
 
+  useEffect(() => {
+    setNowPage(0);
+  }, [sort]);
+
   const seeDetail = (recordId: number) => {
     navigate(`/user/results/detail/${recordId}`, { state: true });
   };
