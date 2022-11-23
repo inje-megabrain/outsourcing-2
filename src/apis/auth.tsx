@@ -46,6 +46,10 @@ const headerConfig = {
 
 const handleError = (error: any) => {
   if (error.response) {
+    if (error.response.status === 401) {
+      removeCookieToken();
+      removeRole();
+    }
     toast.error(error.response.data);
   } else if (error.request) {
     toast.error(error.request);
@@ -148,11 +152,14 @@ const regenerateTokenAPI = async (
       tokenHook(response.data.accessToken);
     })
     .catch((error) => {
-      if (error.response) {
+      if (error.response.status === 401) {
         removeCookieToken();
+        removeRole();
+        loginStateHook('unknown');
+        usernameHook('unknown');
+        tokenHook('');
       }
       handleError(error);
-      throw new error();
     });
 };
 export { loginAPI, mailAPI, mailcheckAPI, regenerateTokenAPI };
