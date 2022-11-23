@@ -25,23 +25,34 @@ const AllResults = () => {
   const pageSize = 4;
 
   const callAPI = async () => {
-    await recordAllAPI(
-      sort.direction,
-      nowPage,
-      pageSize,
-      sort.sortTag,
-      token,
-      setData,
-    );
+    if (search === '') {
+      await recordAllAPI(
+        sort.direction,
+        nowPage,
+        pageSize,
+        sort.sortTag,
+        token,
+        setData,
+      );
+    } else {
+      await searchRecord(
+        token,
+        setData,
+        sort.direction,
+        nowPage,
+        pageSize,
+        sort.sortTag,
+        search,
+      );
+    }
   };
   useEffect(() => {
     token !== '' && callAPI();
-  }, [nowPage, sort, token]);
+  }, [nowPage, sort, token, search]);
 
   const seeDetail = (recordId: number) => {
     navigate(`/user/results/detail/${recordId}`, { state: true });
   };
-
   const onClickSort = (sortTag: string) => {
     setSort((prev: sortType) => {
       return {
@@ -70,17 +81,8 @@ const AllResults = () => {
               <input
                 className="w-full ml-2 h-full p-3 text-[28px] font-medium"
                 placeholder="Search"
-                onChange={async (e) => {
-                  await setSearch(e.target.value);
-                  await searchRecord(
-                    token,
-                    setData,
-                    sort.direction,
-                    nowPage,
-                    pageSize,
-                    sort.sortTag,
-                    e.target.value,
-                  );
+                onChange={(e) => {
+                  setSearch(e.target.value);
                 }}
               />
             </div>

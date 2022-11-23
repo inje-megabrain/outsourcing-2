@@ -21,12 +21,16 @@ const AllMembers = () => {
   const pageSize = 4;
 
   const callAPI = async () => {
-    await memberAllAPI(nowPage, pageSize, token, setData);
+    if (search === '') {
+      await memberAllAPI(nowPage, pageSize, token, setData);
+    } else {
+      await searchMemberAPI(token, setData, nowPage, pageSize, search);
+    }
   };
   useEffect(() => {
     token !== '' && callAPI();
     nowPage && setIsAllChecked(false);
-  }, [nowPage, token]);
+  }, [nowPage, token, search]);
 
   useEffect(() => {
     isAllChecked
@@ -89,15 +93,8 @@ const AllMembers = () => {
               <input
                 className="w-full ml-2 h-full p-3 text-[28px] font-medium"
                 placeholder="Search"
-                onChange={async (e) => {
-                  await setSearch(e.target.value);
-                  await searchMemberAPI(
-                    token,
-                    setData,
-                    nowPage,
-                    pageSize,
-                    search,
-                  );
+                onChange={(e) => {
+                  setSearch(e.target.value);
                 }}
               />
             </div>
