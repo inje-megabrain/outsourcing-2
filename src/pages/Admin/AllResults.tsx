@@ -88,6 +88,7 @@ const AllResults = () => {
                 onChange={(e) => {
                   setSearch(e.target.value);
                 }}
+                onFocus={() => setNowPage(0)}
               />
             </div>
           </div>

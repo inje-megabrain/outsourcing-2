@@ -35,7 +35,7 @@ const AllMembers = () => {
   };
   useEffect(() => {
     token !== '' && callAPI();
-    nowPage && setIsAllChecked(false);
+    setIsAllChecked(false);
   }, [nowPage, token, search, refresh]);
 
   useEffect(() => {
@@ -143,6 +143,7 @@ const AllMembers = () => {
                                   e.target.checked,
                                 )
                               }
+                              onFocus={() => setNowPage(0)}
                             />
                           </td>
                           <td>{value.createdTime}</td>
