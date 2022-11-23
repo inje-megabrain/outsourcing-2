@@ -13,7 +13,7 @@ import { recordById, recordByIdAdmin, recordImgById } from '../../apis/record';
 import LeftIcon1 from '../../assets/lefticon_1.png';
 import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
-import { jwtTokenState, usernameState } from '../../states/atoms';
+import { jwtTokenState, loginState, usernameState } from '../../states/atoms';
 import { VIDEO_URL } from '../../constants/Constants';
 
 const DetailView = () => {
@@ -22,6 +22,7 @@ const DetailView = () => {
   const [data, setData] = useState<any>();
   const [video, setVideo] = useState<any>(VIDEO_URL + '/1.mp4');
   const navigate = useNavigate();
+  const role = useRecoilValue(loginState);
   const username = useRecoilValue(usernameState);
   const [isPlaying, setIsPlaying] = useState(false);
   const token = useRecoilValue(jwtTokenState);
@@ -61,7 +62,12 @@ const DetailView = () => {
       <AdminContainer
         title="훈련 상세 기록"
         detail="해당 훈련에 대한 상세한 기록을 볼 수 있습니다."
-        homelink="/mode"
+        // @ts-ignore
+        homelink={
+          (role === 'ROLE_USER' && '/mode') ||
+          (role === 'ROLE_ADMIN' && '/admin') ||
+          '/'
+        }
         backlink
       >
         <div className="w-full h-full flex flex-row">
@@ -226,7 +232,8 @@ const DetailView = () => {
                   <img src={LeftIcon1} />
                   <p className="text-2xl mt-3 mb-1">부재</p>
                   <p className="text-3xl font-bold text-[#005DFE] mb-0">
-                    {data.plateType === 'CurveSurface' && '곡면'}
+                    {(data.plateType === 'CurveSurface' && '곡면') ||
+                      (data.plateType === 'EdgeSurface' && '평면')}
                   </p>
                 </div>
                 <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
