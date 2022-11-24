@@ -220,7 +220,7 @@ const AllResults = () => {
                         <td>{value.memberName}</td>
                         <td>{value.thickness}㎛</td>
                         <td>{value.usagePaint}L</td>
-                        <td>{value.timeId}</td>
+                        <td>{value.playTime}</td>
                         <td>{value.score}</td>
                         <td>
                           <button
