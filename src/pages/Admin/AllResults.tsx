@@ -172,12 +172,12 @@ const AllResults = () => {
                         소요시간
                         <button
                           className={`ml-2 ${
-                            sort.sortTag === 'timeId' &&
+                            sort.sortTag === 'playTime' &&
                             (sort.direction === 'ASC'
                               ? 'rotate-180'
                               : 'rotate-0')
                           }`}
-                          onClick={() => onClickSort('timeId')}
+                          onClick={() => onClickSort('playTime')}
                         >
                           <img src={SortIcon} />
                         </button>
