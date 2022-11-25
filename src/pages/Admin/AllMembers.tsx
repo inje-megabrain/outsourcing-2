@@ -82,6 +82,8 @@ const AllMembers = () => {
         title={search === '' ? '플레이어 관리' : `플레이어 검색 - ${search}`}
         detail="특정 아이디를 찾거나, 일괄적으로 아이디를 선택하여 삭제할 수 있습니다."
         backlink
+        // @ts-ignore
+        setSearch={search !== '' && setSearch}
       >
         <>
           <div className="flex flex-row items-end self-center justify-end mt-[43px] mb-[40px]">
@@ -96,6 +98,7 @@ const AllMembers = () => {
               <input
                 className="w-full ml-2 h-full p-3 text-[28px] font-medium"
                 placeholder="Search"
+                value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
                 }}

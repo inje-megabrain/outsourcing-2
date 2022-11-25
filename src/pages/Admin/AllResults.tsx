@@ -77,6 +77,8 @@ const AllResults = () => {
         title={search === '' ? '전체 기록 조회' : `검색 기록 조회 - ${search}`}
         detail="현재까지 진행된 훈련생들의 기록을 모아볼 수 있습니다."
         backlink
+        // @ts-ignore
+        setSearch={search !== '' && setSearch}
       >
         <>
           <div className="flex flex-row items-end self-center justify-end mt-[43px] mb-[40px]">
@@ -85,6 +87,7 @@ const AllResults = () => {
               <input
                 className="w-full ml-2 h-full p-3 text-[28px] font-medium"
                 placeholder="Search"
+                value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
                 }}

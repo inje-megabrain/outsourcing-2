@@ -34,7 +34,9 @@ const DayView = () => {
 
   return token !== '' ? (
     <AdminContainer
-      title="개인 기록 조회"
+      title={`개인 기록 조회 - ${new Date(String(date)).toLocaleDateString(
+        'ko-kr',
+      )}`}
       detail="선택한 날짜에 훈련한 기록을 모아볼 수 있습니다."
       className="flex items-center"
       homelink="/mode"

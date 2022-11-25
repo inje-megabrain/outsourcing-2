@@ -10,6 +10,15 @@ import { recordById, recordByIdAdmin, recordImgById } from '../../apis/record';
 import LeftIcon1 from '../../assets/lefticon_1.png';
 import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
+
+import Icon60 from '../../assets/icon_60.png';
+import Icon72 from '../../assets/icon_72.png';
+import IconCurved from '../../assets/icon_curved.png';
+import IconFlat from '../../assets/icon_flat.png';
+import IconEdge from '../../assets/icon_edge.png';
+import IconSound521 from '../../assets/icon_sound521.png';
+import IconSound523 from '../../assets/icon_sound523.png';
+
 import { VIDEO_URL } from '../../constants/Constants';
 import { jwtTokenState, loginState, usernameState } from '../../states/atoms';
 
@@ -216,7 +225,15 @@ const DetailView = () => {
               <p className="text-2xl font-bold mb-5">훈련 조건 선택</p>
               <div className="flex flex-row place-content-between h-[calc(100%-70px)]">
                 <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
-                  <img src={LeftIcon1} />
+                  <img
+                    className="w-[60px] h-[60px]"
+                    // @ts-ignore
+                    src={
+                      (data.plateType === 'CurveSurface' && IconCurved) ||
+                      (data.plateType === 'EdgeSurface' && IconEdge) ||
+                      IconFlat
+                    }
+                  />
                   <p className="text-2xl mt-3 mb-1">부재</p>
                   <p className="text-3xl font-bold text-[#005DFE] mb-0">
                     {(data.plateType === 'CurveSurface' && '곡면') ||
@@ -225,14 +242,28 @@ const DetailView = () => {
                   </p>
                 </div>
                 <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
-                  <img src={LeftIcon2} />
+                  <img
+                    className="w-[60px] h-[60px]"
+                    // @ts-ignore
+                    src={
+                      (data.soildcontent == 60 && Icon60) ||
+                      (data.soildcontent == 72 && Icon72)
+                    }
+                  />
                   <p className="text-2xl mt-3 mb-1">도료</p>
                   <p className="text-3xl font-bold text-[#005DFE]">
                     {data.soildcontent}%
                   </p>
                 </div>
                 <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
-                  <img src={LeftIcon3} />
+                  <img
+                    className="w-[60px] h-[60px]"
+                    // @ts-ignore
+                    src={
+                      (data.tipSize == 521 && IconSound521) ||
+                      (data.tipSize == 523 && IconSound523)
+                    }
+                  />
                   <p className="text-2xl mt-3 mb-1">팁사이즈</p>
                   <p className="text-3xl font-bold text-[#005DFE]">
                     {data.tipSize}
@@ -242,7 +273,7 @@ const DetailView = () => {
             </div>
             <div className="">
               <p className="text-2xl font-bold mb-5">작업방식</p>
-              <div className="flex flex-row place-content-between">
+              <div className="flex flex-row place-content-between pl-1">
                 <div className="w-[31%]">
                   <p>평균 거리</p>
                   <p className="font-bold text-3xl">80cm</p>

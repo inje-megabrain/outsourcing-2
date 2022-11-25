@@ -8,6 +8,7 @@ interface Props {
   backlink?: boolean;
   className?: string;
   children?: JSX.Element | JSX.Element[];
+  setSearch?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AdminContainer: React.FC<Props> = ({
@@ -17,15 +18,14 @@ const AdminContainer: React.FC<Props> = ({
   backlink,
   children,
   className,
+  setSearch,
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="w-full h-full min-w-[1200px]">
+    <div className="w-full min-h-full min-w-[1200px]">
       {backlink && (
         <button
-          onClick={() => {
-            navigate(-1);
-          }}
+          onClick={() => (setSearch ? setSearch('') : navigate(-1))}
           className="absolute left-[58px] top-[83px]"
         >
           <img className="" src={BackIcon} />
