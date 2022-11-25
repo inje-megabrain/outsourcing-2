@@ -5,16 +5,13 @@ import MasterBadge from '../../assets/master_badge.svg';
 import SeniorBadge from '../../assets/senior_badge.svg';
 import { AdminContainer, Loading } from '../../components';
 
-import PauseIcon from '../../assets/icon_pause.svg';
-import PlayIcon from '../../assets/icon_viewdetail.png';
-
 import { useRecoilValue } from 'recoil';
 import { recordById, recordByIdAdmin, recordImgById } from '../../apis/record';
 import LeftIcon1 from '../../assets/lefticon_1.png';
 import LeftIcon2 from '../../assets/lefticon_2.png';
 import LeftIcon3 from '../../assets/lefticon_3.png';
-import { jwtTokenState, loginState, usernameState } from '../../states/atoms';
 import { VIDEO_URL } from '../../constants/Constants';
+import { jwtTokenState, loginState, usernameState } from '../../states/atoms';
 
 const DetailView = () => {
   const { recordid } = useParams();
@@ -24,7 +21,6 @@ const DetailView = () => {
   const navigate = useNavigate();
   const role = useRecoilValue(loginState);
   const username = useRecoilValue(usernameState);
-  const [isPlaying, setIsPlaying] = useState(false);
   const token = useRecoilValue(jwtTokenState);
   const [img, setImg] = useState<string>();
 
@@ -50,12 +46,6 @@ const DetailView = () => {
       callAPI();
     }
   }, [token]);
-
-  useEffect(() => {
-    isPlaying
-      ? videoRef.current && videoRef.current.play()
-      : videoRef.current && videoRef.current.pause();
-  }, [isPlaying]);
 
   return token !== '' ? (
     data && (
@@ -212,26 +202,15 @@ const DetailView = () => {
           <div className="w-1/3 h-full rounded-[19px] bg-white text-left 2xl:p-14 lg:p-6 2xl:ml-12 lg:ml-6 2xl:space-y-6 lg:space-y-1">
             <div className="h-2/5">
               <p className="text-2xl font-bold mb-6">작업 궤적 영상</p>
-              <button
-                onClick={() => {
-                  setIsPlaying((prevState: boolean) => !prevState);
-                }}
-                className="w-full drop-shadow-[2px_18px_86px_rgba(0,0,0,0.06)] bg-white rounded-[17px] h-[calc(100%-80px)] flex items-center justify-center relative"
-              >
-                <img
-                  className="2xl:w-16 2xl:h-16 lg:w-10 lg:h-10 drop-shadow-[0px_11px_42px_#BACDF2] z-10"
-                  src={!isPlaying ? PlayIcon : PauseIcon}
-                />
-
+              <div className="w-full drop-shadow-[2px_18px_86px_rgba(0,0,0,0.06)] bg-white rounded-[17px] h-[calc(100%-80px)] flex items-center justify-center relative">
                 <video
                   ref={videoRef}
                   className="w-full h-auto absolute t-0 l-0 rounded-[17px]"
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
+                  controls
                 >
                   <source className="w-full" src={video} type="video/mp4" />
                 </video>
-              </button>
+              </div>
             </div>
             <div className="h-2/5">
               <p className="text-2xl font-bold mb-5">훈련 조건 선택</p>
