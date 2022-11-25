@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { recordByMonthDayAPI } from '../../apis/record';
-import Badge from '../../assets/senior_badge.svg';
+import JuniorBadge from '../../assets/junior_badge.svg';
+import MasterBadge from '../../assets/master_badge.svg';
+import SeniorBadge from '../../assets/senior_badge.svg';
 import { AdminContainer, Loading } from '../../components';
 import Pagination from '../../components/Pagination';
 import { jwtTokenState, usernameState } from '../../states/atoms';
@@ -12,7 +14,7 @@ const DayView = () => {
   const { date } = useParams();
   const [pageNum, setPageNum] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState({ userRecordDtos: [], pageLimit: 1 });
+  const [data, setData] = useState<any>();
   const navigate = useNavigate();
   const username = useRecoilValue(usernameState);
   const token = useRecoilValue(jwtTokenState);
@@ -83,8 +85,20 @@ const DayView = () => {
                             </p>
                           </div>
                           <div className="flex flex-col bg-[#005DFE] w-1/5 h-[116px] rounded-2xl m-[22px] items-center p-2">
-                            <img className="h-[70px] w-[72px]" src={Badge} />
-                            <p className="text-xl text-white">Master Level</p>
+                            <img
+                              className="h-[70px] w-[72px]"
+                              //@ts-ignore
+                              src={
+                                (Number(item.score) <= 30 && JuniorBadge) ||
+                                (Number(item.score) <= 80 && SeniorBadge) ||
+                                (Number(item.score) <= 100 && MasterBadge)
+                              }
+                            />
+                            <p className="text-xl text-white">
+                              {(Number(item.score) <= 30 && 'Junior Level') ||
+                                (Number(item.score) <= 80 && 'Senior Level') ||
+                                (Number(item.score) <= 100 && 'Master Level')}
+                            </p>
                           </div>
                         </div>
                       </div>

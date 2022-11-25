@@ -7,9 +7,6 @@ import { AdminContainer, Loading } from '../../components';
 
 import { useRecoilValue } from 'recoil';
 import { recordById, recordByIdAdmin, recordImgById } from '../../apis/record';
-import LeftIcon1 from '../../assets/lefticon_1.png';
-import LeftIcon2 from '../../assets/lefticon_2.png';
-import LeftIcon3 from '../../assets/lefticon_3.png';
 
 import Icon60 from '../../assets/icon_60.png';
 import Icon72 from '../../assets/icon_72.png';
@@ -88,8 +85,7 @@ const DetailView = () => {
                     src={
                       (level === 'Master' && MasterBadge) ||
                       (level === 'Senior' && SeniorBadge) ||
-                      (level === 'Junior' && JuniorBadge) ||
-                      MasterBadge
+                      (level === 'Junior' && JuniorBadge)
                     }
                     className="m-3"
                   />
@@ -238,7 +234,7 @@ const DetailView = () => {
                   <p className="text-3xl font-bold text-[#005DFE] mb-0">
                     {(data.plateType === 'CurveSurface' && '곡면') ||
                       (data.plateType === 'EdgeSurface' && '모서리') ||
-                      (data.plateType === 'FlatSurface' && '평면')}
+                      (data.plateType === 'NormalSurface' && '평면')}
                   </p>
                 </div>
                 <div className="w-[31%] bg-[#F3F5F9] h-full rounded-[20px] 2xl:py-8 lg:py-3 text-center items-center flex flex-col justify-center">
