@@ -10,12 +10,10 @@ const StartTraining = () => {
   const username = useRecoilValue(usernameState);
 
   useEffect(() => {
-    if (token !== '') {
-      let userId: String = '';
-      isLogin == 'unknown' ? (userId = '-1') : (userId = username);
-      const url = 'sprayunity://' + userId + '/';
-      location.href = url;
-    }
+    let userId: String = '';
+    isLogin == 'unknown' ? (userId = '-1') : (userId = username);
+    const url = 'sprayunity://' + userId + '/';
+    location.href = url;
   }, [token]);
   return (
     <>
