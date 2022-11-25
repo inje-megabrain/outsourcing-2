@@ -138,7 +138,7 @@ const DetailView = () => {
                     </div>
                   </div>
                   <div className="flex flex-col justify-center text-center px-8 border-l-2 self-stretch 2xl:w-[23%] lg:w-1/3">
-                    <p className="inline-block text-sm">
+                    <p className="inline-block text-sm tracking-[-0.04em]">
                       평균 두께 / 적정 두께
                     </p>
                     <p className="inline-block text-3xl font-normal">
@@ -200,12 +200,12 @@ const DetailView = () => {
             </div>
           </div>
           <div className="w-1/3 h-full rounded-[19px] bg-white text-left 2xl:p-14 lg:p-6 2xl:ml-12 lg:ml-6 2xl:space-y-6 lg:space-y-1">
-            <div className="h-2/5">
+            <div>
               <p className="text-2xl font-bold mb-6">작업 궤적 영상</p>
               <div className="w-full drop-shadow-[2px_18px_86px_rgba(0,0,0,0.06)] bg-white rounded-[17px] h-[calc(100%-80px)] flex items-center justify-center relative">
                 <video
                   ref={videoRef}
-                  className="w-full h-auto absolute t-0 l-0 rounded-[17px]"
+                  className="w-full h-[auto] rounded-[17px]"
                   controls
                 >
                   <source className="w-full" src={video} type="video/mp4" />

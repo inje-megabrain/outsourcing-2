@@ -9,6 +9,7 @@ body,
   width: 100%;
   background-color: #f5f6f9;
   margin: 0;
+  min-width: 1300px;
   min-height: 100%;
   display: flex;
 }
