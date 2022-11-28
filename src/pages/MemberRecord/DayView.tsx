@@ -79,9 +79,9 @@ const DayView = () => {
                               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 저도막률 :{' '}
                               {item.proficiency}{' '}
                               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 평균 도막
-                              두께 : {item.thicknessAvg}{' '}
+                              두께 : {item.thickness}{' '}
                               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 페인트
-                              사용량 : {item.useagePaint}
+                              사용량 : {item.usagePaint}
                             </p>
                           </div>
                           <div className="flex flex-col bg-[#005DFE] w-1/5 h-[116px] rounded-2xl m-[22px] items-center p-2">
