@@ -6,7 +6,12 @@ import SeniorBadge from '../../assets/senior_badge.svg';
 import { AdminContainer, Loading } from '../../components';
 
 import { useRecoilValue } from 'recoil';
-import { recordById, recordByIdAdmin, recordImgById } from '../../apis/record';
+import {
+  recordById,
+  recordByIdAdmin,
+  recordImgById,
+  videoRecord,
+} from '../../apis/record';
 
 import Icon60 from '../../assets/icon_60.png';
 import Icon72 from '../../assets/icon_72.png';
@@ -44,7 +49,7 @@ const DetailView = () => {
       await recordByIdAdmin(token, setData, recordid);
     }
     await recordImgById(username, token, setImg, recordid);
-    // videoRecord(token, setVideo, recordid);
+    videoRecord(token, setVideo, recordid);
   };
 
   useEffect(() => {
@@ -120,25 +125,33 @@ const DetailView = () => {
                     <div className="flex flex-col justify-center self-center text-center">
                       <p className="inline-block">평균</p>
                       <p className="inline-block text-3xl font-normal">
-                        {data.thickness.toFixed(2)}
+                        {Number.isInteger(data.thickness)
+                          ? data.thickness
+                          : data.thickness.toFixed(2)}
                       </p>
                     </div>
                     <div className="flex flex-col justify-center self-center text-center">
                       <p className="inline-block">최대</p>
                       <p className="inline-block text-3xl font-normal">
-                        {data.thicknessMax.toFixed(2)}
+                        {Number.isInteger(data.thicknessMax)
+                          ? data.thicknessMax
+                          : data.thicknessMax.toFixed(2)}
                       </p>
                     </div>
                     <div className="flex flex-col justify-center self-center text-center">
                       <p className="inline-block">최소</p>
                       <p className="inline-block text-3xl font-normal">
-                        {data.thicknessMin.toFixed(2)}
+                        {Number.isInteger(data.thicknessMin)
+                          ? data.thicknessMin
+                          : data.thicknessMin.toFixed(2)}
                       </p>
                     </div>
                     <div className="flex flex-col justify-center self-center text-center">
                       <p className="inline-block">분산</p>
                       <p className="inline-block text-3xl font-normal">
-                        {data.thicknessLess.toFixed(2)}
+                        {Number.isInteger(data.thicknessLess)
+                          ? data.thicknessLess
+                          : data.thicknessLess.toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -272,15 +285,21 @@ const DetailView = () => {
               <div className="flex flex-row place-content-between pl-1">
                 <div className="w-[31%]">
                   <p>평균 거리</p>
-                  <p className="font-bold text-3xl">80cm</p>
+                  <p className="font-bold text-3xl">
+                    {data.distanceAvg.toFixed(1)}cm
+                  </p>
                 </div>
                 <div className="w-[31%]">
                   <p>평균 각도</p>
-                  <p className="font-bold text-3xl">98º</p>
+                  <p className="font-bold text-3xl">
+                    {data.angleAvg.toFixed(1)}º
+                  </p>
                 </div>
                 <div className="w-[31%]">
                   <p>평균 속도</p>
-                  <p className="font-bold text-3xl">150cm/s</p>
+                  <p className="font-bold text-3xl">
+                    {data.speedAvg.toFixed(1)}cm/s
+                  </p>
                 </div>
               </div>
             </div>

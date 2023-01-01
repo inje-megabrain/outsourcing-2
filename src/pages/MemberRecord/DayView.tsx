@@ -77,11 +77,14 @@ const DayView = () => {
                             <p className="inline-block text-[#101010] font-normal text-xl">
                               도장 점수 : {item.score}{' '}
                               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 저도막률 :{' '}
-                              {item.proficiency}{' '}
+                              {item.thicknessLess.toFixed(1)}
+                              {'% '}
                               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 평균 도막
-                              두께 : {item.thickness}{' '}
+                              두께 : {item.thickness}
+                              {'μm '}
                               &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 페인트
                               사용량 : {item.usagePaint}
+                              {'L'}
                             </p>
                           </div>
                           <div className="flex flex-col bg-[#005DFE] w-1/5 h-[116px] rounded-2xl m-[22px] items-center p-2">
