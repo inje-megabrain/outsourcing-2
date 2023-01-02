@@ -160,7 +160,10 @@ const DetailView = () => {
                       평균 두께 / 적정 두께
                     </p>
                     <p className="inline-block text-3xl font-normal">
-                      {data.thickness.toFixed(2)}/160
+                      {Number.isInteger(data.thickness)
+                        ? data.thickness
+                        : data.thickness.toFixed(2)}
+                      /160
                     </p>
                   </div>
                 </div>
