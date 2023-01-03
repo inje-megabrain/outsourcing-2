@@ -162,7 +162,7 @@ const DetailView = () => {
                     <p className="inline-block text-3xl font-normal">
                       {Number.isInteger(data.thickness)
                         ? data.thickness
-                        : data.thickness.toFixed(2)}
+                        : data.thickness.toFixed()}
                       /160
                     </p>
                   </div>
