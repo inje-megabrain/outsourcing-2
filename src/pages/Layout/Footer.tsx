@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Footer = () => {
   return (
     <h6 className="text-center p-8 w-full fixed bottom-0 left-0 z-40">

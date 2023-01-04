@@ -1,6 +1,4 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../assets/logo.png';
 import { Button, Input, MemberContainer, NavBar } from '../../components';
 
 const GuestMode = () => {

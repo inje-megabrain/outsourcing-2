@@ -1,6 +1,4 @@
-import React from 'react';
 import { MemberContainer, NavBar } from '../../components';
-import CompleteSignup from './CompleteSignup';
 import Form from './Form';
 
 const Signup = () => (

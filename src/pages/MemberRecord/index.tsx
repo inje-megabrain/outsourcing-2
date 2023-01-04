@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import '@fullcalendar/react/dist/vdom';
-import FullCalendar from '@fullcalendar/react';
+import '@fullcalendar/react/dist/vdom.js';
 import dayGridViewPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { AdminContainer } from '../../components';
-import { recordByMonthAPI } from '../../apis/record';
-import { useRecoilValue } from 'recoil';
-import { jwtTokenState, usernameState } from '../../states/atoms';
+import FullCalendar from '@fullcalendar/react';
+import '@fullcalendar/react/dist/vdom';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { recordByMonthAPI } from '../../apis/record';
+import { AdminContainer, Loading } from '../../components';
+import { jwtTokenState, usernameState } from '../../states/atoms';
 
 const CalendarView = () => {
   const token = useRecoilValue(jwtTokenState);
@@ -17,16 +18,19 @@ const CalendarView = () => {
   const username = useRecoilValue(usernameState);
   const navigate = useNavigate();
 
+  const callAPI = async () => {
+    await recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
+  };
   useEffect(() => {
-    recordByMonthAPI(startDate, endDate, username, token, setMonthEvent);
+    token !== '' && callAPI();
   }, [startDate, token]);
 
-  return (
+  return token !== '' ? (
     <AdminContainer
       title="개인 기록 조회"
       detail="선택한 월별로 훈련한 기록을 모아볼 수 있습니다."
       homelink="/mode"
-      backlink={navigate}
+      backlink
     >
       <FullCalendar
         height={'100%'}
@@ -47,13 +51,15 @@ const CalendarView = () => {
           setStartDate(event.view.activeStart.toLocaleDateString('en-ca'));
           setEndDate(event.view.activeEnd.toLocaleDateString('en-ca'));
         }}
-        dayCellClassNames="border-white hover:border-[#005dfe] hover:border-[3px]"
+        dayCellClassNames="border-white hover:border-[#005dfe] hover:border-[3px] h-[16%]"
         datesSet={(arg) => {
           setStartDate(arg.start.toLocaleDateString('en-ca'));
           setEndDate(arg.end.toLocaleDateString('en-ca'));
         }}
       />
     </AdminContainer>
+  ) : (
+    <Loading />
   );
 };
 

@@ -1,5 +1,4 @@
-import React from 'react';
+const API_URL = import.meta.env.VITE_APP_API_URL;
+const VIDEO_URL = import.meta.env.VITE_APP_VIDEO_URL;
 
-const API_URL = 'http://203.241.228.50:18080/api';
-
-export { API_URL };
+export { API_URL, VIDEO_URL };

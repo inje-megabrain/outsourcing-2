@@ -7,6 +7,10 @@ const date = '/month';
 const day = '/day';
 const img = '/image';
 const allrecord = '/all';
+const searchURL = '/search';
+const id = '/id';
+const name = '/name';
+const video = '/video';
 
 const headerConfig = {
   'Content-Type': 'application/json',
@@ -78,9 +82,9 @@ const recordByMonthDayAPI = async (
 
 const recordImgById = async (
   userName: string,
-  record_id: number,
   token: string,
   setData: React.Dispatch<React.SetStateAction<string | undefined>>,
+  record_id?: string,
 ) => {
   await axios
     .get(API_URL + record + img + '/' + userName, {
@@ -96,12 +100,16 @@ const recordImgById = async (
 };
 
 const recordAllAPI = async (
-  nowPage: number,
+  direction: 'DESC' | 'ASC',
+  page: number,
+  size: number,
+  sortTag: string,
   token: string,
   setData: React.Dispatch<React.SetStateAction<any>>,
 ) => {
   await axios
     .get(API_URL + record + allrecord, {
+      params: { direction, page, size, sortTag },
       headers: { ...headerConfig, Authorization: 'Bearer ' + token },
     })
     .then((response) => {
@@ -112,4 +120,91 @@ const recordAllAPI = async (
     });
 };
 
-export { recordByMonthAPI, recordByMonthDayAPI, recordImgById, recordAllAPI };
+const recordById = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+  username: string,
+  recordId?: string,
+) => {
+  await axios
+    .get(API_URL + record + '/' + username + '/' + recordId, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+const recordByIdAdmin = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+  recordId?: string,
+) => {
+  await axios
+    .get(API_URL + record + id + '/' + recordId, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+const searchRecord = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+  direction: 'DESC' | 'ASC',
+  page: number,
+  size: number,
+  sortTag: string,
+  search: string,
+) => {
+  await axios
+    .get(API_URL + record + searchURL, {
+      params: { search, direction, page, size, sortTag },
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+const videoRecord = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+  record_id?: string,
+) => {
+  await axios
+    .get(API_URL + record + video, {
+      params: { record_id },
+      headers: {
+        accept: '*/*',
+        Authorization: 'Bearer ' + token,
+      },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+export {
+  recordByMonthAPI,
+  recordByMonthDayAPI,
+  recordImgById,
+  recordAllAPI,
+  recordById,
+  searchRecord,
+  recordByIdAdmin,
+  videoRecord,
+};

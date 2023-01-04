@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {
   Main,
   ModeSelect,
@@ -96,7 +98,7 @@ const Router = [
   },
   {
     title: '훈련 상세 기록',
-    url: 'user/results/detail',
+    url: 'user/results/detail/:recordid',
     component: <DetailView />,
     role: 'ROLE_USER',
   },

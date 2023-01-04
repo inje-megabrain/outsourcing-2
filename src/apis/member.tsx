@@ -11,6 +11,7 @@ const newadmin: string = memberurl + '/new/admin';
 const signup: string = memberurl + '/signup';
 const findid: string = memberurl + '/find/id';
 const changepassword: string = memberurl + '/find/password';
+const searchURL: string = memberurl + '/search';
 
 type changePWType = {
   password: string;
@@ -67,16 +68,16 @@ const findIdAPI = (
 };
 
 const newPasswordAPI = (
-  data: object,
+  newPassword: string,
   email: string,
   setPwLevel: React.Dispatch<React.SetStateAction<number>>,
 ) => {
   axios
     .post(
       API_URL + changepassword,
-      { ...data, email: email },
+      { newPassword, email },
       {
-        data: { ...data, email: email },
+        data: { newPassword, email },
         headers: headerConfig,
       },
     )
@@ -89,11 +90,14 @@ const newPasswordAPI = (
 };
 
 const memberAllAPI = async (
+  page: number,
+  size: number,
   token: string,
   setData: React.Dispatch<React.SetStateAction<[] | undefined>>,
 ) => {
   await axios
     .get(API_URL + getall, {
+      params: { page, size },
       headers: { ...headerConfig, Authorization: 'Bearer ' + token },
     })
     .then((response) => {
@@ -104,4 +108,49 @@ const memberAllAPI = async (
     });
 };
 
-export { signUpAPI, findIdAPI, newPasswordAPI, memberAllAPI };
+const searchMemberAPI = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<any>>,
+  page: number,
+  size: number,
+  search: string,
+) => {
+  await axios
+    .get(API_URL + searchURL, {
+      params: { search, page, size },
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+const deleteMemberAPI = async (
+  token: string,
+  username: string,
+  refresh: () => void,
+) => {
+  await axios
+    .delete(API_URL + memberurl + '/' + username, {
+      headers: { ...headerConfig, Authorization: 'Bearer ' + token },
+    })
+    .then((response) => {
+      toast.success(response.data);
+      refresh();
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+
+export {
+  signUpAPI,
+  findIdAPI,
+  newPasswordAPI,
+  memberAllAPI,
+  searchMemberAPI,
+  deleteMemberAPI,
+};

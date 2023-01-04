@@ -1,7 +1,5 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Logo from '../../assets/logo.png';
-import { Button, Footer, MemberContainer } from '../../components';
+import { useNavigate } from 'react-router-dom';
+import { Button, Footer, NavBar } from '../../components';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -9,8 +7,10 @@ const Main = () => {
   const onStartButtonClick = () => {
     navigate('/login');
   };
+
   return (
     <>
+      <NavBar />
       <Footer absolute theme="white" />
       <div className="grid w-full h-full text-center items-center bg-gradient-to-t to-[#0759FF] from-[#1F1F1F] text-white text-[80px] content-center">
         <div>

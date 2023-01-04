@@ -1,9 +1,9 @@
-import React from 'react';
-import { Button, ErrorMessage, Input } from '../../components';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { newPasswordAPI } from '../../apis/member';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
+import { newPasswordAPI } from '../../apis/member';
+import { Button, Input } from '../../components';
 interface Props {
   email: string;
   setPwLevel: React.Dispatch<React.SetStateAction<number>>;
@@ -46,7 +46,7 @@ const ChangePW: React.FC<Props> = ({ email, setPwLevel }) => {
       <form
         onSubmit={handleSubmit((data) => {
           delete data['passwordcheck'];
-          newPasswordAPI(data, email, setPwLevel);
+          newPasswordAPI(data.password, email, setPwLevel);
         })}
       >
         <Input

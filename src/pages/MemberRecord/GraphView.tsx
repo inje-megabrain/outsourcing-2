@@ -1,17 +1,19 @@
-import { AdminContainer } from '../../components';
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
   LinearScale,
-  PointElement,
   LineElement,
+  PointElement,
   Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Line } from 'react-chartjs-2';
+import { useLocation } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { AdminContainer, Loading } from '../../components';
+import { jwtTokenState } from '../../states/atoms';
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +24,7 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
+
 const name = ['평균 두께', '거리', '각도', '속도'];
 const color = [
   { border: '#007ED1', bg: '#019CD4' },
@@ -31,13 +34,23 @@ const color = [
 ];
 const GraphView = () => {
   const { state } = useLocation();
+  const token = useRecoilValue(jwtTokenState);
   const [select, setSelect] = useState(0);
+  const [average, setAverage] = useState<number>(0);
   const arrayData = [
     state.thicknessList.slice(1, -1).split(',').map(Number),
     state.distanceList.slice(1, -1).split(',').map(Number),
     state.angleList.slice(1, -1).split(',').map(Number),
     state.speedList.slice(1, -1).split(',').map(Number),
   ];
+  useEffect(() => {
+    setAverage(
+      arrayData[select].reduce(
+        (acc: number, v: number, i: number, a: any) => acc + v / a.length,
+        0,
+      ),
+    );
+  }, [select, token]);
   const data = {
     labels: arrayData[select].map((e: any, i: any) => String(i)),
     datasets: [
@@ -69,16 +82,21 @@ const GraphView = () => {
     },
   };
 
-  const navigate = useNavigate();
+  const formatter = (select: number) => {
+    if (select === 0) return '㎛';
+    else if (select === 1) return 'cm';
+    else if (select === 2) return 'º';
+    else if (select === 3) return 'cm/s';
+  };
 
-  return (
+  return token !== '' ? (
     <AdminContainer
       title="그래프 기록"
       detail="훈련을 진행하는 과정에서의 거리, 각도, 속도, 두께를 그래프로 살펴볼 수 있습니다."
-      backlink={navigate}
+      backlink
     >
-      <div className="flex flex-row mt-5">
-        <div className="flex flex-col w-[15%] space-y-4">
+      <div className="flex flex-row mt-4">
+        <div className="flex flex-col w-[15%] space-y-3">
           <button
             onClick={() => {
               setSelect(0);
@@ -129,22 +147,17 @@ const GraphView = () => {
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
             <p className="text-2xl font-bold">평균</p>
             <p className="text-2xl font-bold">
-              {arrayData[select]
-                .reduce(
-                  (acc: number, v: number, i: number, a: any) =>
-                    acc + v / a.length,
-                  0,
-                )
-                .toFixed(7)}
+              {average % 1 === 0 ? average : average.toFixed(2)}
+              {formatter(select)}
             </p>
           </div>
-          <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
+          <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-6">
             <p className="text-2xl font-bold">최대</p>
             <p className="text-2xl font-bold">
               {arrayData[select].reduce(
                 (a: any, b: any) => Math.max(a, b),
                 -Infinity,
-              )}
+              ) + formatter(select)}
             </p>
           </div>
           <div className="rounded-[15px] bg-white w-full flex justify-between items-center px-12 py-7">
@@ -153,12 +166,14 @@ const GraphView = () => {
               {arrayData[select].reduce(
                 (a: any, b: any) => Math.min(a, b),
                 Infinity,
-              )}
+              ) + formatter(select)}
             </p>
           </div>
         </div>
       </div>
     </AdminContainer>
+  ) : (
+    <Loading />
   );
 };
 

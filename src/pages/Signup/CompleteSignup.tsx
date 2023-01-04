@@ -1,7 +1,5 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Button, MemberContainer, NavBar } from '../../components';
-import Logo from '../../assets/logo.png';
+import { Button, NavBar } from '../../components';
 
 const CompleteSignup = () => {
   const { state } = useLocation();
