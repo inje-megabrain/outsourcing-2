@@ -28,7 +28,7 @@ const DetailView = () => {
   const { recordid } = useParams();
   const { state } = useLocation();
   const [data, setData] = useState<any>();
-  const [video, setVideo] = useState<any>(VIDEO_URL + '/1.mp4');
+  const [video, setVideo] = useState<any>(VIDEO_URL + '/' + recordid + '.mp4');
   const navigate = useNavigate();
   const role = useRecoilValue(loginState);
   const username = useRecoilValue(usernameState);
@@ -43,13 +43,13 @@ const DetailView = () => {
     (data && Number(data.score) <= 100 && 'Master');
 
   const callAPI = async () => {
+    await videoRecord(token, setVideo, recordid);
     if (!state) {
       await recordById(token, setData, username, recordid);
     } else {
       await recordByIdAdmin(token, setData, recordid);
     }
     await recordImgById(username, token, setImg, recordid);
-    videoRecord(token, setVideo, recordid);
   };
 
   useEffect(() => {
